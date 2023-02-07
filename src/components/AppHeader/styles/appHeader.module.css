@@ -1,0 +1,30 @@
+.orders {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerWrap {
+    max-width: 1920px;
+    background-color: #1C1C21;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: white;
+    gap: 8px;
+}

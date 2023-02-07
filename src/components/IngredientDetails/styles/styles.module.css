@@ -1,0 +1,25 @@
+.ingredientDetailsWrapper {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 520px;
+}
+
+.ingredientTitle {
+    padding: 0;
+}
+
+.ingredientDetails {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.ingredientPoint {
+
+}
