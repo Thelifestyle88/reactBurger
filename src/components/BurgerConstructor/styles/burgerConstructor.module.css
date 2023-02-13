@@ -1,0 +1,27 @@
+.burgerConstructor {
+    width: 600px;
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+}
+
+.finishOrder {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.icon {
+    width: 33px;
+    height: 33px;
+}
+
+.mainCourses {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+    overflow-y: scroll;
+    height: 350px;
+    scrollbar-width: thin;
+    scrollbar-color: #8585AD;
+}

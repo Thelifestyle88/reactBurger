@@ -1,0 +1,27 @@
+.burgerIngredients {
+    max-width: 620px;
+    overflow-y: scroll;
+    height: 720px;
+    scrollbar-width: thin;
+    scrollbar-color: #8585AD;
+}
+
+.ingredientTitle {
+    width: 100%;
+}
+
+.ingredientSection {
+    display: flex;
+    flex-direction: row;
+}
+
+.ingredientsTitle {
+    margin: 0;
+    padding: 0;
+}
+
+.ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

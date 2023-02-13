@@ -1,0 +1,30 @@
+.ingredient {
+    grid-area: ingredient;
+    display: flex;
+    flex-direction: column;
+    width: 272px;
+    height: 208px;
+    text-align: center;
+    position: relative;
+}
+
+.ingredientPrice {
+    margin: 0;
+    padding: 0;
+}
+
+.ingredientPriceWrap {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    gap: 9px;
+}
+
+.ingredientDescription {
+    margin: 0;
+    padding: 0;
+}
+
+.counter {
+    position: absolute;
+}
