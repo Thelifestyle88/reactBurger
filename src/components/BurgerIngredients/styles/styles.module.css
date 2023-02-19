@@ -1,9 +1,5 @@
 .burgerIngredients {
     max-width: 620px;
-    overflow-y: scroll;
-    height: 720px;
-    scrollbar-width: thin;
-    scrollbar-color: #8585AD;
 }
 
 .ingredientTitle {
@@ -21,6 +17,10 @@
 }
 
 .ingredients {
+    overflow-y: scroll;
+    height: 520px;
+    scrollbar-width: thin;
+    scrollbar-color: #8585AD;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
