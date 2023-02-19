@@ -21,7 +21,7 @@ export function burgerConstructorReducer(state = initialState, action) {
             ingr.constructorId = nanoid(18);
             return {
                 ...state,
-                burgerConstructorData: [...state.burgerConstructorData, action.payload]
+                burgerConstructorData: [...state.burgerConstructorData, ingr]
 
             }
         }

@@ -53,7 +53,7 @@ function BurgerConstructor(setElement) {
         <div className={burgerConstructor.mainCourses}>
           {ingredient.map((obj, index) => {
             return (
-              <BurgerConstructorElement key={obj.constructorId} props={obj}>
+              <BurgerConstructorElement key={obj.constructorId} obj={obj}>
                 <div>
                   <DragIcon type="primary" />
                   <ConstructorElement

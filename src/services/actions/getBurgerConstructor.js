@@ -19,7 +19,6 @@ export const addPosition = (ingredient) => {
         payload: {
             ...ingredient,
             id: ingredient._id,
-            constructorId: ''
         }
     }
 }
