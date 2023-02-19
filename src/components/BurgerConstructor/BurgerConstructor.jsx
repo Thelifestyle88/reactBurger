@@ -6,6 +6,7 @@ import burgerConstructor from '../BurgerConstructor/styles/burgerConstructor.mod
 import { useSelector, useDispatch } from 'react-redux';
 import { DELETE_POSITION } from '../../services/actions/getBurgerConstructor';
 import { getOrderDetails } from '../../services/actions/getOrderDetails';
+import { SORT_CONSTRUCTOR } from '../../services/actions/getBurgerConstructor';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addPosition, reorderConstructor } from '../../services/actions/getBurgerConstructor';
@@ -53,7 +54,13 @@ function BurgerConstructor(setElement) {
         <div className={burgerConstructor.mainCourses}>
           {ingredient.map((obj, index) => {
             return (
-              <BurgerConstructorElement key={obj.constructorId} obj={obj}>
+              <BurgerConstructorElement
+                moveCard={dispatch({
+                  type: SORT_CONSTRUCTOR,
+                  payload: index,
+                })}
+                key={obj.constructorId}
+                obj={obj}>
                 <div>
                   <DragIcon type="primary" />
                   <ConstructorElement

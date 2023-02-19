@@ -2,7 +2,7 @@ import { useDrop, useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 
-export const BurgerConstructorElement = ({ obj, children }) => {
+export const BurgerConstructorElement = ({ obj, children, moveCard }) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
   const elementIndex = useSelector((store) =>
@@ -21,13 +21,37 @@ export const BurgerConstructorElement = ({ obj, children }) => {
     },
     collect(monitor) {
       return {
-        handlerId: monitor.getHeandlerId(),
+        handlerId: monitor.getHandlerId(),
       };
+    },
+    hover(item, monitor) {
+      if (!ref.current) {
+        return;
+      }
+      const dragIndex = item.index;
+      const hoverIndex = elementIndex;
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const clientOffset = monitor.getClientOffset();
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+      moveCard(dragIndex, hoverIndex);
+      item.index = hoverIndex;
     },
   });
   const [, drag] = useDrag({
     type: 'SORT_ITEM',
-    item: elementIndex,
+    item: () => {
+      return { elementIndex };
+    },
   });
   return <div ref={drop}>{children}</div>;
 };
