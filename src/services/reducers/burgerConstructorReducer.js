@@ -31,18 +31,12 @@ export function burgerConstructorReducer(state = initialState, action) {
                 burgerConstructorData: [...state.burgerConstructorData.slice(0, action.payload), ...state.burgerConstructorData.slice(action.payload + 1)]
             }
         }
-        case REORDER_CONSTRUCTOR: {
-            return {
-                ...state,
-                buns: action.payload,
-                burgerConstructorData: action.payload
-            }
-        }
 
         case SORT_CONSTRUCTOR: {
+            console.log(`{${action.payload.fromIndex}, ${action.payload.toIndex}}`);
             return {
                 ...state,
-                burgerConstructorData: sortElement
+                burgerConstructorData: [...state.burgerConstructorData].splice(action.payload.fromIndex, 1, action.payload.toIndex, action.payload.fromIndex)
             }
         }
         default: {

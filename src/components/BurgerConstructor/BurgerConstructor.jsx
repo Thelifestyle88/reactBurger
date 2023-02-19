@@ -55,10 +55,7 @@ function BurgerConstructor(setElement) {
           {ingredient.map((obj, index) => {
             return (
               <BurgerConstructorElement
-                moveCard={dispatch({
-                  type: SORT_CONSTRUCTOR,
-                  payload: index,
-                })}
+                index={index}
                 key={obj.constructorId}
                 obj={obj}>
                 <div>

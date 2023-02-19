@@ -1,8 +1,9 @@
 import { useDrop, useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
+import {SORT_CONSTRUCTOR} from "../../services/actions/getBurgerConstructor";
 
-export const BurgerConstructorElement = ({ obj, children, moveCard }) => {
+export const BurgerConstructorElement = ({ obj, children, index }) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
   const elementIndex = useSelector((store) =>
@@ -12,13 +13,6 @@ export const BurgerConstructorElement = ({ obj, children, moveCard }) => {
   );
   const [{ handlerId }, drop] = useDrop({
     accept: 'SORT_ITEM',
-    item: elementIndex,
-    drop(elementIndex, indexDrop) {
-      dispatch({
-        type: 'SORT_CONSTRUCTOR',
-        payload: { elementIndex, indexDrop },
-      });
-    },
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -28,8 +22,8 @@ export const BurgerConstructorElement = ({ obj, children, moveCard }) => {
       if (!ref.current) {
         return;
       }
-      const dragIndex = item.index;
-      const hoverIndex = elementIndex;
+      const dragIndex = item.elementIndex;
+      const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
       }
@@ -43,8 +37,14 @@ export const BurgerConstructorElement = ({ obj, children, moveCard }) => {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      moveCard(dragIndex, hoverIndex);
-      item.index = hoverIndex;
+      dispatch({
+        type: SORT_CONSTRUCTOR,
+        payload: {
+          fromIndex: dragIndex,
+          toIndex: hoverIndex,
+        },
+      });
+      item.elementIndex = hoverIndex;
     },
   });
   const [, drag] = useDrag({
@@ -53,5 +53,8 @@ export const BurgerConstructorElement = ({ obj, children, moveCard }) => {
       return { elementIndex };
     },
   });
-  return <div ref={drop}>{children}</div>;
+
+  drag(drop(ref));
+
+  return <div ref={ref}>{children}</div>;
 };

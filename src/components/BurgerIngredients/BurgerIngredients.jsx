@@ -44,7 +44,7 @@ function BurgerIngredients() {
         <nav>
           <Switcher />
         </nav>
-        <div id="ingredients" className={styles.ingredients}>
+        <div id="ingredients" className={`${styles.ingredients} custom-scroll`}>
           <h2 id="one" className={`${styles.ingredientTitle} mt-10 mb-6`}>
             Булки
           </h2>
