@@ -44,8 +44,8 @@ function BurgerIngredients() {
         <nav>
           <Switcher />
         </nav>
-        <div className={styles.ingredients}>
-          <h2 id="buns" className={`${styles.ingredientTitle} mt-10 mb-6`}>
+        <div id="ingredients" className={styles.ingredients}>
+          <h2 id="one" className={`${styles.ingredientTitle} mt-10 mb-6`}>
             Булки
           </h2>
           {buns.map((obj) => {
@@ -57,7 +57,7 @@ function BurgerIngredients() {
               />
             );
           })}
-          <h2 id="sauce" className={`${styles.ingredientTitle} mt-10 mb-6`}>
+          <h2 id="two" className={`${styles.ingredientTitle} mt-10 mb-6`}>
             Соусы
           </h2>
           {sauce.map((obj) => {
@@ -69,7 +69,7 @@ function BurgerIngredients() {
               />
             );
           })}
-          <h2 id="mains" className={`${styles.ingredientTitle} mt-10 mb-6`}>
+          <h2 id="three" className={`${styles.ingredientTitle} mt-10 mb-6`}>
             Начинки
           </h2>
           {mains.map((obj) => {
