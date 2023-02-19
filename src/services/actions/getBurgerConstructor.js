@@ -34,7 +34,7 @@ export const reorderConstructor = () => {
     }
 }
 
-export const sortConstructor = (ingredientPicked, ingredientDrop, constructor) => {
+export const sortConstructor = (ingredientPicked, ingredientDrop) => {
     return {
         type: SORT_CONSTRUCTOR,
         payload: {

@@ -1,4 +1,6 @@
 import {ADD_BUN, DELETE_POSITION, REORDER_CONSTRUCTOR, ADD_POSITION, SORT_CONSTRUCTOR} from '../actions/getBurgerConstructor'
+import { nanoid } from 'nanoid';
+import { sortElement } from '../service' 
 
 const initialState = {
     buns: null,
@@ -15,9 +17,12 @@ export function burgerConstructorReducer(state = initialState, action) {
             }
         }
         case ADD_POSITION: {
+            const ingr = action.payload;
+            ingr.constructorId = nanoid(18);
             return {
                 ...state,
                 burgerConstructorData: [...state.burgerConstructorData, action.payload]
+
             }
         }
         case DELETE_POSITION: {
@@ -37,7 +42,7 @@ export function burgerConstructorReducer(state = initialState, action) {
         case SORT_CONSTRUCTOR: {
             return {
                 ...state,
-                burgerConstructorData: [...state.burgerConstructorData.splice(action.payload.indexPick, 1, action.payload.indexDrop)]
+                burgerConstructorData: sortElement
             }
         }
         default: {
