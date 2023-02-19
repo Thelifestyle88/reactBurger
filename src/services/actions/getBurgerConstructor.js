@@ -38,8 +38,8 @@ export const sortConstructor = (ingredientPicked, ingredientDrop) => {
     return {
         type: SORT_CONSTRUCTOR,
         payload: {
-            fromIndex:ingredientPicked,
-            toIndex:ingredientDrop
+            indexPick:ingredientPicked,
+            indexDrop:ingredientDrop
         }
     }
 }

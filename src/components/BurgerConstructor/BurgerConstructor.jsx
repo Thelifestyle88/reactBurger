@@ -38,7 +38,7 @@ function BurgerConstructor(setElement) {
   });
 
   return (
-    <section className={`${burgerConstructor.burgerConstructor} mt-25`} ref={drop}>
+    <section className={`${burgerConstructor.burgerConstructor} custom-scroll mt-25`} ref={drop}>
       {bun && (
         <div className={`${burgerConstructor.bun} ml-6`}>
           <ConstructorElement
@@ -54,10 +54,7 @@ function BurgerConstructor(setElement) {
         <div className={burgerConstructor.mainCourses}>
           {ingredient.map((obj, index) => {
             return (
-              <BurgerConstructorElement
-                index={index}
-                key={obj.constructorId}
-                obj={obj}>
+              <BurgerConstructorElement index={index} key={obj.constructorId} obj={obj}>
                 <div>
                   <DragIcon type="primary" />
                   <ConstructorElement

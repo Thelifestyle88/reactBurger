@@ -34,9 +34,11 @@ export function burgerConstructorReducer(state = initialState, action) {
 
         case SORT_CONSTRUCTOR: {
             console.log(`{${action.payload.fromIndex}, ${action.payload.toIndex}}`);
+            const arr = [...state.burgerConstructorData]
+            arr.splice(action.payload.toIndex, 1 , ...arr.splice(action.payload.fromIndex, 1, arr[action.payload.toIndex]))
             return {
                 ...state,
-                burgerConstructorData: [...state.burgerConstructorData].splice(action.payload.fromIndex, 1, action.payload.toIndex, action.payload.fromIndex)
+                burgerConstructorData: arr
             }
         }
         default: {
