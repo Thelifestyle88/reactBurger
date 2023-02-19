@@ -8,7 +8,8 @@ import { DELETE_POSITION } from '../../services/actions/getBurgerConstructor';
 import { getOrderDetails } from '../../services/actions/getOrderDetails';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
-import { addPosition } from '../../services/actions/getBurgerConstructor';
+import { addPosition, reorderConstructor } from '../../services/actions/getBurgerConstructor';
+import { BurgerConstructorElement } from '../BurgerConstructorElement/BurgerConstructorElement';
 
 function BurgerConstructor(setElement) {
   const ingredient = useSelector((store) => store.burgerConstructorReducer.burgerConstructorData);
@@ -52,20 +53,22 @@ function BurgerConstructor(setElement) {
         <div className={burgerConstructor.mainCourses}>
           {ingredient.map((obj, index) => {
             return (
-              <div key={obj.constructorId} ref={drop}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  handleClose={() => {
-                    dispatch({
-                      type: DELETE_POSITION,
-                      payload: index,
-                    });
-                  }}
-                  thumbnail={obj.image}
-                  text={obj.name}
-                  price={obj.price}
-                />
-              </div>
+              <BurgerConstructorElement key={obj.constructorId} props={obj}>
+                <div>
+                  <DragIcon type="primary" />
+                  <ConstructorElement
+                    handleClose={() => {
+                      dispatch({
+                        type: DELETE_POSITION,
+                        payload: index,
+                      });
+                    }}
+                    thumbnail={obj.image}
+                    text={obj.name}
+                    price={obj.price}
+                  />
+                </div>
+              </BurgerConstructorElement>
             );
           })}
         </div>
@@ -88,7 +91,7 @@ function BurgerConstructor(setElement) {
           onClick={() => {
             const orderCreate = [bun, ...ingredient, bun];
             const orderId = orderCreate.map((ingredient) => ingredient._id);
-            dispatch(getOrderDetails(orderId));
+            dispatch(getOrderDetails(orderId), reorderConstructor());
           }}
           extraClass="ml-10"
           htmlType="button"

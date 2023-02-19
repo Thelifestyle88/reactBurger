@@ -18,7 +18,8 @@ export const addPosition = (ingredient) => {
         type: ADD_BUN,
         payload: {
             ...ingredient,
-            id: ingredient._id
+            id: ingredient._id,
+            constructorId: ''
         }
     }
 }
