@@ -6,11 +6,11 @@ import burgerConstructor from '../BurgerConstructor/styles/burgerConstructor.mod
 import { useSelector, useDispatch } from 'react-redux';
 import { DELETE_POSITION } from '../../services/actions/getBurgerConstructor';
 import { getOrderDetails } from '../../services/actions/getOrderDetails';
-import { SORT_CONSTRUCTOR } from '../../services/actions/getBurgerConstructor';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addPosition, reorderConstructor } from '../../services/actions/getBurgerConstructor';
 import { BurgerConstructorElement } from '../BurgerConstructorElement/BurgerConstructorElement';
+import PropTypes from 'prop-types';
 
 function BurgerConstructor(setElement) {
   const ingredient = useSelector((store) => store.burgerConstructorReducer.burgerConstructorData);
@@ -28,6 +28,10 @@ function BurgerConstructor(setElement) {
         }, 0);
     }
   });
+
+  BurgerConstructor.propTypes = {
+    setElement: PropTypes.string,
+  };
 
   const [, drop] = useDrop({
     accept: 'NEW_INGREDIENT',

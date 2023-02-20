@@ -1,7 +1,8 @@
 import { useDrop, useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
-import {SORT_CONSTRUCTOR} from "../../services/actions/getBurgerConstructor";
+import { SORT_CONSTRUCTOR } from '../../services/actions/getBurgerConstructor';
+import PropTypes from 'prop-types';
 
 export const BurgerConstructorElement = ({ obj, children, index }) => {
   const dispatch = useDispatch();
@@ -53,6 +54,12 @@ export const BurgerConstructorElement = ({ obj, children, index }) => {
       return { elementIndex };
     },
   });
+
+  BurgerConstructorElement.propTypes = {
+    obj: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
+    children: PropTypes.node.isRequired,
+  };
 
   drag(drop(ref));
 

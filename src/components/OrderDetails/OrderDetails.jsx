@@ -1,8 +1,14 @@
 import doneOrder from '../../images/done.png';
 import styles from './styles/styles.module.css';
+import PropTypes from 'prop-types';
 
 export function OrderDetails(burger) {
   const isNumberExist = burger.order.order.number;
+
+  OrderDetails.propTypes = {
+    burger: PropTypes.object.isRequired,
+  };
+
   return (
     <>
       {isNumberExist && (
