@@ -4,11 +4,6 @@ import PropTypes from 'prop-types';
 
 export function OrderDetails(burger) {
   const isNumberExist = burger.order.order.number;
-
-  OrderDetails.propTypes = {
-    burger: PropTypes.object.isRequired,
-  };
-
   return (
     <>
       {isNumberExist && (
@@ -25,3 +20,7 @@ export function OrderDetails(burger) {
     </>
   );
 }
+
+OrderDetails.propTypes = {
+  burger: PropTypes.object,
+};

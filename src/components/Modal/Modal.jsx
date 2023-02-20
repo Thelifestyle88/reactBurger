@@ -20,12 +20,6 @@ function Modal({ onClose, children, name }) {
     };
   }, []);
 
-  Modal.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-    name: PropTypes.string,
-  };
-
   return ReactDOM.createPortal(
     <>
       <div className={styles.modal}>
@@ -43,3 +37,9 @@ function Modal({ onClose, children, name }) {
   );
 }
 export default Modal;
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  name: PropTypes.string,
+};

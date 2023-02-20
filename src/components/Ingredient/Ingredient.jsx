@@ -17,11 +17,6 @@ export function Ingredient({ ingredient, count }) {
     }),
   });
 
-  Ingredient.propTypes = {
-    count: PropTypes.number.isRequired,
-    ingredient: PropTypes.object.isRequired,
-  };
-
   return (
     <div
       ref={drag}
@@ -41,3 +36,8 @@ export function Ingredient({ ingredient, count }) {
     </div>
   );
 }
+
+Ingredient.propTypes = {
+  count: PropTypes.number.isRequired,
+  ingredient: PropTypes.object.isRequired,
+};

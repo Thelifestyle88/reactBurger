@@ -10,9 +10,8 @@ import { useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addPosition, reorderConstructor } from '../../services/actions/getBurgerConstructor';
 import { BurgerConstructorElement } from '../BurgerConstructorElement/BurgerConstructorElement';
-import PropTypes from 'prop-types';
 
-function BurgerConstructor(setElement) {
+function BurgerConstructor() {
   const ingredient = useSelector((store) => store.burgerConstructorReducer.burgerConstructorData);
   const bun = useSelector((store) => store.burgerConstructorReducer.buns);
   const dispatch = useDispatch();
@@ -29,13 +28,9 @@ function BurgerConstructor(setElement) {
     }
   });
 
-  BurgerConstructor.propTypes = {
-    setElement: PropTypes.string,
-  };
-
   const [, drop] = useDrop({
     accept: 'NEW_INGREDIENT',
-    item: setElement,
+    item: ingredient,
     drop(setElement) {
       dispatch(addPosition(setElement));
     },

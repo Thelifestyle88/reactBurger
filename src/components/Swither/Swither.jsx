@@ -4,12 +4,6 @@ import styles from './styles/style.module.css';
 import PropTypes from 'prop-types';
 
 export function Switcher({ bun, sauce, mains }) {
-  Switcher.propTypes = {
-    bun: PropTypes.bool.isRequired,
-    sauce: PropTypes.bool.isRequired,
-    mains: PropTypes.bool.isRequired,
-  };
-
   return (
     <div className={styles.switcher}>
       <Tab value="one" active={bun}>
@@ -24,3 +18,8 @@ export function Switcher({ bun, sauce, mains }) {
     </div>
   );
 }
+Switcher.propTypes = {
+  bun: PropTypes.bool.isRequired,
+  sauce: PropTypes.bool.isRequired,
+  mains: PropTypes.bool.isRequired,
+};
