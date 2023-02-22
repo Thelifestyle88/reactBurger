@@ -3,7 +3,10 @@
     display: flex;
     flex-direction: column; 
     gap: 10px;
+    height: 570px;
+    justify-content: space-between;
 }
+
 
 .finishOrder {
     display: flex;
@@ -24,4 +27,8 @@
     height: 350px;
     scrollbar-width: thin;
     scrollbar-color: #8585AD;
+}
+
+.bun {
+    height: 80px;
 }
