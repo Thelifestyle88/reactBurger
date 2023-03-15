@@ -3,6 +3,8 @@ import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import appHeader from '../AppHeader/styles/appHeader.module.css';
+import { Link } from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function AppHeader() {
   return (
@@ -19,11 +21,13 @@ function AppHeader() {
           </button>
         </div>
         <Logo />
-        <button
-          className={`${appHeader.button} pt-4 pr-5 pb-4 pl-5 mt-2 mb-2 text text_type_main-default`}>
-          <ProfileIcon type="primary" />
-          Личный кабинет
-        </button>
+        <Link to="/login">
+          <button
+            className={`${appHeader.button} pt-4 pr-5 pb-4 pl-5 mt-2 mb-2 text text_type_main-default`}>
+            <ProfileIcon type="primary" />
+            Личный кабинет
+          </button>
+        </Link>
       </div>
     </header>
   );
