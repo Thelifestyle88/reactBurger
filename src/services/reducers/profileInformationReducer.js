@@ -4,6 +4,8 @@ import {
   GET_PROFILE_INFORMATION_FAILED,
 } from '../actions/getProfile';
 
+import { AUTHORIZATION_SUCCEED } from '../actions/logInProfile';
+
 const initialState = {
   profileData: {},
   profileInformationRequest: false,
@@ -30,6 +32,17 @@ export function profileInformationReducer(state = initialState, action) {
         isAithorizationSucceed: true,
       };
     }
+
+    case AUTHORIZATION_SUCCEED: {
+      return {
+        ...state,
+        profileData: action.profileData,
+        profileInformationRequest: false,
+        profileInformationFailed: false,
+        isAithorizationSucceed: true,
+      };
+    }
+
     case GET_PROFILE_INFORMATION_FAILED: {
       return {
         ...state,

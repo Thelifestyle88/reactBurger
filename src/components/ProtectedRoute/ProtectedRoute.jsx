@@ -7,6 +7,7 @@ const ProtectedRoute = ({ onlyUnAuth = false, children }) => {
   let location = useLocation();
   const isAuth = useSelector((store) => store.authorizationReducer.isAithorizationSucceed);
   const user = useSelector((store) => store.authorizationReducer.profileData);
+  console.log(user, onlyUnAuth);
   if (authChecking) {
     return <p>Загруузка</p>;
   }
