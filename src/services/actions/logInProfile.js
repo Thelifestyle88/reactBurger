@@ -1,26 +1,27 @@
 import { authorization } from '../../utils/api';
+import { useNavigate } from 'react-router-dom';
 
-export const GET_PROFILE_INFORMATION_REQUEST = 'GET_PROFILE_INFORMATION_REQUEST';
-export const GET_PROFILE_INFORMATION_SUCCEED = 'GET_PROFILE_INFORMATION_SUCCEED';
-export const GET_PROFILE_INFORMATION_FAILED = 'GET_PROFILE_INFORMATION_FAILED';
+export const AUTHORIZATION_REQUEST = 'AUTHORIZATION_REQUEST';
+export const AUTHORIZATION_SUCCEED = 'AUTHORIZATION_SUCCEED';
+export const AUTHORIZATION_FAILED = 'AUTHORIZATION_FAILED';
 
 export function logInProfile(profile) {
   return function (dispatch) {
     dispatch({
-      type: GET_PROFILE_INFORMATION_REQUEST,
+      type: AUTHORIZATION_REQUEST,
     });
     authorization(profile)
       .then((res) => {
         if (res && res.success) {
           localStorage.setItem('refreshToken', res.refreshToken);
-          localStorage.setItem('accessToken ', res.accessToken);
+          localStorage.setItem('accessToken', res.accessToken);
           dispatch({
-            type: GET_PROFILE_INFORMATION_SUCCEED,
+            type: AUTHORIZATION_SUCCEED,
             profileData: res.user,
           });
         } else {
           dispatch({
-            type: GET_PROFILE_INFORMATION_FAILED,
+            type: AUTHORIZATION_FAILED,
           });
         }
       })

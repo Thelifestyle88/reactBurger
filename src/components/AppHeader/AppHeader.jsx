@@ -11,17 +11,20 @@ function AppHeader() {
     <header className={`${appHeader.headerWrap} mt-8`}>
       <div className={appHeader.header}>
         <div className={appHeader.orders}>
-          <button className={`${appHeader.button} pt-4 pb-4 mt-2 mb-2 text text_type_main-default`}>
-            <BurgerIcon type="primary" />
-            Конструктор
-          </button>
+          <Link to="/">
+            <button
+              className={`${appHeader.button} pt-4 pb-4 mt-2 mb-2 text text_type_main-default`}>
+              <BurgerIcon type="primary" />
+              Конструктор
+            </button>
+          </Link>
           <button className={`${appHeader.button} pt-4 pb-4 mt-2 mb-2 text text_type_main-default`}>
             <ListIcon type="primary" />
             Лента заказов
           </button>
         </div>
         <Logo />
-        <Link to="/login">
+        <Link to="/profile">
           <button
             className={`${appHeader.button} pt-4 pr-5 pb-4 pl-5 mt-2 mb-2 text text_type_main-default`}>
             <ProfileIcon type="primary" />

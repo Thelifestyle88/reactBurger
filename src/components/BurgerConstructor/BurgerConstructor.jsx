@@ -10,6 +10,7 @@ import { useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addPosition, reorderConstructor } from '../../services/actions/getBurgerConstructor';
 import { BurgerConstructorElement } from '../BurgerConstructorElement/BurgerConstructorElement';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function BurgerConstructor() {
   const ingredient = useSelector((store) => store.burgerConstructorReducer.burgerConstructorData);

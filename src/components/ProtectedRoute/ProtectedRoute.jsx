@@ -1,27 +1,22 @@
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ onlyUnAuth = false, children }) => {
-  const authChecked = useSelector((store) => store.profileInformationReducer.success);
-  const user = useSelector((store) => store.profileInformationReducer.user);
-  const location = useLocation();
-  const navigate = useNavigate();
-  if (!authChecked) {
-    return null;
+  const authChecking = useSelector((store) => store.authorizationReducer.authorizationRequest);
+  let location = useLocation();
+  const isAuth = useSelector((store) => store.authorizationReducer.isAithorizationSucceed);
+  const user = useSelector((store) => store.authorizationReducer.profileData);
+  if (authChecking) {
+    return <p>Загруузка</p>;
   }
-  if (onlyUnAuth && user) {
-    console.log(location());
+  if (user && onlyUnAuth) {
+    return <Navigate to={'/'} state={{ from: location }} />;
   }
-  if (!onlyUnAuth && !user) {
-    navigate('/login');
+  if (!onlyUnAuth && !isAuth) {
+    return <Navigate to={'/login'} state={{ from: location }} />;
   }
-  if (!onlyUnAuth && user) {
-    return children;
-  }
-  if (authChecked && user) {
-    navigate('/');
-    return children;
-  }
+  return children;
 };
 
 export default ProtectedRoute;

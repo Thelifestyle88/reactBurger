@@ -1,11 +1,11 @@
 import {
-  GET_PROFILE_INFORMATION_SUCCEED,
   GET_PROFILE_INFORMATION_REQUEST,
+  GET_PROFILE_INFORMATION_SUCCEED,
   GET_PROFILE_INFORMATION_FAILED,
-} from '../actions/logInProfile';
+} from '../actions/getProfile';
 
 const initialState = {
-  profileData: null,
+  profileData: {},
   profileInformationRequest: false,
   profileInformationFailed: false,
   isAithorizationSucceed: false,

@@ -66,3 +66,37 @@ export function authorization(profile) {
     }),
   }).then(checkResponse);
 }
+
+export function getProfileInformation() {
+  return fetch(`${baseUrl}/auth/user`, {
+    method: 'GET',
+    headers: {
+      authorization: localStorage.getItem('accessToken'),
+    },
+  }).then(checkResponse);
+}
+
+export function resetToken() {
+  return fetch(`${baseUrl}/auth/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem('refreshToken'),
+    }),
+  }).then(checkResponse);
+}
+
+export function changeProfileInformation(name, post) {
+  return fetch(`${baseUrl}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      authorization: localStorage.getItem('accessToken'),
+    },
+    body: {
+      name: name,
+      email: post,
+    },
+  }).then(checkResponse);
+}

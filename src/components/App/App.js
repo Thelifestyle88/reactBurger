@@ -18,6 +18,7 @@ import { Login } from '../Login/Login';
 import { ForgottenPassword } from '../ForgottenPassword/ForgottenPassword';
 import { NewPassword } from '../NewPassword/NewPassword';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { Profile } from '../Profile/Profile';
 
 function App() {
   const { burgerIngredientRequest } = useSelector((store) => store.burgerIngredientReducer);
@@ -37,10 +38,25 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoute onlyUnAuth={true}>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/registration" element={<Registration />} />
           <Route path="/password" element={<ForgottenPassword />} />
           <Route path="/reset-password" element={<NewPassword />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/"
             element={

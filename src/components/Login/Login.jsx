@@ -8,9 +8,11 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logInProfile } from '../../services/actions/logInProfile';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 export function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [password, setPassword] = React.useState('');
   const inputRef = React.useRef(null);
   const onIconClick = () => {
@@ -52,10 +54,16 @@ export function Login() {
           </Button>
         </form>
         <p>
-          Вы новый пользователь? <Link to="/registration">Зарегестрироваться</Link>
+          Вы новый пользователь?
+          <ProtectedRoute onlyUnAuth={true}>
+            <Link to="/registration">Зарегестрироваться</Link>
+          </ProtectedRoute>
         </p>
         <p>
-          Забыли пароль? <Link to="/password">Восстановить пароль</Link>
+          Забыли пароль?
+          <ProtectedRoute onlyUnAuth={true}>
+            <Link to="/password">Восстановить пароль</Link>
+          </ProtectedRoute>
         </p>
       </div>
     </>
