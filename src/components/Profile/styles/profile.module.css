@@ -39,3 +39,8 @@
     flex-direction: column;
     gap: 24px;
 }
+
+.profileLink {
+    text-decoration: none;
+    color: #8585AD;
+}

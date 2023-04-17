@@ -100,3 +100,15 @@ export function changeProfileInformation(name, post) {
     },
   }).then(checkResponse);
 }
+
+export function logOut() {
+  return fetch(`${baseUrl}/auth/logout`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem('refreshToken'),
+    }),
+  }).then(checkResponse);
+}

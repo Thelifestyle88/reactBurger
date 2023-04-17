@@ -1,24 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import AppHeader from '../AppHeader/AppHeader';
 import styles from './styles/profile.module.css';
 import { Input, EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getInformation } from '../../services/actions/getProfile';
 import { changeProfileInformation } from '../../utils/api';
+import { Link, useNavigate } from 'react-router-dom';
+import { logOutProfile } from '../../services/actions/logInOutProfile';
 
 export function Profile() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const profileInformationRequest = useSelector(
     (store) => store.profileInformationReducer.profileInformationRequest,
   );
+  const user = useSelector((store) => store.profileInformationReducer.profileData);
   function changeProfile(name, post) {
     changeProfileInformation(name, post);
   }
-  const user = useSelector((store) => store.profileInformationReducer.profileData);
-  useEffect(() => {
-    dispatch(getInformation());
-  }, []);
-
   const [login, setName] = useState(user.name);
   const changeName = (e) => {
     setName(e.target.value);
@@ -38,16 +36,29 @@ export function Profile() {
       <div className={styles.profileWrapper}>
         <div className={styles.profileListWrapper}>
           <ul className={`${styles.profileList} text text_type_main-medium`}>
-            <li className={styles.profileListItem}>Профиль</li>
-            <li className={styles.profileListItem}>История заказов</li>
-            <li className={styles.profileListItem}>Выход</li>
+            <li className={styles.profileListItem}>
+              <Link className={styles.profileLink}>Профиль</Link>
+            </li>
+            <li className={styles.profileListItem}>
+              <Link className={styles.profileLink}>История заказов</Link>
+            </li>
+            <li className={styles.profileListItem}>
+              <Link
+                onClick={(e) => {
+                  dispatch(logOutProfile());
+                  navigate('/');
+                }}
+                className={styles.profileLink}>
+                Выход
+              </Link>
+            </li>
           </ul>
           <p
             className={`${styles.profileText} text text_type_main-default text_color_inactive mt-20`}>
             В этом разделе вы можете изменить свои персональные данные
           </p>
         </div>
-        <div className={styles.profileInputWrapper}>
+        <form className={styles.profileInputWrapper}>
           <Input
             onChange={changeName}
             value={login}
@@ -74,13 +85,16 @@ export function Profile() {
             type="password"
           />
           <Button
-            onClick={() => changeProfile(login, email)}
-            htmlType="button"
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(changeProfile(login, email));
+            }}
+            htmlType="submit"
             type="primary"
             size="large">
             Сохранить
           </Button>
-        </div>
+        </form>
       </div>
     </>
   );

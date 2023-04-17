@@ -2,15 +2,17 @@ import {
   GET_PROFILE_INFORMATION_REQUEST,
   GET_PROFILE_INFORMATION_SUCCEED,
   GET_PROFILE_INFORMATION_FAILED,
+  CHANGE_PROFILE_INFORMATION_SUCCEED,
 } from '../actions/getProfile';
 
-import { AUTHORIZATION_SUCCEED } from '../actions/logInProfile';
+import { AUTHORIZATION_SUCCEED } from '../actions/logInOutProfile';
 
 const initialState = {
-  profileData: {},
+  profileData: null,
   profileInformationRequest: false,
   profileInformationFailed: false,
   isAithorizationSucceed: false,
+  getProfileSucceed: false,
 };
 
 export function profileInformationReducer(state = initialState, action) {
@@ -29,7 +31,16 @@ export function profileInformationReducer(state = initialState, action) {
         profileData: action.profileData,
         profileInformationRequest: false,
         profileInformationFailed: false,
-        isAithorizationSucceed: true,
+        getProfileSucceed: true,
+      };
+    }
+    case CHANGE_PROFILE_INFORMATION_SUCCEED: {
+      return {
+        ...state,
+        profileData: action.profileData,
+        profileInformationRequest: false,
+        profileInformationFailed: false,
+        getProfileSucceed: true,
       };
     }
 

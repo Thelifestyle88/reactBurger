@@ -5,14 +5,12 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/login.module.css';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logInProfile } from '../../services/actions/logInProfile';
+import { useDispatch } from 'react-redux';
+import { logInProfile } from '../../services/actions/logInOutProfile';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 export function Login() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [password, setPassword] = React.useState('');
   const inputRef = React.useRef(null);
   const onIconClick = () => {

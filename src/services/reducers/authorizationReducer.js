@@ -2,7 +2,8 @@ import {
   AUTHORIZATION_SUCCEED,
   AUTHORIZATION_REQUEST,
   AUTHORIZATION_FAILED,
-} from '../actions/logInProfile';
+  AUTHORIZATION_LOGOUT,
+} from '../actions/logInOutProfile';
 
 const initialState = {
   profileData: null,
@@ -33,6 +34,15 @@ export function authorizationReducer(state = initialState, action) {
     case AUTHORIZATION_FAILED: {
       return {
         ...state,
+        isAithorizationSucceed: false,
+        authorizationFailed: true,
+        authorizationRequest: false,
+      };
+    }
+    case AUTHORIZATION_LOGOUT: {
+      return {
+        ...state,
+        profileData: null,
         isAithorizationSucceed: false,
         authorizationFailed: true,
         authorizationRequest: false,
