@@ -27,7 +27,6 @@ function BurgerIngredients() {
       return allIngredients.map((obj) => obj._id);
     }
   });
-
   function countItem(objId, allIngredients) {
     if (allIngredients) {
       return allIngredients.filter((item) => item === objId).length;

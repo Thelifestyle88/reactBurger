@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: space-between;
     max-width: 520px;
+    margin: 0 auto;
 }
 
 .ingredientTitle {

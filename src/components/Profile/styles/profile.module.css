@@ -1,0 +1,46 @@
+.profileWrapper {
+    display: flex;
+    margin: 120px auto 0;
+    text-align: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 60px;
+}
+
+.profileList {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profileListItem {
+    border: 2px dashed #4C4CFF;
+    width: 320px;
+    height: 64px;
+    line-height: 64px;
+    text-align: left;
+}
+
+.profileListWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.profileText {
+    max-width: 320px;
+    text-align: left;
+    padding: 0;
+}
+
+.profileInputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.profileLink {
+    text-decoration: none;
+    color: #8585AD;
+}
