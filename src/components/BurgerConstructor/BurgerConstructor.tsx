@@ -6,19 +6,20 @@ import burgerConstructor from '../BurgerConstructor/styles/burgerConstructor.mod
 import { useSelector, useDispatch } from 'react-redux';
 import { DELETE_POSITION } from '../../services/actions/getBurgerConstructor';
 import { getOrderDetails } from '../../services/actions/getOrderDetails';
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addPosition, reorderConstructor } from '../../services/actions/getBurgerConstructor';
 import { BurgerConstructorElement } from '../BurgerConstructorElement/BurgerConstructorElement';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-function BurgerConstructor() {
-  const ingredient = useSelector((store) => store.burgerConstructorReducer.burgerConstructorData);
-  const bun = useSelector((store) => store.burgerConstructorReducer.buns);
+const BurgerConstructor: FC = () => {
+  const ingredient = useSelector(
+    (store: any) => store.burgerConstructorReducer.burgerConstructorData,
+  );
+  const bun = useSelector((store: any) => store.burgerConstructorReducer.buns);
   const dispatch = useDispatch();
   const isIngredientExist = ingredient.length > 0;
   let price = 0;
-  price = useMemo(() => {
+  price = useMemo<number>(() => {
     if (bun) {
       const allPrice = [bun, ...ingredient, bun];
       return allPrice
@@ -27,12 +28,17 @@ function BurgerConstructor() {
           return (acc = acc + curr);
         }, 0);
     }
-  });
+  }, []); //Добавил пустой массив
 
-  const [, drop] = useDrop({
+  interface IDrop {
+    accept: string;
+    item: any;
+  }
+
+  const [, drop] = useDrop<IDrop>({
     accept: 'NEW_INGREDIENT',
     item: ingredient,
-    drop(setElement) {
+    drop(setElement): any {
       dispatch(addPosition(setElement));
     },
   });
@@ -52,7 +58,8 @@ function BurgerConstructor() {
       )}
       {isIngredientExist && (
         <div className={burgerConstructor.mainCourses}>
-          {ingredient.map((obj, index) => {
+          {ingredient.map((obj: string | any, index: number) => {
+            //убрать any
             return (
               <BurgerConstructorElement index={index} key={obj.constructorId} obj={obj}>
                 <div>
@@ -92,7 +99,7 @@ function BurgerConstructor() {
           onClick={() => {
             const orderCreate = [bun, ...ingredient, bun];
             const orderId = orderCreate.map((ingredient) => ingredient._id);
-            dispatch(getOrderDetails(orderId), reorderConstructor());
+            dispatch(getOrderDetails(orderId));
           }}
           extraClass="ml-10"
           htmlType="button"
@@ -103,5 +110,5 @@ function BurgerConstructor() {
       </div>
     </section>
   );
-}
+};
 export default BurgerConstructor;

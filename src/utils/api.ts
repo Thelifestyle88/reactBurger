@@ -1,6 +1,7 @@
+import { TUser } from "./typesData";
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
-function checkResponse(res) {
+function checkResponse(res:Response) {
   if (res.ok) {
     return res.json();
   }
@@ -14,7 +15,7 @@ export function getIngredients() {
   return fetch(`${baseUrl}/ingredients`).then(checkResponse);
 }
 
-export function sendOrder(ingredients) {
+export function sendOrder<TResponseOrder>(ingredients: TResponseOrder) {
   return fetch(`${baseUrl}/orders`, {
     method: 'POST',
     headers: {
@@ -24,7 +25,8 @@ export function sendOrder(ingredients) {
   }).then(checkResponse);
 }
 
-export function createUser(user) {
+
+export function createUser<TUser>(user: TUser & {password:string}) {
   return fetch(`${baseUrl}/auth/register`, {
     method: 'POST',
     headers: {
@@ -37,12 +39,8 @@ export function createUser(user) {
     }),
   })
     .then(checkResponse)
-    .then((res) => {
-      console.log(res);
-    });
 }
-
-export function resetPassword(email) {
+export function resetPassword(email:string) {
   return fetch(`${baseUrl}/password-reset`, {
     method: 'POST',
     headers: {
@@ -54,7 +52,8 @@ export function resetPassword(email) {
   }).then(checkResponse);
 }
 
-export function authorization(profile) {
+
+export function authorization<TUser>(profile: TUser) {
   return fetch(`${baseUrl}/auth/login`, {
     method: 'POST',
     headers: {
@@ -88,7 +87,7 @@ export function resetToken() {
   }).then(checkResponse);
 }
 
-export function changeProfileInformation(name, post) {
+export function changeProfileInformation<THeader>(name: string, post: string) {
   return fetch(`${baseUrl}/auth/user`, {
     method: 'PATCH',
     headers: {

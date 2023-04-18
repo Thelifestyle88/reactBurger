@@ -55,12 +55,6 @@ export const BurgerConstructorElement = ({ obj, children, index }) => {
     },
   });
 
-  BurgerConstructorElement.propTypes = {
-    obj: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired,
-    children: PropTypes.node.isRequired,
-  };
-
   drag(drop(ref));
 
   return <div ref={ref}>{children}</div>;
