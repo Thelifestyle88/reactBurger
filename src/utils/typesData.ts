@@ -15,7 +15,7 @@ export type TUser = {
     proteins: number,
     type: string;
     __v: number;
-    _id: number;
+    _id: string;
     count: number;
     key: string;
   }

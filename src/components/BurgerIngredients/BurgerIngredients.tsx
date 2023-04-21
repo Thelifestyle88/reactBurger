@@ -33,9 +33,12 @@ const BurgerIngredients = () => {
       return allIngredients.map((obj) => obj._id);
     }
   }, []);
-  function countItem(objId: number, allIngredients: any[]) {
+
+  console.log(allIngredients);
+
+  function countItem(objId: string, allIngredients: Array<string> | undefined) {
     if (allIngredients) {
-      return allIngredients.filter((item) => item === objId).length;
+      return allIngredients.filter((item: string) => item === objId).length;
     } else {
       return 0;
     }
@@ -63,7 +66,6 @@ const BurgerIngredients = () => {
                 <Ingredient
                   key={obj._id}
                   ingredient={obj}
-                  //@ts-ignore
                   count={countItem(obj._id, allIngredients)}
                 />
               );

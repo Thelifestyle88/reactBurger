@@ -19,7 +19,7 @@ const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const isIngredientExist = ingredient.length > 0;
   let price = 0;
-  price = useMemo<number>(() => {
+  price = useMemo(() => {
     if (bun) {
       const allPrice = [bun, ...ingredient, bun];
       return allPrice

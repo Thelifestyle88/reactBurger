@@ -12,16 +12,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 export function Login() {
   const dispatch = useDispatch();
   const [password, setPassword] = React.useState('');
-  const inputRef: React.MutableRefObject<HTMLInputElement | null> = React.useRef(null);
-  const onIconClick = (): void => {
-    //@ts-ignore
-    setTimeout(() => {
-      //@ts-ignore
-      inputRef.current.focus();
-      //@ts-ignore
-      console.log(inputRef.current.focus());
-    }, 0);
-  };
   const [email, setEmail] = React.useState('');
   const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -42,8 +32,6 @@ export function Login() {
             icon={'ShowIcon'}
             name={'name'}
             error={false}
-            ref={inputRef}
-            onIconClick={onIconClick}
             errorText={'Ошибка'}
             size={'default'}
             extraClass="ml-1"

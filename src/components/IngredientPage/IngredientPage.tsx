@@ -9,7 +9,7 @@ function IngredientPage() {
   const ingredients = useSelector(
     (store: any) => store.burgerIngredientReducer.burgerIngredientData,
   );
-  const ingredient = ingredients.find((item: TIngredient) => item._id === Number(ingredientId.id));
+  const ingredient = ingredients.find((item: TIngredient) => item._id === String(ingredientId.id));
   return (
     <>
       <AppHeader />
