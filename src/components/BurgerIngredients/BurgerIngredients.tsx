@@ -2,22 +2,28 @@ import { Switcher } from '../Swither/Swither';
 import { Ingredient } from '../Ingredient/Ingredient';
 import styles from '../BurgerIngredients/styles/styles.module.css';
 import { useSelector } from 'react-redux';
-import { useMemo, useRef, useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { TIngredient } from '../../utils/typesData';
 
-function BurgerIngredients() {
-  const ingredients = useSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
-  const burgerConstructorELements = useSelector(
-    (store) => store.burgerConstructorReducer.burgerConstructorData,
+type TItem = {
+  type: string;
+};
+
+const BurgerIngredients = () => {
+  const ingredients = useSelector(
+    (store: any) => store.burgerIngredientReducer.burgerIngredientData,
   );
-  const burgerConstructorBuns = useSelector((store) => store.burgerConstructorReducer.buns);
+  const burgerConstructorELements = useSelector(
+    (store: any) => store.burgerConstructorReducer.burgerConstructorData,
+  );
+  const burgerConstructorBuns = useSelector((store: any) => store.burgerConstructorReducer.buns);
 
-  const buns = ingredients.filter((item) => item.type === 'bun');
-  const sauce = ingredients.filter((item) => item.type === 'sauce');
-  const mains = ingredients.filter((item) => item.type === 'main');
+  const buns = ingredients.filter((item: TItem) => item.type === 'bun');
+  const sauce = ingredients.filter((item: TItem) => item.type === 'sauce');
+  const mains = ingredients.filter((item: TItem) => item.type === 'main');
 
-  let allIngredients;
-  allIngredients = useMemo(() => {
+  let allIngredients = useMemo(() => {
     if (burgerConstructorBuns) {
       const allIngredients = [
         burgerConstructorBuns,
@@ -26,8 +32,8 @@ function BurgerIngredients() {
       ];
       return allIngredients.map((obj) => obj._id);
     }
-  });
-  function countItem(objId, allIngredients) {
+  }, []);
+  function countItem(objId: number, allIngredients: any[]) {
     if (allIngredients) {
       return allIngredients.filter((item) => item === objId).length;
     } else {
@@ -52,11 +58,12 @@ function BurgerIngredients() {
             <h2 id="one" className={`${styles.ingredientTitle} mt-10 mb-6`}>
               Булки
             </h2>
-            {buns.map((obj) => {
+            {buns.map((obj: TIngredient) => {
               return (
                 <Ingredient
                   key={obj._id}
                   ingredient={obj}
+                  //@ts-ignore
                   count={countItem(obj._id, allIngredients)}
                 />
               );
@@ -66,11 +73,12 @@ function BurgerIngredients() {
             <h2 id="two" className={`${styles.ingredientTitle} mt-10 mb-6`}>
               Соусы
             </h2>
-            {sauce.map((obj) => {
+            {sauce.map((obj: TIngredient) => {
               return (
                 <Ingredient
                   key={obj._id}
                   ingredient={obj}
+                  //@ts-ignore
                   count={countItem(obj._id, allIngredients)}
                 />
               );
@@ -80,11 +88,12 @@ function BurgerIngredients() {
             <h2 id="three" className={`${styles.ingredientTitle} mt-10 mb-6`}>
               Начинки
             </h2>
-            {mains.map((obj) => {
+            {mains.map((obj: TIngredient) => {
               return (
                 <Ingredient
                   key={obj._id}
                   ingredient={obj}
+                  //@ts-ignore
                   count={countItem(obj._id, allIngredients)}
                 />
               );
@@ -94,6 +103,6 @@ function BurgerIngredients() {
       </section>
     </>
   );
-}
+};
 
 export default BurgerIngredients;

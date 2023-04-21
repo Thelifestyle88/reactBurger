@@ -15,7 +15,7 @@ export type TUser = {
     proteins: number,
     type: string;
     __v: number;
-    _id: string;
+    _id: number;
     count: number;
     key: string;
   }
@@ -28,4 +28,9 @@ export type TUser = {
     number: number;
     createdAt: string;
     updatedAt: string;
+  }
+
+  export type THeaders = {
+    authorization?: string;
+    "Content-Type"?: string;
   }

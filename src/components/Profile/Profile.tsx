@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch as dispatchHook, useSelector as selectorHook, useSelector } from 'react-redux';
 import { useState } from 'react';
 import AppHeader from '../AppHeader/AppHeader';
 import styles from './styles/profile.module.css';
@@ -8,21 +8,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { logOutProfile } from '../../services/actions/logInOutProfile';
 
 export function Profile() {
-  const dispatch = useDispatch();
+  const dispatch = dispatchHook();
   const navigate = useNavigate();
   const profileInformationRequest = useSelector(
-    (store) => store.profileInformationReducer.profileInformationRequest,
+    (store: any) => store.profileInformationReducer.profileInformationRequest,
   );
-  const user = useSelector((store) => store.profileInformationReducer.profileData);
-  function changeProfile(name, post) {
-    changeProfileInformation(name, post);
-  }
+  const user = useSelector((store: any) => store.profileInformationReducer.profileData);
+
   const [login, setName] = useState(user.name);
-  const changeName = (e) => {
+  const changeName = (e: React.FocusEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
   const [email, setEmail] = useState(user.email);
-  const changeEmail = (e) => {
+  const changeEmail = (e: React.FocusEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
@@ -37,14 +35,20 @@ export function Profile() {
         <div className={styles.profileListWrapper}>
           <ul className={`${styles.profileList} text text_type_main-medium`}>
             <li className={styles.profileListItem}>
-              <Link className={styles.profileLink}>Профиль</Link>
+              <Link to={'/profile'} className={styles.profileLink}>
+                Профиль
+              </Link>
             </li>
             <li className={styles.profileListItem}>
-              <Link className={styles.profileLink}>История заказов</Link>
+              <Link to={'/profile'} className={styles.profileLink}>
+                История заказов
+              </Link>
             </li>
             <li className={styles.profileListItem}>
               <Link
-                onClick={(e) => {
+                to={'/'}
+                onClick={() => {
+                  //@ts-ignore
                   dispatch(logOutProfile());
                   navigate('/');
                 }}
@@ -65,7 +69,6 @@ export function Profile() {
             icon={'EditIcon'}
             name={'email'}
             placeholder="Имя"
-            isIcon={true}
             extraClass="mb-2"
           />
           <EmailInput
@@ -76,18 +79,21 @@ export function Profile() {
             isIcon={true}
             extraClass="mb-2"
           />
-          <EmailInput
-            value={12345}
+          <Input
+            onChange={(e) => {
+              e.preventDefault();
+            }}
+            value={'12345'}
             name={'password'}
             placeholder="Пароль"
-            isIcon={true}
             extraClass="mb-2"
             type="password"
           />
           <Button
             onClick={(e) => {
               e.preventDefault();
-              dispatch(changeProfile(login, email));
+              //@ts-ignore
+              dispatch(changeProfileInformation(login, email));
             }}
             htmlType="submit"
             type="primary"

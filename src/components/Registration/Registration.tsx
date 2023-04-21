@@ -12,11 +12,8 @@ export function Registration() {
   const inputName = React.useRef(null);
   const [password, setPassword] = React.useState('');
   const inputRef = React.useRef(null);
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-  };
   const [email, setEmail] = React.useState('');
-  const onChange = (e) => {
+  const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   return (
@@ -33,7 +30,6 @@ export function Registration() {
             name={'name'}
             error={false}
             ref={inputName}
-            onIconClick={onIconClick}
             errorText={'Ошибка'}
             size={'default'}
             extraClass="ml-1"
@@ -48,7 +44,6 @@ export function Registration() {
             name={'name'}
             error={false}
             ref={inputRef}
-            onIconClick={onIconClick}
             errorText={'Ошибка'}
             size={'default'}
             extraClass="ml-1"

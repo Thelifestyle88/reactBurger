@@ -15,6 +15,21 @@ export function getIngredients() {
   return fetch(`${baseUrl}/ingredients`).then(checkResponse);
 }
 
+const baseHeader = {
+  'Content-Type': 'application/json'
+}
+
+const injectBearerToken = (baseHeader : Record<string, string>) : Record<string, string> => {
+  const token = localStorage.getItem('accessToken')
+ if (token) {
+ return {
+     ...baseHeader, 
+       authorization: token,
+     }
+    }
+ return baseHeader;
+};
+
 export function sendOrder<TResponseOrder>(ingredients: TResponseOrder) {
   return fetch(`${baseUrl}/orders`, {
     method: 'POST',
@@ -26,7 +41,7 @@ export function sendOrder<TResponseOrder>(ingredients: TResponseOrder) {
 }
 
 
-export function createUser<TUser>(user: TUser & {password:string}) {
+export function createUser(user: TUser & {password:string}) {
   return fetch(`${baseUrl}/auth/register`, {
     method: 'POST',
     headers: {
@@ -53,7 +68,7 @@ export function resetPassword(email:string) {
 }
 
 
-export function authorization<TUser>(profile: TUser) {
+export function authorization(profile: TUser & {password:string}) {
   return fetch(`${baseUrl}/auth/login`, {
     method: 'POST',
     headers: {
@@ -69,9 +84,7 @@ export function authorization<TUser>(profile: TUser) {
 export function getProfileInformation() {
   return fetch(`${baseUrl}/auth/user`, {
     method: 'GET',
-    headers: {
-      authorization: localStorage.getItem('accessToken'),
-    },
+    headers: injectBearerToken(baseHeader)
   }).then(checkResponse);
 }
 
@@ -87,16 +100,14 @@ export function resetToken() {
   }).then(checkResponse);
 }
 
-export function changeProfileInformation<THeader>(name: string, post: string) {
+export function changeProfileInformation(name: TUser, post: TUser): Promise<TUser> {
   return fetch(`${baseUrl}/auth/user`, {
     method: 'PATCH',
-    headers: {
-      authorization: localStorage.getItem('accessToken'),
-    },
-    body: {
+    headers: injectBearerToken(baseHeader),
+    body: JSON.stringify({
       name: name,
       email: post,
-    },
+    }),
   }).then(checkResponse);
 }
 

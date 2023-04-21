@@ -8,7 +8,7 @@ import { DELETE_POSITION } from '../../services/actions/getBurgerConstructor';
 import { getOrderDetails } from '../../services/actions/getOrderDetails';
 import { FC, useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
-import { addPosition, reorderConstructor } from '../../services/actions/getBurgerConstructor';
+import { addPosition } from '../../services/actions/getBurgerConstructor';
 import { BurgerConstructorElement } from '../BurgerConstructorElement/BurgerConstructorElement';
 
 const BurgerConstructor: FC = () => {
@@ -30,15 +30,9 @@ const BurgerConstructor: FC = () => {
     }
   }, []); //Добавил пустой массив
 
-  interface IDrop {
-    accept: string;
-    item: any;
-  }
-
-  const [, drop] = useDrop<IDrop>({
+  const [, drop] = useDrop({
     accept: 'NEW_INGREDIENT',
-    item: ingredient,
-    drop(setElement): any {
+    drop(setElement) {
       dispatch(addPosition(setElement));
     },
   });
@@ -59,7 +53,6 @@ const BurgerConstructor: FC = () => {
       {isIngredientExist && (
         <div className={burgerConstructor.mainCourses}>
           {ingredient.map((obj: string | any, index: number) => {
-            //убрать any
             return (
               <BurgerConstructorElement index={index} key={obj.constructorId} obj={obj}>
                 <div>
@@ -94,11 +87,12 @@ const BurgerConstructor: FC = () => {
       )}
       <div className={`${burgerConstructor.finishOrder} text text_type_main-large mr-25`}>
         <p>{price}</p>
-        <CurrencyIcon className={burgerConstructor.icon} type="primary" />
+        <CurrencyIcon type="primary" />
         <Button
           onClick={() => {
             const orderCreate = [bun, ...ingredient, bun];
             const orderId = orderCreate.map((ingredient) => ingredient._id);
+            //@ts-ignore
             dispatch(getOrderDetails(orderId));
           }}
           extraClass="ml-10"

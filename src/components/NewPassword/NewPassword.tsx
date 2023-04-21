@@ -10,9 +10,6 @@ export function NewPassword() {
   const inputName = React.useRef(null);
   const [password, setPassword] = React.useState('');
   const inputRef = React.useRef(null);
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-  };
   return (
     <>
       <AppHeader />
@@ -28,7 +25,6 @@ export function NewPassword() {
             name={'name'}
             error={false}
             ref={inputRef}
-            onIconClick={onIconClick}
             errorText={'Ошибка'}
             size={'default'}
             extraClass="ml-1"
@@ -41,7 +37,6 @@ export function NewPassword() {
             name={'name'}
             error={false}
             ref={inputName}
-            onIconClick={onIconClick}
             errorText={'Ошибка'}
             size={'default'}
             extraClass="ml-1"

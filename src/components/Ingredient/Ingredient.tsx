@@ -4,10 +4,15 @@ import styles from './styles/styles.module.css';
 import { useDispatch } from 'react-redux';
 import { addIngredientDetails } from '../../services/actions/getIngredientDetails';
 import { useDrag } from 'react-dnd/dist/hooks/useDrag';
-import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { TIngredient } from '../../utils/typesData';
 
-export function Ingredient({ ingredient, count }) {
+type TIngredientProps = {
+  ingredient: TIngredient;
+  count: number;
+};
+
+export function Ingredient({ ingredient, count }: TIngredientProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,7 +35,7 @@ export function Ingredient({ ingredient, count }) {
       ref={drag}
       onClick={() => handleClick()}
       className={`${styles.ingredient} mt-6 text text_type_main-default`}>
-      <Counter className={styles.counter} count={count} size="default" extraClass="m-1" />
+      <Counter extraClass={`${styles.counter} m-1`} count={count} size="default" />
       <img className="mr-4 ml-4 mb-1" src={ingredient.image} alt={ingredient.name} />
       <div className={`${styles.ingredientPriceWrap} mb-1`}>
         <p className={`${styles.ingredientPrice} text text_type_digits-default`}>
@@ -42,8 +47,3 @@ export function Ingredient({ ingredient, count }) {
     </div>
   );
 }
-
-Ingredient.propTypes = {
-  count: PropTypes.number.isRequired,
-  ingredient: PropTypes.object.isRequired,
-};
