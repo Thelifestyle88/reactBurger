@@ -10,11 +10,17 @@ import { FC, useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addPosition } from '../../services/actions/getBurgerConstructor';
 import { BurgerConstructorElement } from '../BurgerConstructorElement/BurgerConstructorElement';
+import { store } from '../..';
+import { useNavigate } from 'react-router-dom';
 
 const BurgerConstructor: FC = () => {
+  const isAuth = useSelector(
+    (store: any) => store.profileInformationReducer.isAithorizationSucceed,
+  );
   const ingredient = useSelector(
     (store: any) => store.burgerConstructorReducer.burgerConstructorData,
   );
+  const navigate = useNavigate();
   const bun = useSelector((store: any) => store.burgerConstructorReducer.buns);
   const dispatch = useDispatch();
   const isIngredientExist = ingredient.length > 0;
@@ -90,10 +96,14 @@ const BurgerConstructor: FC = () => {
         <CurrencyIcon type="primary" />
         <Button
           onClick={() => {
-            const orderCreate = [bun, ...ingredient, bun];
-            const orderId = orderCreate.map((ingredient) => ingredient._id);
-            //@ts-ignore
-            dispatch(getOrderDetails(orderId));
+            if (isAuth) {
+              const orderCreate = [bun, ...ingredient, bun];
+              const orderId = orderCreate.map((ingredient) => ingredient._id);
+              //@ts-ignore
+              dispatch(getOrderDetails(orderId));
+            } else {
+              navigate('/login');
+            }
           }}
           extraClass="ml-10"
           htmlType="button"
