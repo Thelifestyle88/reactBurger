@@ -14,9 +14,7 @@ import { store } from '../..';
 import { useNavigate } from 'react-router-dom';
 
 const BurgerConstructor: FC = () => {
-  const isAuth = useSelector(
-    (store: any) => store.profileInformationReducer.isAithorizationSucceed,
-  );
+  const user = useSelector((store: any) => store.profileInformationReducer.profileData);
   const ingredient = useSelector(
     (store: any) => store.burgerConstructorReducer.burgerConstructorData,
   );
@@ -96,7 +94,7 @@ const BurgerConstructor: FC = () => {
         <CurrencyIcon type="primary" />
         <Button
           onClick={() => {
-            if (isAuth) {
+            if (user) {
               const orderCreate = [bun, ...ingredient, bun];
               const orderId = orderCreate.map((ingredient) => ingredient._id);
               //@ts-ignore
