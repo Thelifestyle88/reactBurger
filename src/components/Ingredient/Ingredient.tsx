@@ -27,7 +27,6 @@ export function Ingredient({ ingredient, count }: TIngredientProps) {
 
   const handleClick = () => {
     dispatch(addIngredientDetails(ingredient));
-    navigate(`/ingredients/${ingredient._id}`, { replace: true });
   };
 
   return (

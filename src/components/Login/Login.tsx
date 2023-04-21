@@ -16,7 +16,6 @@ export function Login() {
   const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-  console.log(password, email);
   return (
     <>
       <AppHeader />
