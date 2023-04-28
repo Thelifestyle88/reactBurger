@@ -1,10 +1,16 @@
+import { TIngredient } from '../../utils/typesData';
 import { ADD_INGREDIENT_DETAILS, DELETE_INGREDIENT_DETAILS } from '../actions/getIngredientDetails';
+import { PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
+interface IIngredientDetailsState {
+  ingredient: TIngredient
+}
+
+const initialState: IIngredientDetailsState | {ingredient: null} = {
   ingredient: null,
 };
 
-export function ingredientDetailsReducer(state = initialState, action) {
+export function ingredientDetailsReducer(state = initialState, action: PayloadAction<TIngredient>) {
   switch (action.type) {
     case ADD_INGREDIENT_DETAILS: {
       return {

@@ -1,11 +1,10 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/styles.module.css';
-import { useDispatch } from 'react-redux';
 import { addIngredientDetails } from '../../services/actions/getIngredientDetails';
 import { useDrag } from 'react-dnd/dist/hooks/useDrag';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { TIngredient } from '../../utils/typesData';
+import { useAppDispatch } from '../../index';
 
 type TIngredientProps = {
   ingredient: TIngredient;
@@ -13,9 +12,7 @@ type TIngredientProps = {
 };
 
 export function Ingredient({ ingredient, count }: TIngredientProps) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const dispatch = useAppDispatch();
 
   const [{ isDrag }, drag] = useDrag({
     type: 'NEW_INGREDIENT',

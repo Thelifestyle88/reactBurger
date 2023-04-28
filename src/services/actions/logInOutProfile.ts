@@ -1,12 +1,16 @@
+import { Dispatch } from 'redux';
 import { authorization, logOut } from '../../utils/api';
+import { TProfile } from '../../utils/typesData';
 
-export const AUTHORIZATION_REQUEST = 'AUTHORIZATION_REQUEST';
-export const AUTHORIZATION_SUCCEED = 'AUTHORIZATION_SUCCEED';
-export const AUTHORIZATION_FAILED = 'AUTHORIZATION_FAILED';
-export const AUTHORIZATION_LOGOUT = 'AUTHORIZATION_LOGOUT';
+export const AUTHORIZATION_REQUEST: 'AUTHORIZATION_REQUEST' = 'AUTHORIZATION_REQUEST';
+export const AUTHORIZATION_SUCCEED: 'AUTHORIZATION_SUCCEED' = 'AUTHORIZATION_SUCCEED';
+export const AUTHORIZATION_FAILED: 'AUTHORIZATION_FAILED' = 'AUTHORIZATION_FAILED';
+export const AUTHORIZATION_LOGOUT: 'AUTHORIZATION_LOGOUT' = 'AUTHORIZATION_LOGOUT';
 
-export function logInProfile(profile) {
-  return function (dispatch) {
+
+
+export function logInProfile(profile: TProfile) {
+  return function (dispatch: Dispatch) {
     dispatch({
       type: AUTHORIZATION_REQUEST,
     });
@@ -30,7 +34,7 @@ export function logInProfile(profile) {
 }
 
 export function logOutProfile() {
-  return function (dispatch) {
+  return function (dispatch: Dispatch) {
     dispatch({
       type: AUTHORIZATION_REQUEST,
     });

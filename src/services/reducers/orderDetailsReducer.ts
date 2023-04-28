@@ -1,18 +1,27 @@
+import { TIngredient } from '../../utils/typesData';
 import {
   GET_ORDER_FAILED,
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCEED,
   DELETE_ORDER_DETAILS,
 } from '../actions/getOrderDetails';
+import { PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
+interface IOrderDetailsState {
+  orderDetails: object | null
+  orderDetailsRequest: boolean,
+  orderDetailsFailed: boolean,
+  isPageOnLoad: boolean,
+}
+
+const initialState: IOrderDetailsState = {
   orderDetails: null,
   orderDetailsRequest: false,
   orderDetailsFailed: false,
   isPageOnLoad: false,
 };
 
-export function orderDetailsReducer(state = initialState, action) {
+export function orderDetailsReducer(state = initialState, action: PayloadAction<object>) {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {
@@ -24,7 +33,7 @@ export function orderDetailsReducer(state = initialState, action) {
     case GET_ORDER_SUCCEED: {
       return {
         ...state,
-        orderDetails: action.orderDetails,
+        orderDetails: action.payload,
         orderDetailsRequest: false,
         orderDetailsFailed: false,
         isPageOnLoad: false,

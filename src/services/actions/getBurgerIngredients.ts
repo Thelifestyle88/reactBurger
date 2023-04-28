@@ -1,11 +1,14 @@
+import { Dispatch } from 'react';
 import { getIngredients } from '../../utils/api';
 
-export const GET_BURGER_INGREDIENTS_REQUEST = 'GET_BURGER_INGREDIENTS_REQUEST';
-export const GET_BURGER_INGREDIENTS_SUCCEED = 'GET_BURGER_INGREDIENTS_SUCCEED';
-export const GET_BURGER_INGREDIENTS_FAILED = 'GET_BURGER_INGREDIENTS_FAILED';
+export const GET_BURGER_INGREDIENTS_REQUEST: 'GET_BURGER_INGREDIENTS_REQUEST' =
+  'GET_BURGER_INGREDIENTS_REQUEST';
+export const GET_BURGER_INGREDIENTS_SUCCEED: 'GET_BURGER_INGREDIENTS_SUCCEED' = 'GET_BURGER_INGREDIENTS_SUCCEED';
+export const GET_BURGER_INGREDIENTS_FAILED: 'GET_BURGER_INGREDIENTS_FAILED' = 'GET_BURGER_INGREDIENTS_FAILED';
+
 
 export function getBurgerIngredients() {
-  return function (dispatch) {
+  return function (dispatch:Dispatch<any>) {
     dispatch({
       type: GET_BURGER_INGREDIENTS_REQUEST,
     });

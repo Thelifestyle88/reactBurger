@@ -5,12 +5,12 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/login.module.css';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { logInProfile } from '../../services/actions/logInOutProfile';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { useAppDispatch } from '../../index';
 
 export function Login() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [password, setPassword] = React.useState('');
   const [email, setEmail] = React.useState('');
   const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -40,7 +40,6 @@ export function Login() {
             extraClass={styles.button}
             onClick={(e) => {
               e.preventDefault();
-              //@ts-ignore
               dispatch(logInProfile({ email, password }));
             }}>
             Войти

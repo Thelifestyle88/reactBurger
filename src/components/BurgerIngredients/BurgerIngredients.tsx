@@ -1,27 +1,20 @@
 import { Switcher } from '../Swither/Swither';
 import { Ingredient } from '../Ingredient/Ingredient';
 import styles from '../BurgerIngredients/styles/styles.module.css';
-import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { TIngredient } from '../../utils/typesData';
-
-type TItem = {
-  type: string;
-};
+import { useAppSelector } from '../../index';
 
 const BurgerIngredients = () => {
-  const ingredients = useSelector(
-    (store: any) => store.burgerIngredientReducer.burgerIngredientData,
+  const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
+  const burgerConstructorELements = useAppSelector(
+    (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
-  const burgerConstructorELements = useSelector(
-    (store: any) => store.burgerConstructorReducer.burgerConstructorData,
-  );
-  const burgerConstructorBuns = useSelector((store: any) => store.burgerConstructorReducer.buns);
+  const burgerConstructorBuns = useAppSelector((store) => store.burgerConstructorReducer.buns);
 
-  const buns = ingredients.filter((item: TItem) => item.type === 'bun');
-  const sauce = ingredients.filter((item: TItem) => item.type === 'sauce');
-  const mains = ingredients.filter((item: TItem) => item.type === 'main');
+  const buns = ingredients.filter((item) => item.type === 'bun');
+  const sauce = ingredients.filter((item) => item.type === 'sauce');
+  const mains = ingredients.filter((item) => item.type === 'main');
 
   let allIngredients = useMemo(() => {
     if (burgerConstructorBuns) {
@@ -61,7 +54,7 @@ const BurgerIngredients = () => {
             <h2 id="one" className={`${styles.ingredientTitle} mt-10 mb-6`}>
               Булки
             </h2>
-            {buns.map((obj: TIngredient) => {
+            {buns.map((obj) => {
               return (
                 <Ingredient
                   key={obj._id}
@@ -75,12 +68,11 @@ const BurgerIngredients = () => {
             <h2 id="two" className={`${styles.ingredientTitle} mt-10 mb-6`}>
               Соусы
             </h2>
-            {sauce.map((obj: TIngredient) => {
+            {sauce.map((obj) => {
               return (
                 <Ingredient
                   key={obj._id}
                   ingredient={obj}
-                  //@ts-ignore
                   count={countItem(obj._id, allIngredients)}
                 />
               );
@@ -90,12 +82,11 @@ const BurgerIngredients = () => {
             <h2 id="three" className={`${styles.ingredientTitle} mt-10 mb-6`}>
               Начинки
             </h2>
-            {mains.map((obj: TIngredient) => {
+            {mains.map((obj) => {
               return (
                 <Ingredient
                   key={obj._id}
                   ingredient={obj}
-                  //@ts-ignore
                   count={countItem(obj._id, allIngredients)}
                 />
               );

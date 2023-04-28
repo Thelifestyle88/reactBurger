@@ -1,12 +1,13 @@
+import { Dispatch } from 'redux';
 import { sendOrder } from '../../utils/api';
 
-export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
-export const GET_ORDER_SUCCEED = 'GET_ORDER_SUCCEED';
-export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
-export const DELETE_ORDER_DETAILS = 'DELETE_ORDER_DETAILS';
+export const GET_ORDER_REQUEST: 'GET_ORDER_REQUEST' = 'GET_ORDER_REQUEST';
+export const GET_ORDER_SUCCEED: 'GET_ORDER_SUCCEED' = 'GET_ORDER_SUCCEED';
+export const GET_ORDER_FAILED: 'GET_ORDER_FAILED' = 'GET_ORDER_FAILED';
+export const DELETE_ORDER_DETAILS: 'DELETE_ORDER_DETAILS' = 'DELETE_ORDER_DETAILS';
 
-export function getOrderDetails(ingredients) {
-  return function (dispatch) {
+export function getOrderDetails(ingredients:(string | undefined)[]) {
+  return function (dispatch: Dispatch) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });

@@ -1,4 +1,4 @@
-import { TUser } from "./typesData";
+import { TProfile, TUser } from "./typesData";
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
 function checkResponse(res:Response) {
@@ -67,8 +67,7 @@ export function resetPassword(email:string) {
   }).then(checkResponse);
 }
 
-
-export function authorization(profile: TUser & {password:string}) {
+export function authorization(profile: TProfile) {
   return fetch(`${baseUrl}/auth/login`, {
     method: 'POST',
     headers: {

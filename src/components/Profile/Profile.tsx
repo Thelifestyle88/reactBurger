@@ -93,7 +93,7 @@ export function Profile() {
             onClick={(e) => {
               e.preventDefault();
               //@ts-ignore
-              dispatch(changeProfileInformation(login, email));
+              dispatch(changeProfile(login, email));
             }}
             htmlType="submit"
             type="primary"

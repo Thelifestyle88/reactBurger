@@ -5,16 +5,16 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import Modal from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
-import { useDispatch, useSelector } from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { deleteIngredientDetails } from '../../services/actions/getIngredientDetails';
 import { deleteOrderDetails } from '../../services/actions/getOrderDetails';
 import styles from './styles/main.module.css';
+import { useAppDispatch, useAppSelector } from '../../index';
 
 function MainPage() {
-  const dispatch = useDispatch();
-  const selectedItem = useSelector((store: any) => store.ingredientDetailsReducer.ingredient);
-  const order = useSelector((store: any) => store.orderDetailsReducer.orderDetails);
+  const dispatch = useAppDispatch();
+  const selectedItem = useAppSelector((store) => store.ingredientDetailsReducer.ingredient);
+  const order = useAppSelector((store) => store.orderDetailsReducer.orderDetails);
   return (
     <>
       <AppHeader />
@@ -31,7 +31,7 @@ function MainPage() {
           children={<IngredientDetails />}
         />
       )}
-      {Boolean(order) && (
+      {order && (
         <Modal
           name={order.name}
           onClose={() => {

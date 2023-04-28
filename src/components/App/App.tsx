@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { getBurgerIngredients } from '../../services/actions/getBurgerIngredients';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Registration } from '../Registration/Registration';
@@ -14,18 +13,16 @@ import MainPage from '../MainPage/MainPage';
 import Modal from '../Modal/Modal';
 import { deleteIngredientDetails } from '../../services/actions/getIngredientDetails';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import { useAppDispatch, useAppSelector } from '../../index';
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const background = location.state && location.state.background;
-  const { burgerIngredientRequest } = useSelector((store: any) => store.burgerIngredientReducer);
+  const { burgerIngredientRequest } = useAppSelector((store) => store.burgerIngredientReducer);
   useEffect(() => {
-    //@ts-ignore
     dispatch(getBurgerIngredients());
-    //@ts-ignore
     dispatch(checkUserAuth());
-    //@ts-ignore
     dispatch(getInformation());
   }, []);
 

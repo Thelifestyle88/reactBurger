@@ -6,8 +6,18 @@ import {
 } from '../actions/getProfile';
 
 import { AUTHORIZATION_SUCCEED } from '../actions/logInOutProfile';
+import { PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
+interface IProfileInformationState {
+  profileData: null | object,
+  profileInformationRequest: boolean,
+  profileInformationFailed: boolean,
+  isAithorizationSucceed: boolean,
+  getProfileSucceed: boolean,
+}
+
+
+const initialState:IProfileInformationState = {
   profileData: null,
   profileInformationRequest: false,
   profileInformationFailed: false,
@@ -15,7 +25,7 @@ const initialState = {
   getProfileSucceed: false,
 };
 
-export function profileInformationReducer(state = initialState, action) {
+export function profileInformationReducer(state = initialState, action: PayloadAction<object>) {
   switch (action.type) {
     case GET_PROFILE_INFORMATION_REQUEST: {
       return {
@@ -28,7 +38,7 @@ export function profileInformationReducer(state = initialState, action) {
     case GET_PROFILE_INFORMATION_SUCCEED: {
       return {
         ...state,
-        profileData: action.profileData,
+        profileData: action.payload,
         profileInformationRequest: false,
         profileInformationFailed: false,
         getProfileSucceed: true,
@@ -37,7 +47,7 @@ export function profileInformationReducer(state = initialState, action) {
     case CHANGE_PROFILE_INFORMATION_SUCCEED: {
       return {
         ...state,
-        profileData: action.profileData,
+        profileData: action.payload,
         profileInformationRequest: false,
         profileInformationFailed: false,
         getProfileSucceed: true,
@@ -47,7 +57,7 @@ export function profileInformationReducer(state = initialState, action) {
     case AUTHORIZATION_SUCCEED: {
       return {
         ...state,
-        profileData: action.profileData,
+        profileData: action.payload,
         profileInformationRequest: false,
         profileInformationFailed: false,
         isAithorizationSucceed: true,

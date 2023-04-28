@@ -4,15 +4,23 @@ import {
   AUTHORIZATION_FAILED,
   AUTHORIZATION_LOGOUT,
 } from '../actions/logInOutProfile';
+import { PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
+interface IAuthorizationState {
+  profileData: null | object,
+  authorizationRequest: boolean,
+  authorizationFailed: boolean,
+  isAithorizationSucceed: boolean,
+}
+
+const initialState: IAuthorizationState = {
   profileData: null,
   authorizationRequest: false,
   authorizationFailed: false,
   isAithorizationSucceed: false,
 };
 
-export function authorizationReducer(state = initialState, action) {
+export function authorizationReducer(state = initialState, action: PayloadAction<object>) {
   switch (action.type) {
     case AUTHORIZATION_REQUEST: {
       return {
@@ -25,7 +33,7 @@ export function authorizationReducer(state = initialState, action) {
     case AUTHORIZATION_SUCCEED: {
       return {
         ...state,
-        profileData: action.profileData,
+        profileData: action.payload,
         authorizationRequest: false,
         authorizationFailed: false,
         isAithorizationSucceed: true,

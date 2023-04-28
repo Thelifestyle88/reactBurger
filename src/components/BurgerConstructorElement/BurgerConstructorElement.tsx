@@ -1,28 +1,25 @@
-import { useDrop, useDrag, XYCoord } from 'react-dnd';
-import { useDispatch, useSelector } from 'react-redux';
-import { FC, ReactNode, useRef } from 'react';
+import { useDrop, useDrag } from 'react-dnd';
+import { ReactNode, useRef } from 'react';
 import { SORT_CONSTRUCTOR } from '../../services/actions/getBurgerConstructor';
+import { useAppDispatch, useAppSelector } from '../../index';
+import { TIngredient } from '../../utils/typesData';
 
 interface TBurgerConstructorElementProps {
-  obj: TObj;
+  obj: TIngredient;
   children: ReactNode;
   index: number;
 }
-
-type TObj = {
-  constructorId: number;
-};
 
 export const BurgerConstructorElement = ({
   obj,
   children,
   index,
 }: TBurgerConstructorElementProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const ref = useRef(null);
-  const elementIndex = useSelector((store: any) =>
+  const elementIndex = useAppSelector((store) =>
     store.burgerConstructorReducer.burgerConstructorData.findIndex(
-      (item: any) => item.constructorId === obj.constructorId,
+      (item) => item.constructorId === obj.constructorId,
     ),
   );
   const [{ handlerId }, drop] = useDrop({
@@ -36,17 +33,14 @@ export const BurgerConstructorElement = ({
       if (!ref.current) {
         return;
       }
-      //@ts-ignore
       const dragIndex = item.elementIndex;
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
       }
-      //@ts-ignore
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      //@ts-ignore
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -61,7 +55,6 @@ export const BurgerConstructorElement = ({
           toIndex: hoverIndex,
         },
       });
-      //@ts-ignore
       item.elementIndex = hoverIndex;
     },
   });

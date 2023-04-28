@@ -1,13 +1,15 @@
+import { Dispatch } from 'redux';
 import { getProfileInformation, changeProfileInformation } from '../../utils/api';
+import { TUser } from '../../utils/typesData';
 
-export const GET_PROFILE_INFORMATION_REQUEST = 'GET_PROFILE_INFORMATION_REQUEST';
-export const GET_PROFILE_INFORMATION_SUCCEED = 'GET_PROFILE_INFORMATION_SUCCEED';
-export const GET_PROFILE_INFORMATION_FAILED = 'GET_PROFILE_INFORMATION_FAILED';
-export const AUTHORIZATION_SUCCEED = 'AUTHORIZATION_SUCCEED';
-export const CHANGE_PROFILE_INFORMATION_SUCCEED = 'CHANGE_PROFILE_INFORMATION_SUCCEED';
+export const GET_PROFILE_INFORMATION_REQUEST: 'GET_PROFILE_INFORMATION_REQUEST' = 'GET_PROFILE_INFORMATION_REQUEST';
+export const GET_PROFILE_INFORMATION_SUCCEED: 'GET_PROFILE_INFORMATION_SUCCEED' = 'GET_PROFILE_INFORMATION_SUCCEED';
+export const GET_PROFILE_INFORMATION_FAILED: 'GET_PROFILE_INFORMATION_FAILED' = 'GET_PROFILE_INFORMATION_FAILED';
+export const AUTHORIZATION_SUCCEED: 'AUTHORIZATION_SUCCEED' = 'AUTHORIZATION_SUCCEED';
+export const CHANGE_PROFILE_INFORMATION_SUCCEED: 'CHANGE_PROFILE_INFORMATION_SUCCEED' = 'CHANGE_PROFILE_INFORMATION_SUCCEED';
 
 export function getInformation() {
-  return function (dispatch) {
+  return function (dispatch:Dispatch<any>) {
     dispatch({
       type: GET_PROFILE_INFORMATION_REQUEST,
     });
@@ -28,7 +30,7 @@ export function getInformation() {
   };
 }
 
-export const checkUserAuth = () => (dispatch) => {
+export const checkUserAuth = () => (dispatch:Dispatch<any>) => {
   if (localStorage.getItem('accessToken')) {
     getProfileInformation().finally(() => {
       dispatch({ type: AUTHORIZATION_SUCCEED });
@@ -38,13 +40,13 @@ export const checkUserAuth = () => (dispatch) => {
   }
 };
 
-export function changeProfile() {
-  return function (dispatch) {
+export function changeProfile(name:TUser, post: TUser) {
+  return function (dispatch:Dispatch<any>) {
     dispatch({
       type: GET_PROFILE_INFORMATION_REQUEST,
     });
-    changeProfileInformation()
-      .then((res) => {
+    changeProfileInformation(name, post)
+      .then((res:TUser) => {
         if (res && res.success) {
           dispatch({
             type: CHANGE_PROFILE_INFORMATION_SUCCEED,
