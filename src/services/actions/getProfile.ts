@@ -9,7 +9,7 @@ export const AUTHORIZATION_SUCCEED: 'AUTHORIZATION_SUCCEED' = 'AUTHORIZATION_SUC
 export const CHANGE_PROFILE_INFORMATION_SUCCEED: 'CHANGE_PROFILE_INFORMATION_SUCCEED' = 'CHANGE_PROFILE_INFORMATION_SUCCEED';
 
 export function getInformation() {
-  return function (dispatch:Dispatch<any>) {
+  return function (dispatch:Dispatch) {
     dispatch({
       type: GET_PROFILE_INFORMATION_REQUEST,
     });
@@ -18,7 +18,7 @@ export function getInformation() {
         if (res && res.success) {
           dispatch({
             type: GET_PROFILE_INFORMATION_SUCCEED,
-            profileData: res.user,
+            payload: res.user,
           });
         } else {
           dispatch({
@@ -30,7 +30,7 @@ export function getInformation() {
   };
 }
 
-export const checkUserAuth = () => (dispatch:Dispatch<any>) => {
+export const checkUserAuth = () => (dispatch:Dispatch) => {
   if (localStorage.getItem('accessToken')) {
     getProfileInformation().finally(() => {
       dispatch({ type: AUTHORIZATION_SUCCEED });
@@ -41,7 +41,7 @@ export const checkUserAuth = () => (dispatch:Dispatch<any>) => {
 };
 
 export function changeProfile(name:TUser, post: TUser) {
-  return function (dispatch:Dispatch<any>) {
+  return function (dispatch:Dispatch) {
     dispatch({
       type: GET_PROFILE_INFORMATION_REQUEST,
     });

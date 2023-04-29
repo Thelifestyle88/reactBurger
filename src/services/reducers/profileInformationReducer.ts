@@ -1,3 +1,4 @@
+import { TUser } from '../../utils/typesData';
 import {
   GET_PROFILE_INFORMATION_REQUEST,
   GET_PROFILE_INFORMATION_SUCCEED,
@@ -9,7 +10,7 @@ import { AUTHORIZATION_SUCCEED } from '../actions/logInOutProfile';
 import { PayloadAction } from '@reduxjs/toolkit'
 
 interface IProfileInformationState {
-  profileData: null | object,
+  profileData: null | TUser,
   profileInformationRequest: boolean,
   profileInformationFailed: boolean,
   isAithorizationSucceed: boolean,
@@ -25,7 +26,7 @@ const initialState:IProfileInformationState = {
   getProfileSucceed: false,
 };
 
-export function profileInformationReducer(state = initialState, action: PayloadAction<object>) {
+export function profileInformationReducer(state = initialState, action: PayloadAction<TUser>) {
   switch (action.type) {
     case GET_PROFILE_INFORMATION_REQUEST: {
       return {

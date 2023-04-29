@@ -6,6 +6,7 @@ import { useAppSelector } from '../../index';
 function IngredientPage() {
   const ingredientId = useParams();
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
+  //@ts-ignore
   const ingredient = ingredients.find((item) => item._id === String(ingredientId.id));
   return (
     <>

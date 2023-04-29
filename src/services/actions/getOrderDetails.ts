@@ -16,7 +16,7 @@ export function getOrderDetails(ingredients:(string | undefined)[]) {
         if (res && res.success) {
           dispatch({
             type: GET_ORDER_SUCCEED,
-            orderDetails: res,
+            payload: res,
           });
         } else {
           dispatch({

@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { TIngredient } from '../../utils/typesData';
 import { useAppDispatch, useAppSelector } from '../../index';
 
-const BurgerConstructor: FC = () => {
+const BurgerConstructor = () => {
   const user = useAppSelector((store) => store.profileInformationReducer.profileData);
   const ingredient = useAppSelector(
     (store) => store.burgerConstructorReducer.burgerConstructorData,

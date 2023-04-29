@@ -14,7 +14,6 @@ function checkResponse(res:Response) {
 export function getIngredients() {
   return fetch(`${baseUrl}/ingredients`).then(checkResponse);
 }
-
 const baseHeader = {
   'Content-Type': 'application/json'
 }
@@ -41,7 +40,7 @@ export function sendOrder<TResponseOrder>(ingredients: TResponseOrder) {
 }
 
 
-export function createUser(user: TUser & {password:string}) {
+export function createUser(user: Omit<TUser, 'success'| 'user'>) {
   return fetch(`${baseUrl}/auth/register`, {
     method: 'POST',
     headers: {

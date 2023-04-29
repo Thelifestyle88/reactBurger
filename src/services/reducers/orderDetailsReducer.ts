@@ -1,4 +1,4 @@
-import { TIngredient } from '../../utils/typesData';
+import { TIngredient, TOrder } from '../../utils/typesData';
 import {
   GET_ORDER_FAILED,
   GET_ORDER_REQUEST,
@@ -8,7 +8,7 @@ import {
 import { PayloadAction } from '@reduxjs/toolkit'
 
 interface IOrderDetailsState {
-  orderDetails: object | null
+  orderDetails: TOrder | null
   orderDetailsRequest: boolean,
   orderDetailsFailed: boolean,
   isPageOnLoad: boolean,
@@ -21,7 +21,7 @@ const initialState: IOrderDetailsState = {
   isPageOnLoad: false,
 };
 
-export function orderDetailsReducer(state = initialState, action: PayloadAction<object>) {
+export function orderDetailsReducer(state = initialState, action: PayloadAction<TOrder>) {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {

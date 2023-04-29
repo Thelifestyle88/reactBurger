@@ -1,4 +1,4 @@
-import { useDrop, useDrag } from 'react-dnd';
+import { useDrop, useDrag, DropTargetMonitor } from 'react-dnd';
 import { ReactNode, useRef } from 'react';
 import { SORT_CONSTRUCTOR } from '../../services/actions/getBurgerConstructor';
 import { useAppDispatch, useAppSelector } from '../../index';
@@ -16,9 +16,11 @@ export const BurgerConstructorElement = ({
   index,
 }: TBurgerConstructorElementProps) => {
   const dispatch = useAppDispatch();
-  const ref = useRef(null);
+  const ref: React.MutableRefObject<any> = useRef(null);
   const elementIndex = useAppSelector((store) =>
+    //@ts-ignore
     store.burgerConstructorReducer.burgerConstructorData.findIndex(
+      //@ts-ignore
       (item) => item.constructorId === obj.constructorId,
     ),
   );
@@ -29,7 +31,7 @@ export const BurgerConstructorElement = ({
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: any, monitor: DropTargetMonitor) {
       if (!ref.current) {
         return;
       }
@@ -38,9 +40,10 @@ export const BurgerConstructorElement = ({
       if (dragIndex === hoverIndex) {
         return;
       }
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverBoundingRect: DOMRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
+      //@ts-ignore
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;

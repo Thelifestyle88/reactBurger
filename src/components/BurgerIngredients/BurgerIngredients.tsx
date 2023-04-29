@@ -4,17 +4,20 @@ import styles from '../BurgerIngredients/styles/styles.module.css';
 import { useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAppSelector } from '../../index';
+import { TIngredient } from '../../utils/typesData';
 
 const BurgerIngredients = () => {
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const burgerConstructorELements = useAppSelector(
+    //@ts-ignore
     (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
+  //@ts-ignore
   const burgerConstructorBuns = useAppSelector((store) => store.burgerConstructorReducer.buns);
 
-  const buns = ingredients.filter((item) => item.type === 'bun');
-  const sauce = ingredients.filter((item) => item.type === 'sauce');
-  const mains = ingredients.filter((item) => item.type === 'main');
+  const buns = ingredients.filter((item: TIngredient) => item.type === 'bun');
+  const sauce = ingredients.filter((item: TIngredient) => item.type === 'sauce');
+  const mains = ingredients.filter((item: TIngredient) => item.type === 'main');
 
   let allIngredients = useMemo(() => {
     if (burgerConstructorBuns) {
@@ -54,7 +57,7 @@ const BurgerIngredients = () => {
             <h2 id="one" className={`${styles.ingredientTitle} mt-10 mb-6`}>
               Булки
             </h2>
-            {buns.map((obj) => {
+            {buns.map((obj: TIngredient) => {
               return (
                 <Ingredient
                   key={obj._id}
@@ -68,7 +71,7 @@ const BurgerIngredients = () => {
             <h2 id="two" className={`${styles.ingredientTitle} mt-10 mb-6`}>
               Соусы
             </h2>
-            {sauce.map((obj) => {
+            {sauce.map((obj: TIngredient) => {
               return (
                 <Ingredient
                   key={obj._id}
@@ -82,7 +85,7 @@ const BurgerIngredients = () => {
             <h2 id="three" className={`${styles.ingredientTitle} mt-10 mb-6`}>
               Начинки
             </h2>
-            {mains.map((obj) => {
+            {mains.map((obj: TIngredient) => {
               return (
                 <Ingredient
                   key={obj._id}

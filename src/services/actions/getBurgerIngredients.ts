@@ -17,7 +17,7 @@ export function getBurgerIngredients() {
         if (res && res.success) {
           dispatch({
             type: GET_BURGER_INGREDIENTS_SUCCEED,
-            burgerIngredientData: res.data,
+            payload: res.data,
           });
         } else {
           dispatch({

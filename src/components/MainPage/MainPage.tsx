@@ -37,6 +37,7 @@ function MainPage() {
           onClose={() => {
             dispatch(deleteOrderDetails());
           }}
+          //@ts-ignore
           children={<OrderDetails order={order} />}
         />
       )}
