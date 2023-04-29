@@ -1,17 +1,17 @@
-import AppHeader from '../AppHeader/AppHeader';
+import AppHeader from '../../AppHeader/AppHeader';
 import React from 'react';
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './styles/registration.module.css';
+import styles from './styles/login.module.css';
 import { Link } from 'react-router-dom';
-import { createUser } from '../../utils/api';
+import { logInProfile } from '../../../services/actions/logInOutProfile';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { useAppDispatch } from '../../../index';
 
-export function Registration() {
-  const [name, setName] = React.useState('');
-  const inputName = React.useRef(null);
+export function Login() {
+  const dispatch = useAppDispatch();
   const [password, setPassword] = React.useState('');
-  const inputRef = React.useRef(null);
   const [email, setEmail] = React.useState('');
   const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -19,21 +19,9 @@ export function Registration() {
   return (
     <>
       <AppHeader />
-      <div className={styles.registrationWrapper}>
-        <h1>Регистрация</h1>
-        <form className={styles.registrationForm}>
-          <Input
-            type={'text'}
-            placeholder={'Имя'}
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-            name={'name'}
-            error={false}
-            ref={inputName}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass="ml-1"
-          />
+      <div className={styles.loginWrapper}>
+        <h1>Вход</h1>
+        <form className={styles.loginForm}>
           <EmailInput onChange={onChange} value={email} name={'email'} isIcon={false} />
           <Input
             type={'password'}
@@ -43,22 +31,31 @@ export function Registration() {
             icon={'ShowIcon'}
             name={'name'}
             error={false}
-            ref={inputRef}
             errorText={'Ошибка'}
             size={'default'}
             extraClass="ml-1"
           />
           <Button
             htmlType="submit"
+            extraClass={styles.button}
             onClick={(e) => {
               e.preventDefault();
-              createUser({ email, password, name });
+              dispatch(logInProfile({ email, password }));
             }}>
-            Зарегестрироваться
+            Войти
           </Button>
         </form>
         <p>
-          Уже зарегестрированы? <Link to="/login">Войти</Link>
+          Вы новый пользователь?
+          <ProtectedRoute onlyUnAuth={true}>
+            <Link to="/registration">Зарегестрироваться</Link>
+          </ProtectedRoute>
+        </p>
+        <p>
+          Забыли пароль?
+          <ProtectedRoute onlyUnAuth={true}>
+            <Link to="/password">Восстановить пароль</Link>
+          </ProtectedRoute>
         </p>
       </div>
     </>

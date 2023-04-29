@@ -7,8 +7,6 @@ export const AUTHORIZATION_SUCCEED: 'AUTHORIZATION_SUCCEED' = 'AUTHORIZATION_SUC
 export const AUTHORIZATION_FAILED: 'AUTHORIZATION_FAILED' = 'AUTHORIZATION_FAILED';
 export const AUTHORIZATION_LOGOUT: 'AUTHORIZATION_LOGOUT' = 'AUTHORIZATION_LOGOUT';
 
-
-
 export function logInProfile(profile: TProfile) {
   return function (dispatch: Dispatch) {
     dispatch({
@@ -21,7 +19,7 @@ export function logInProfile(profile: TProfile) {
           localStorage.setItem('accessToken', res.accessToken);
           dispatch({
             type: AUTHORIZATION_SUCCEED,
-            profileData: res.user,
+            payload: res.user,
           });
         } else {
           dispatch({
@@ -45,7 +43,7 @@ export function logOutProfile() {
           localStorage.removeItem('accessToken');
           dispatch({
             type: AUTHORIZATION_LOGOUT,
-            profileData: null,
+            payload: null,
           });
         } else {
           dispatch({

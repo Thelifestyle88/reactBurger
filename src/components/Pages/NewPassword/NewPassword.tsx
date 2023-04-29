@@ -1,4 +1,4 @@
-import AppHeader from '../AppHeader/AppHeader';
+import AppHeader from '../../AppHeader/AppHeader';
 import React from 'react';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';

@@ -1,17 +1,17 @@
-import AppHeader from '../AppHeader/AppHeader';
+import AppHeader from '../../AppHeader/AppHeader';
 import React from 'react';
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './styles/login.module.css';
+import styles from './styles/registration.module.css';
 import { Link } from 'react-router-dom';
-import { logInProfile } from '../../services/actions/logInOutProfile';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { useAppDispatch } from '../../index';
+import { createUser } from '../../../utils/api';
 
-export function Login() {
-  const dispatch = useAppDispatch();
+export function Registration() {
+  const [name, setName] = React.useState('');
+  const inputName = React.useRef(null);
   const [password, setPassword] = React.useState('');
+  const inputRef = React.useRef(null);
   const [email, setEmail] = React.useState('');
   const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -19,9 +19,21 @@ export function Login() {
   return (
     <>
       <AppHeader />
-      <div className={styles.loginWrapper}>
-        <h1>Вход</h1>
-        <form className={styles.loginForm}>
+      <div className={styles.registrationWrapper}>
+        <h1>Регистрация</h1>
+        <form className={styles.registrationForm}>
+          <Input
+            type={'text'}
+            placeholder={'Имя'}
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            name={'name'}
+            error={false}
+            ref={inputName}
+            errorText={'Ошибка'}
+            size={'default'}
+            extraClass="ml-1"
+          />
           <EmailInput onChange={onChange} value={email} name={'email'} isIcon={false} />
           <Input
             type={'password'}
@@ -31,31 +43,22 @@ export function Login() {
             icon={'ShowIcon'}
             name={'name'}
             error={false}
+            ref={inputRef}
             errorText={'Ошибка'}
             size={'default'}
             extraClass="ml-1"
           />
           <Button
             htmlType="submit"
-            extraClass={styles.button}
             onClick={(e) => {
               e.preventDefault();
-              dispatch(logInProfile({ email, password }));
+              createUser({ email, password, name });
             }}>
-            Войти
+            Зарегестрироваться
           </Button>
         </form>
         <p>
-          Вы новый пользователь?
-          <ProtectedRoute onlyUnAuth={true}>
-            <Link to="/registration">Зарегестрироваться</Link>
-          </ProtectedRoute>
-        </p>
-        <p>
-          Забыли пароль?
-          <ProtectedRoute onlyUnAuth={true}>
-            <Link to="/password">Восстановить пароль</Link>
-          </ProtectedRoute>
+          Уже зарегестрированы? <Link to="/login">Войти</Link>
         </p>
       </div>
     </>

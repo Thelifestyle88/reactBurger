@@ -1,15 +1,15 @@
-import AppHeader from '../AppHeader/AppHeader';
+import AppHeader from '../../AppHeader/AppHeader';
 import { DndProvider } from 'react-dnd';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
-import Modal from '../Modal/Modal';
-import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
-import { OrderDetails } from '../OrderDetails/OrderDetails';
+import BurgerIngredients from '../../BurgerIngredients/BurgerIngredients';
+import BurgerConstructor from '../../BurgerConstructor/BurgerConstructor';
+import Modal from '../../Modal/Modal';
+import { IngredientDetails } from '../../IngredientDetails/IngredientDetails';
+import { OrderDetails } from '../../OrderDetails/OrderDetails';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { deleteIngredientDetails } from '../../services/actions/getIngredientDetails';
-import { deleteOrderDetails } from '../../services/actions/getOrderDetails';
+import { deleteIngredientDetails } from '../../../services/actions/getIngredientDetails';
+import { deleteOrderDetails } from '../../../services/actions/getOrderDetails';
 import styles from './styles/main.module.css';
-import { useAppDispatch, useAppSelector } from '../../index';
+import { useAppDispatch, useAppSelector } from '../../../index';
 
 function MainPage() {
   const dispatch = useAppDispatch();

@@ -1,25 +1,24 @@
-import { useDispatch as dispatchHook, useSelector as selectorHook, useSelector } from 'react-redux';
 import { useState } from 'react';
-import AppHeader from '../AppHeader/AppHeader';
+import AppHeader from '../../AppHeader/AppHeader';
 import styles from './styles/profile.module.css';
 import { Input, EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { changeProfileInformation } from '../../utils/api';
-import { Link, useNavigate } from 'react-router-dom';
-import { logOutProfile } from '../../services/actions/logInOutProfile';
+import { changeProfile } from '../../../services/actions/getProfile';
+import { Link } from 'react-router-dom';
+import { logOutProfile } from '../../../services/actions/logInOutProfile';
+import { useAppDispatch, useAppSelector } from '../../..';
 
 export function Profile() {
-  const dispatch = dispatchHook();
-  const navigate = useNavigate();
-  const profileInformationRequest = useSelector(
-    (store: any) => store.profileInformationReducer.profileInformationRequest,
+  const dispatch = useAppDispatch();
+  const profileInformationRequest = useAppSelector(
+    (store) => store.profileInformationReducer.profileInformationRequest,
   );
-  const user = useSelector((store: any) => store.profileInformationReducer.profileData);
 
-  const [login, setName] = useState(user.name);
+  const user = useAppSelector((store) => store.profileInformationReducer.profileData);
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
   const changeName = (e: React.FocusEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
-  const [email, setEmail] = useState(user.email);
   const changeEmail = (e: React.FocusEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -48,9 +47,7 @@ export function Profile() {
               <Link
                 to={'/'}
                 onClick={() => {
-                  //@ts-ignore
                   dispatch(logOutProfile());
-                  navigate('/');
                 }}
                 className={styles.profileLink}>
                 Выход
@@ -65,7 +62,7 @@ export function Profile() {
         <form className={styles.profileInputWrapper}>
           <Input
             onChange={changeName}
-            value={login}
+            value={name}
             icon={'EditIcon'}
             name={'email'}
             placeholder="Имя"
@@ -92,8 +89,7 @@ export function Profile() {
           <Button
             onClick={(e) => {
               e.preventDefault();
-              //@ts-ignore
-              dispatch(changeProfile(login, email));
+              dispatch(changeProfile({ name, email }));
             }}
             htmlType="submit"
             type="primary"

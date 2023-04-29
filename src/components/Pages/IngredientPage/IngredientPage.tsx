@@ -1,7 +1,7 @@
-import AppHeader from '../AppHeader/AppHeader';
+import AppHeader from '../../AppHeader/AppHeader';
 import { useParams } from 'react-router-dom';
 import styles from './styles/styles.module.css';
-import { useAppSelector } from '../../index';
+import { useAppSelector } from '../../../index';
 
 function IngredientPage() {
   const ingredientId = useParams();

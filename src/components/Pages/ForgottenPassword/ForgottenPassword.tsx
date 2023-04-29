@@ -1,10 +1,10 @@
-import AppHeader from '../AppHeader/AppHeader';
+import AppHeader from '../../AppHeader/AppHeader';
 import React from 'react';
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/password.module.css';
 import { Link } from 'react-router-dom';
-import { resetPassword } from '../../utils/api';
+import { resetPassword } from '../../../utils/api';
 import { useNavigate } from 'react-router-dom';
 
 export function ForgottenPassword() {

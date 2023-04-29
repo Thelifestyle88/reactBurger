@@ -1,16 +1,16 @@
-import { TUser } from '../../utils/typesData';
+import { IUser } from '../../utils/typesData';
 import {
   GET_PROFILE_INFORMATION_REQUEST,
   GET_PROFILE_INFORMATION_SUCCEED,
   GET_PROFILE_INFORMATION_FAILED,
   CHANGE_PROFILE_INFORMATION_SUCCEED,
+  TProfileActions,
 } from '../actions/getProfile';
 
-import { AUTHORIZATION_SUCCEED } from '../actions/logInOutProfile';
-import { PayloadAction } from '@reduxjs/toolkit'
+import { AUTHORIZATION_SUCCEED, AUTHORIZATION_LOGOUT } from '../actions/logInOutProfile';
 
 interface IProfileInformationState {
-  profileData: null | TUser,
+  profileData: null | IUser,
   profileInformationRequest: boolean,
   profileInformationFailed: boolean,
   isAuthorizationSucceed: boolean,
@@ -26,7 +26,7 @@ const initialState:IProfileInformationState = {
   getProfileSucceed: false,
 };
 
-export function profileInformationReducer(state = initialState, action: PayloadAction<TUser>) {
+export function profileInformationReducer(state = initialState, action: TProfileActions)  {
   switch (action.type) {
     case GET_PROFILE_INFORMATION_REQUEST: {
       return {
@@ -68,6 +68,15 @@ export function profileInformationReducer(state = initialState, action: PayloadA
     case GET_PROFILE_INFORMATION_FAILED: {
       return {
         ...state,
+        isAuthorizationSucceed: false,
+        profileInformationFailed: true,
+        profileInformationRequest: false,
+      };
+    }
+    case AUTHORIZATION_LOGOUT: {
+      return {
+        ...state,
+        profileData: action.payload,
         isAuthorizationSucceed: false,
         profileInformationFailed: true,
         profileInformationRequest: false,

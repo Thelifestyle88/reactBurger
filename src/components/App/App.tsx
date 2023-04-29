@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { getBurgerIngredients } from '../../services/actions/getBurgerIngredients';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { Registration } from '../Registration/Registration';
-import { Login } from '../Login/Login';
-import { ForgottenPassword } from '../ForgottenPassword/ForgottenPassword';
-import { NewPassword } from '../NewPassword/NewPassword';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { Profile } from '../Profile/Profile';
+import { Routes, Route, useLocation, Location } from 'react-router-dom';
+import { Registration } from '../Pages/Registration/Registration';
+import { Login } from '../Pages/Login/Login';
+import { ForgottenPassword } from '../Pages/ForgottenPassword/ForgottenPassword';
+import { NewPassword } from '../Pages/NewPassword/NewPassword';
+import ProtectedRoute from '../Pages/ProtectedRoute/ProtectedRoute';
+import { Profile } from '../Pages/Profile/Profile';
 import { checkUserAuth, getInformation } from '../../services/actions/getProfile';
-import IngredientPage from '../IngredientPage/IngredientPage';
-import MainPage from '../MainPage/MainPage';
+import IngredientPage from '../Pages/IngredientPage/IngredientPage';
+import MainPage from '../Pages/MainPage/MainPage';
 import Modal from '../Modal/Modal';
 import { deleteIngredientDetails } from '../../services/actions/getIngredientDetails';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from '../../index';
 
 function App() {
   const dispatch = useAppDispatch();
-  const location = useLocation();
+  const location: Location = useLocation();
   const background = location.state && location.state.background;
   const { burgerIngredientRequest } = useAppSelector((store) => store.burgerIngredientReducer);
   useEffect(() => {
@@ -48,7 +48,7 @@ function App() {
         <Route
           path="/profile"
           element={
-            <ProtectedRoute onlyUnAuth={false}>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }

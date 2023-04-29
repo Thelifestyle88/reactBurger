@@ -1,4 +1,4 @@
-import { TProfile, TUser } from "./typesData";
+import { IUser, TProfile, TUser } from "./typesData";
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
 function checkResponse(res:Response) {
@@ -98,13 +98,13 @@ export function resetToken() {
   }).then(checkResponse);
 }
 
-export function changeProfileInformation(name: TUser, post: TUser): Promise<TUser> {
+export function changeProfileInformation({name, email}: IUser) {
   return fetch(`${baseUrl}/auth/user`, {
     method: 'PATCH',
     headers: injectBearerToken(baseHeader),
     body: JSON.stringify({
       name: name,
-      email: post,
+      email: email,
     }),
   }).then(checkResponse);
 }
