@@ -24,7 +24,7 @@ function App() {
     dispatch(getBurgerIngredients());
     dispatch(checkUserAuth());
     dispatch(getInformation());
-  }, []);
+  }, [dispatch]);
 
   if (burgerIngredientRequest) {
     return <p>Загрузка</p>;

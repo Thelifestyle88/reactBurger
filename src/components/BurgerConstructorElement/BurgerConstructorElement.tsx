@@ -3,16 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FC, ReactNode, useRef } from 'react';
 import { SORT_CONSTRUCTOR } from '../../services/actions/getBurgerConstructor';
 import { useAppDispatch, useAppSelector } from '../../index';
+import { TIngredient } from '../../utils/typesData';
 
 interface TBurgerConstructorElementProps {
-  obj: TObj;
+  obj: TIngredient;
   children: ReactNode;
   index: number;
 }
-
-type TObj = {
-  constructorId: number;
-};
 
 export const BurgerConstructorElement = ({
   obj,
@@ -22,9 +19,8 @@ export const BurgerConstructorElement = ({
   const dispatch = useAppDispatch();
   const ref = useRef(null);
   const elementIndex = useAppSelector((store) =>
-    //@ts-ignore
     store.burgerConstructorReducer.burgerConstructorData.findIndex(
-      (item: any) => item.constructorId === obj.constructorId,
+      (item) => item.constructorId === obj.constructorId,
     ),
   );
   const [{ handlerId }, drop] = useDrop({

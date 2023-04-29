@@ -9,10 +9,8 @@ import { TIngredient } from '../../utils/typesData';
 const BurgerIngredients = () => {
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const burgerConstructorELements = useAppSelector(
-    //@ts-ignore
     (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
-  //@ts-ignore
   const burgerConstructorBuns = useAppSelector((store) => store.burgerConstructorReducer.buns);
 
   const buns = ingredients.filter((item: TIngredient) => item.type === 'bun');
@@ -28,9 +26,7 @@ const BurgerIngredients = () => {
       ];
       return allIngredients.map((obj) => obj._id);
     }
-  }, []);
-
-  console.log(allIngredients);
+  }, [burgerConstructorBuns, burgerConstructorELements]);
 
   function countItem(objId: string, allIngredients: Array<string> | undefined) {
     if (allIngredients) {

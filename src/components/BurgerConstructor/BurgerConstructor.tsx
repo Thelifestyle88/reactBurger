@@ -16,11 +16,9 @@ import { useAppDispatch, useAppSelector } from '../../index';
 const BurgerConstructor = () => {
   const user = useAppSelector((store) => store.profileInformationReducer.profileData);
   const ingredient = useAppSelector(
-    //@ts-ignore
     (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
   const navigate = useNavigate();
-  //@ts-ignore
   const bun = useAppSelector((store) => store.burgerConstructorReducer.buns);
   const dispatch = useAppDispatch();
   const isIngredientExist = ingredient.length > 0;
@@ -35,7 +33,7 @@ const BurgerConstructor = () => {
     } else {
       return 0;
     }
-  }, []);
+  }, [bun, ingredient]);
 
   const [, drop] = useDrop({
     accept: 'NEW_INGREDIENT',
@@ -59,29 +57,26 @@ const BurgerConstructor = () => {
       )}
       {isIngredientExist && (
         <div className={burgerConstructor.mainCourses}>
-          {
-            //@ts-ignore
-            ingredient.map((obj, index: number) => {
-              return (
-                <BurgerConstructorElement index={index} key={obj.constructorId} obj={obj}>
-                  <div>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                      handleClose={() => {
-                        dispatch({
-                          type: DELETE_POSITION,
-                          payload: index,
-                        });
-                      }}
-                      thumbnail={obj.image}
-                      text={obj.name}
-                      price={obj.price}
-                    />
-                  </div>
-                </BurgerConstructorElement>
-              );
-            })
-          }
+          {ingredient.map((obj, index: number) => {
+            return (
+              <BurgerConstructorElement index={index} key={obj.constructorId} obj={obj}>
+                <div>
+                  <DragIcon type="primary" />
+                  <ConstructorElement
+                    handleClose={() => {
+                      dispatch({
+                        type: DELETE_POSITION,
+                        payload: index,
+                      });
+                    }}
+                    thumbnail={obj.image}
+                    text={obj.name}
+                    price={obj.price}
+                  />
+                </div>
+              </BurgerConstructorElement>
+            );
+          })}
         </div>
       )}
       {bun && (

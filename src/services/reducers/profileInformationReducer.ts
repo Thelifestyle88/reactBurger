@@ -13,7 +13,7 @@ interface IProfileInformationState {
   profileData: null | TUser,
   profileInformationRequest: boolean,
   profileInformationFailed: boolean,
-  isAithorizationSucceed: boolean,
+  isAuthorizationSucceed: boolean,
   getProfileSucceed: boolean,
 }
 
@@ -22,7 +22,7 @@ const initialState:IProfileInformationState = {
   profileData: null,
   profileInformationRequest: false,
   profileInformationFailed: false,
-  isAithorizationSucceed: false,
+  isAuthorizationSucceed: false,
   getProfileSucceed: false,
 };
 
@@ -32,7 +32,7 @@ export function profileInformationReducer(state = initialState, action: PayloadA
       return {
         ...state,
         profileInformationRequest: true,
-        isAithorizationSucceed: false,
+        isAuthorizationSucceed: false,
         profileInformationFailed: false,
       };
     }
@@ -61,14 +61,14 @@ export function profileInformationReducer(state = initialState, action: PayloadA
         profileData: action.payload,
         profileInformationRequest: false,
         profileInformationFailed: false,
-        isAithorizationSucceed: true,
+        isAuthorizationSucceed: true,
       };
     }
 
     case GET_PROFILE_INFORMATION_FAILED: {
       return {
         ...state,
-        isAithorizationSucceed: false,
+        isAuthorizationSucceed: false,
         profileInformationFailed: true,
         profileInformationRequest: false,
       };

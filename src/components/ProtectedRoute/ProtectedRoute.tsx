@@ -1,21 +1,16 @@
-import { DOMElement } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { Navigate, NavigateProps, useLocation, Location } from 'react-router-dom';
 import { useAppSelector } from '../../index';
+import React, { FC, ReactElement } from 'react';
 
-type TProtectedRouteProps = {
-  onlyUnAuth: boolean;
-  children: any;
-};
-
-const ProtectedRoute = ({ onlyUnAuth = false, children }: TProtectedRouteProps) => {
-  let location = useLocation();
-  const isAuth = useAppSelector((store) => store.profileInformationReducer.isAithorizationSucceed);
+const ProtectedRoute: FC<{ children: ReactElement; onlyUnAuth?: boolean }> = ({
+  children,
+  onlyUnAuth = false,
+}): ReactElement<NavigateProps> => {
+  const location: Location = useLocation();
+  const from: string = location.state?.from || '/';
   const user = useAppSelector((store) => store.profileInformationReducer.profileData);
-  console.log(user);
   if (user && onlyUnAuth) {
-    return <Navigate to={'/'} state={{ from: location }} />;
+    return <Navigate to={from} />;
   }
   if (!onlyUnAuth && !user) {
     return <Navigate to={'/login'} state={{ from: location }} />;

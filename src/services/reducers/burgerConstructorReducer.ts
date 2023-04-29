@@ -5,7 +5,7 @@ import {
   ADD_POSITION,
   SORT_CONSTRUCTOR,
 } from '../actions/getBurgerConstructor';
-import { PayloadAction } from '@reduxjs/toolkit'
+import { TBurgerActions } from '../actions/getBurgerConstructor';
 
 interface IBurgerConstructorState {
   buns: TIngredient | null,
@@ -20,8 +20,7 @@ const initialState: IBurgerConstructorState = {
   count: 0,
 };
 
-//@ts-ignore
-export function burgerConstructorReducer(state = initialState, action) {
+export function burgerConstructorReducer(state = initialState, action: TBurgerActions) {
   switch (action.type) {
     case ADD_BUN: {
       return {
