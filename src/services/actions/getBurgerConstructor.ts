@@ -28,15 +28,6 @@ export const addPosition = (ingredient: TIngredient) => {
   }
 };
 
-export const deletePosition = (data: TIngredient[], index:number) => {
-  return {
-  type: DELETE_POSITION,
-  payload: {
-    burgerConstructorData: [...data.slice(0, index), ...data.slice(index+1)]
-  }
-}
-}
-
 export const reorderConstructor = () => {
   return {
     type: REORDER_CONSTRUCTOR,
@@ -47,12 +38,12 @@ export const reorderConstructor = () => {
   };
 };
 
-export const sortConstructor = (ingredientPicked:TIngredient, ingredientDrop: TIngredient) => {
+export const sortConstructor = (fromIndex:number, toIndex: number) => {
   return {
     type: SORT_CONSTRUCTOR,
     payload: {
-      indexPick: ingredientPicked,
-      indexDrop: ingredientDrop,
+      fromIndex: fromIndex,
+      toIndex: toIndex,
     },
   };
 };

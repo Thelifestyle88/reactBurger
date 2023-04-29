@@ -1,14 +1,18 @@
-import { useDrop, useDrag, DropTargetMonitor } from 'react-dnd';
-import { ReactNode, useRef } from 'react';
+import { useDrop, useDrag, XYCoord } from 'react-dnd';
+import { useDispatch, useSelector } from 'react-redux';
+import { FC, ReactNode, useRef } from 'react';
 import { SORT_CONSTRUCTOR } from '../../services/actions/getBurgerConstructor';
 import { useAppDispatch, useAppSelector } from '../../index';
-import { TIngredient } from '../../utils/typesData';
 
 interface TBurgerConstructorElementProps {
-  obj: TIngredient;
+  obj: TObj;
   children: ReactNode;
   index: number;
 }
+
+type TObj = {
+  constructorId: number;
+};
 
 export const BurgerConstructorElement = ({
   obj,
@@ -16,12 +20,11 @@ export const BurgerConstructorElement = ({
   index,
 }: TBurgerConstructorElementProps) => {
   const dispatch = useAppDispatch();
-  const ref: React.MutableRefObject<any> = useRef(null);
+  const ref = useRef(null);
   const elementIndex = useAppSelector((store) =>
     //@ts-ignore
     store.burgerConstructorReducer.burgerConstructorData.findIndex(
-      //@ts-ignore
-      (item) => item.constructorId === obj.constructorId,
+      (item: any) => item.constructorId === obj.constructorId,
     ),
   );
   const [{ handlerId }, drop] = useDrop({
@@ -31,16 +34,18 @@ export const BurgerConstructorElement = ({
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: any, monitor: DropTargetMonitor) {
+    hover(item, monitor) {
       if (!ref.current) {
         return;
       }
-      const dragIndex = item.elementIndex;
-      const hoverIndex = index;
+      //@ts-ignore
+      const dragIndex: number = item.elementIndex;
+      const hoverIndex: number = index;
       if (dragIndex === hoverIndex) {
         return;
       }
-      const hoverBoundingRect: DOMRect = ref.current?.getBoundingClientRect();
+      //@ts-ignore
+      const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
       //@ts-ignore
@@ -58,6 +63,7 @@ export const BurgerConstructorElement = ({
           toIndex: hoverIndex,
         },
       });
+      //@ts-ignore
       item.elementIndex = hoverIndex;
     },
   });
