@@ -17,10 +17,13 @@ function AppHeader() {
               Конструктор
             </button>
           </Link>
-          <button className={`${appHeader.button} pt-4 pb-4 mt-2 mb-2 text text_type_main-default`}>
-            <ListIcon type="primary" />
-            Лента заказов
-          </button>
+          <Link to="/ordersFeed">
+            <button
+              className={`${appHeader.button} pt-4 pb-4 mt-2 mb-2 text text_type_main-default`}>
+              <ListIcon type="primary" />
+              Лента заказов
+            </button>
+          </Link>
         </div>
         <Logo />
         <Link to="/profile">

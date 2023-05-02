@@ -29,7 +29,6 @@ export function Profile() {
 
   return (
     <>
-      <AppHeader />
       <div className={styles.profileWrapper}>
         <div className={styles.profileListWrapper}>
           <ul className={`${styles.profileList} text text_type_main-medium`}>

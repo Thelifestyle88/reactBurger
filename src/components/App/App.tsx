@@ -14,6 +14,9 @@ import Modal from '../Modal/Modal';
 import { deleteIngredientDetails } from '../../services/actions/getIngredientDetails';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useAppDispatch, useAppSelector } from '../../index';
+import AppHeader from '../AppHeader/AppHeader';
+import { OrderFeed } from '../OrderFeed/OrderFeed';
+import { getAllOrdersData } from '../../services/actions/getAllOrders';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -24,6 +27,7 @@ function App() {
     dispatch(getBurgerIngredients());
     dispatch(checkUserAuth());
     dispatch(getInformation());
+    dispatch(getAllOrdersData());
   }, [dispatch]);
 
   if (burgerIngredientRequest) {
@@ -32,6 +36,7 @@ function App() {
 
   return (
     <>
+      <AppHeader />
       <Routes location={background || location}>
         <Route
           path="/login"
@@ -41,9 +46,24 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/ordersFeed" element={<OrderFeed />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="/password" element={<ForgottenPassword />} />
-        <Route path="/reset-password" element={<NewPassword />} />
+        <Route
+          path="/password"
+          element={
+            <ProtectedRoute onlyUnAuth={true}>
+              <ForgottenPassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reset-password"
+          element={
+            <ProtectedRoute onlyUnAuth={true}>
+              <NewPassword />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
         <Route
           path="/profile"

@@ -6,6 +6,9 @@ import { rootReducer } from './services';
 import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter } from 'react-router-dom';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { socketMiddleware } from './services/middleware/socketMiddleware';
+
+const middleware = socketMiddleware('wss://norma.nomoreparties.space/orders/all');
 
 export const store = configureStore({
   reducer: rootReducer,

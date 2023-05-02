@@ -1,5 +1,13 @@
 import { IUser, TProfile, TUser } from "./typesData";
 const baseUrl = 'https://norma.nomoreparties.space/api';
+const allOrdersWS = new WebSocket('wss://norma.nomoreparties.space/orders/all')
+allOrdersWS.onopen = (event: Event) => {
+  console.log("Соединение установлено")
+} 
+allOrdersWS.onmessage =(event: MessageEvent) => {
+  console.log(JSON.parse(event.data).orders)
+}
+
 
 function checkResponse(res:Response) {
   if (res.ok) {
@@ -54,7 +62,7 @@ export function createUser(user: Omit<TUser, 'success'| 'user'>) {
   })
     .then(checkResponse)
 }
-export function resetPassword(email:string) {
+export function forgotPassword(email:string) {
   return fetch(`${baseUrl}/password-reset`, {
     method: 'POST',
     headers: {
@@ -62,6 +70,19 @@ export function resetPassword(email:string) {
     },
     body: JSON.stringify({
       email: email,
+    }),
+  }).then(checkResponse);
+}
+
+export function resetPassword(password: string, token:string) {
+  return fetch(`${baseUrl}/password-reset/reset`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      password: password,
+      token: token
     }),
   }).then(checkResponse);
 }

@@ -1,4 +1,3 @@
-import AppHeader from '../../AppHeader/AppHeader';
 import React from 'react';
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -17,50 +16,47 @@ export function Registration() {
     setEmail(e.target.value);
   };
   return (
-    <>
-      <AppHeader />
-      <div className={styles.registrationWrapper}>
-        <h1>Регистрация</h1>
-        <form className={styles.registrationForm}>
-          <Input
-            type={'text'}
-            placeholder={'Имя'}
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-            name={'name'}
-            error={false}
-            ref={inputName}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass="ml-1"
-          />
-          <EmailInput onChange={onChange} value={email} name={'email'} isIcon={false} />
-          <Input
-            type={'password'}
-            placeholder={'Пароль'}
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            icon={'ShowIcon'}
-            name={'name'}
-            error={false}
-            ref={inputRef}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass="ml-1"
-          />
-          <Button
-            htmlType="submit"
-            onClick={(e) => {
-              e.preventDefault();
-              createUser({ email, password, name });
-            }}>
-            Зарегестрироваться
-          </Button>
-        </form>
-        <p>
-          Уже зарегестрированы? <Link to="/login">Войти</Link>
-        </p>
-      </div>
-    </>
+    <div className={styles.registrationWrapper}>
+      <h1>Регистрация</h1>
+      <form className={styles.registrationForm}>
+        <Input
+          type={'text'}
+          placeholder={'Имя'}
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          name={'name'}
+          error={false}
+          ref={inputName}
+          errorText={'Ошибка'}
+          size={'default'}
+          extraClass="ml-1"
+        />
+        <EmailInput onChange={onChange} value={email} name={'email'} isIcon={false} />
+        <Input
+          type={'password'}
+          placeholder={'Пароль'}
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          icon={'ShowIcon'}
+          name={'name'}
+          error={false}
+          ref={inputRef}
+          errorText={'Ошибка'}
+          size={'default'}
+          extraClass="ml-1"
+        />
+        <Button
+          htmlType="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            createUser({ email, password, name });
+          }}>
+          Зарегестрироваться
+        </Button>
+      </form>
+      <p>
+        Уже зарегестрированы? <Link to="/login">Войти</Link>
+      </p>
+    </div>
   );
 }

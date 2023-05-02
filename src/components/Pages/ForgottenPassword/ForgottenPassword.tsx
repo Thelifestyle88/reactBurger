@@ -4,7 +4,7 @@ import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/password.module.css';
 import { Link } from 'react-router-dom';
-import { resetPassword } from '../../../utils/api';
+import { forgotPassword } from '../../../utils/api';
 import { useNavigate } from 'react-router-dom';
 
 export function ForgottenPassword() {
@@ -15,7 +15,6 @@ export function ForgottenPassword() {
   };
   return (
     <>
-      <AppHeader />
       <div className={styles.passwordWrapper}>
         <h1>Восстановление пароля</h1>
         <form className={styles.passwordForm}>
@@ -24,9 +23,8 @@ export function ForgottenPassword() {
             htmlType="submit"
             extraClass={styles.button}
             onClick={(e) => {
-              console.log(email);
               e.preventDefault();
-              resetPassword(email).then((res) => {
+              forgotPassword(email).then((res) => {
                 if (res.success) {
                   navigate('/reset-password');
                 }

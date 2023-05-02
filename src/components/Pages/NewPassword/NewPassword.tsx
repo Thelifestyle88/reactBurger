@@ -1,20 +1,20 @@
-import AppHeader from '../../AppHeader/AppHeader';
 import React from 'react';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/newPassword.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { resetPassword } from '../../../utils/api';
 
 export function NewPassword() {
-  const [code, setCode] = React.useState('');
+  const navigate = useNavigate();
+  const [token, setCode] = React.useState('');
   const inputName = React.useRef(null);
   const [password, setPassword] = React.useState('');
   const inputRef = React.useRef(null);
   return (
     <>
-      <AppHeader />
       <div className={styles.newPasswordWrapper}>
-        <h1>Регистрация</h1>
+        <h1>Восстановление пароля</h1>
         <form className={styles.newPasswordForm}>
           <Input
             type={'password'}
@@ -33,7 +33,7 @@ export function NewPassword() {
             type={'text'}
             placeholder={'Введите код из письма'}
             onChange={(e) => setCode(e.target.value)}
-            value={code}
+            value={token}
             name={'name'}
             error={false}
             ref={inputName}
@@ -45,8 +45,13 @@ export function NewPassword() {
             htmlType="submit"
             onClick={(e) => {
               e.preventDefault();
+              resetPassword(password, token).then((res) => {
+                if (res.success) {
+                  navigate('/');
+                }
+              });
             }}>
-            Зарегестрироваться
+            Сохранить
           </Button>
         </form>
         <p>

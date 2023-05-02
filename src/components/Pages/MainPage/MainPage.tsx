@@ -17,7 +17,6 @@ function MainPage() {
   const order = useAppSelector((store) => store.orderDetailsReducer.orderDetails);
   return (
     <>
-      <AppHeader />
       <DndProvider backend={HTML5Backend}>
         <main className={styles.content}>
           <BurgerIngredients />

@@ -6,7 +6,6 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/login.module.css';
 import { Link } from 'react-router-dom';
 import { logInProfile } from '../../../services/actions/logInOutProfile';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { useAppDispatch } from '../../../index';
 
 export function Login() {
@@ -18,7 +17,6 @@ export function Login() {
   };
   return (
     <>
-      <AppHeader />
       <div className={styles.loginWrapper}>
         <h1>Вход</h1>
         <form className={styles.loginForm}>
@@ -47,15 +45,11 @@ export function Login() {
         </form>
         <p>
           Вы новый пользователь?
-          <ProtectedRoute onlyUnAuth={true}>
-            <Link to="/registration">Зарегестрироваться</Link>
-          </ProtectedRoute>
+          <Link to="/registration">Зарегестрироваться</Link>
         </p>
         <p>
           Забыли пароль?
-          <ProtectedRoute onlyUnAuth={true}>
-            <Link to="/password">Восстановить пароль</Link>
-          </ProtectedRoute>
+          <Link to="/password">Восстановить пароль</Link>
         </p>
       </div>
     </>
