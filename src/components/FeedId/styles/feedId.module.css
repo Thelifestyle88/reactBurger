@@ -1,0 +1,45 @@
+.feedIdWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+}
+
+.feedIdNumber {
+    margin: 0;
+    padding: 0;
+}
+
+.feedIdList {
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+    max-height: 280px;
+    overflow-y: scroll;
+}
+
+.feedIdItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feedIdName {
+    display: flex;
+    align-items: center;
+}
+
+.feedIdPrice {
+    display: flex;
+    align-items: center;
+}
+
+.feedIdPriceOverall {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pageWrapper {
+    margin: 0 auto;
+    max-width: 650px;
+}

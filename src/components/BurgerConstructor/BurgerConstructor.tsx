@@ -43,7 +43,7 @@ const BurgerConstructor = () => {
   });
 
   return (
-    <section className={`${burgerConstructor.burgerConstructor} custom-scroll mt-25`} ref={drop}>
+    <section className={`${burgerConstructor.burgerConstructor} mt-25`} ref={drop}>
       {bun && (
         <div className={`${burgerConstructor.bun} ml-6`}>
           <ConstructorElement
@@ -56,7 +56,7 @@ const BurgerConstructor = () => {
         </div>
       )}
       {isIngredientExist && (
-        <div className={burgerConstructor.mainCourses}>
+        <div className={`${burgerConstructor.mainCourses} custom-scroll`}>
           {ingredient.map((obj, index: number) => {
             return (
               <BurgerConstructorElement index={index} key={obj.constructorId} obj={obj}>

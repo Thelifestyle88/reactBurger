@@ -1,4 +1,3 @@
-import AppHeader from '../../AppHeader/AppHeader';
 import { useParams } from 'react-router-dom';
 import styles from './styles/styles.module.css';
 import { useAppSelector } from '../../../index';
@@ -6,11 +5,9 @@ import { useAppSelector } from '../../../index';
 function IngredientPage() {
   const ingredientId = useParams();
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
-  //@ts-ignore
   const ingredient = ingredients.find((item) => item._id === String(ingredientId.id));
   return (
     <>
-      <AppHeader />
       {ingredient && (
         <div className={styles.ingredientDetailsWrapper}>
           <img src={ingredient.image_large} alt={ingredient.name} />

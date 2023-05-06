@@ -1,12 +1,5 @@
 import { IUser, TProfile, TUser } from "./typesData";
 const baseUrl = 'https://norma.nomoreparties.space/api';
-const allOrdersWS = new WebSocket('wss://norma.nomoreparties.space/orders/all')
-allOrdersWS.onopen = (event: Event) => {
-  console.log("Соединение установлено")
-} 
-allOrdersWS.onmessage =(event: MessageEvent) => {
-  console.log(JSON.parse(event.data).orders)
-}
 
 
 function checkResponse(res:Response) {

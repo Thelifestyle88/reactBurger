@@ -1,30 +1,38 @@
 import type { Middleware, MiddlewareAPI } from 'redux';
 import { RootState, AppDispatch } from '../..';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { TAllOrders, TOrder } from '../../utils/typesData';
 
-export const socketMiddleware = (wsUrl: string): Middleware => {
+//@ts-ignore
+export const socketMiddleware = (wsActions): Middleware => {
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null
-        return next => (action: PayloadAction) => {
-            const { dispatch, getState } = store;
+        return next => (action: PayloadAction<TAllOrders>) => {
+            const { dispatch } = store;
             const { type, payload } = action;
-
-            if(type === 'WS_CONNECTION_START') {
-                socket = new WebSocket(wsUrl);
+            const { 
+                wcConnectionClosed,
+                wsConnection,
+                wsConnectionError,
+                wsConnectionConnect,
+                wsGetMessage } = wsActions
+            if(type === wsConnection.type) {
+                socket = new WebSocket('wss://norma.nomoreparties.space/orders/all');
             }
             if(socket) {
                 socket.onopen = event => {
-                    dispatch({type: 'WS_CONNECTION_SUCCESS', payload: event})
+                    dispatch(wsConnectionConnect())
                 }
                 socket.onerror = event => {
-                    dispatch({ type: 'WS_CONNECTION_ERROR', payload: event });
+                    dispatch(wsConnectionError(event));
                   };
                   socket.onmessage = event => {
                     const { data } = event;
-                    dispatch({ type: 'WS_GET_MESSAGE', payload: data });
+                    const parsedData = JSON.parse(data)
+                    dispatch(wsGetMessage(parsedData));
                   };
                   socket.onclose = event => {
-                    dispatch({ type: 'WS_CONNECTION_CLOSED', payload: event });
+                    dispatch(wcConnectionClosed());
                   };
             }
             next(action);

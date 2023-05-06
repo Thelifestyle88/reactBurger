@@ -3,10 +3,10 @@ import { ADD_INGREDIENT_DETAILS, DELETE_INGREDIENT_DETAILS } from '../actions/ge
 import { PayloadAction } from '@reduxjs/toolkit'
 
 interface IIngredientDetailsState {
-  ingredient: TIngredient
+  ingredient: TIngredient | null
 }
 
-const initialState: IIngredientDetailsState | {ingredient: null} = {
+const initialState: IIngredientDetailsState = {
   ingredient: null,
 };
 

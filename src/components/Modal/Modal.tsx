@@ -9,7 +9,7 @@ const modalRootElement: any = document.getElementById('modal-overlay');
 export type TModalProps = {
   onClose: () => void;
   children: ReactElement;
-  name: string;
+  name?: string;
 };
 
 function Modal({ onClose, children, name }: TModalProps) {

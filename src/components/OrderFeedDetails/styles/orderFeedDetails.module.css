@@ -36,11 +36,13 @@
 }
 
 .time {
+    padding-top: 24px;
     display: flex;
     justify-content: space-between;
 }
 
 .ordersWrapper {
+    cursor: pointer;
     width: 584px;
     background: #1C1C21;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
@@ -51,4 +53,9 @@
  display: flex;
  align-items: center;
  gap: 9px;
+}
+
+.orderNumber {
+    padding: 0;
+    margin: 0;
 }

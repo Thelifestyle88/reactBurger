@@ -3,15 +3,34 @@ import './index.css';
 import App from './components/App/App';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services';
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { BrowserRouter } from 'react-router-dom';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { socketMiddleware } from './services/middleware/socketMiddleware';
+import {
+  wcConnectionClosed,
+  wsConnection,
+  wsConnectionError,
+  wsConnectionConnect,
+  wsGetMessage,
+  TwsActions,
+} from './services/middleware/wsActionsType';
 
-const middleware = socketMiddleware('wss://norma.nomoreparties.space/orders/all');
+const wsActions: TwsActions = {
+  wcConnectionClosed,
+  wsConnection,
+  wsConnectionError,
+  wsConnectionConnect,
+  wsGetMessage,
+};
+
+const ordersMiddleware = socketMiddleware(wsActions);
 
 export const store = configureStore({
   reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(ordersMiddleware);
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

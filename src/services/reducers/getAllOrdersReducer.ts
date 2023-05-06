@@ -1,71 +1,50 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { TOrder } from "../../utils/typesData";
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONNECTION_SUCCESS,WS_GET_MESSAGE} from "../middleware/wsActionsType";
+import { createReducer } from "@reduxjs/toolkit";
+import { TAllOrders } from "../../utils/typesData";
+import { WebsocketStatus } from "../constants";
+import {
+    wcConnectionClosed,
+    wsConnection,
+    wsConnectionError,
+    wsConnectionConnect,
+    wsGetMessage,
+  } from '../middleware/wsActionsType';
 
 interface IGetAllOrdersState {
-    ordersData: Array<TOrder>,
-    getOrdersRequest: boolean,
-    getOrdersFailed: boolean,
-    getOrdersSuccess: boolean,
-    wsConnect: boolean,
-    error?: Event;
+    orders: TAllOrders,
+    status: string,
+    connectionError: string | undefined
 }
 
 const initialState: IGetAllOrdersState = {
-    ordersData: [],
-    getOrdersRequest: false,
-    getOrdersFailed: false,
-    getOrdersSuccess: false,
-    wsConnect: false
+    orders: {
+        success: false,
+        orders: [],
+        total: 0,
+        totalToday: 0
+    },
+    status: WebsocketStatus.OFFLINE,
+    connectionError: ''
 }
 
-export function getAllOrderReducer(state=initialState, action:PayloadAction) {
- switch(action.type) {
-    case WS_CONNECTION_START: {
-        return {
-            ...state,
-            getOrdersRequest: true,
-            getOrdersFailed: false,
-            getOrdersSuccess: false,
-            wsConnect:false
-        }
-    }
-    case WS_CONNECTION_SUCCESS: {
-        return {
-            ...state,
-            error: undefined,
-            wsConnect: true,
-            getOrdersRequest:false,
-            getOrdersSuccess: false,
-            getOrdersFailed: false,
-        }
-    }
-    case WS_GET_MESSAGE: {
-        return {
-            ...state,
-            error: undefined,
-            wsConnect: true,
-            ordersData: action.payload,
-            getOrdersSuccess: true,
-        }
-    }
-    case WS_CONNECTION_CLOSED: {
-        return {
-            ...state, 
-            error: undefined,
-            wsConnect: false,
-        }
-    }
-    case WS_CONNECTION_ERROR: {
-        return {
-            ...state, 
-            error: action.payload,
-            wsConnect: false,
-            getOrdersFailed: false,
-        }
-    }
-    default: {
-        return state;
-    }
-}
-}
+export const getAllOrderReducer = createReducer(initialState, (builder) => {
+    builder
+    .addCase(wsConnection, (state) => {
+        state.status = WebsocketStatus.CONNECTING
+    })
+    .addCase(wsConnectionConnect, (state) => {
+        state.status = WebsocketStatus.ONLINE;
+        state.connectionError = ' ';
+    })
+    .addCase(wcConnectionClosed, (state) => {
+        state.status = WebsocketStatus.OFFLINE
+        
+    })
+    .addCase(wsConnectionError, (state, action) => {
+        state.connectionError = action.payload
+        
+    })
+    .addCase(wsGetMessage, (state, action) => {
+        state.orders = action.payload
+        
+    })
+})

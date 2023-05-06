@@ -30,6 +30,13 @@ export type TUser = {
     key: string;
     constructorId: string
   }
+
+  export type TAllOrders = {
+    success: boolean;
+    orders: TOrder[];
+    total: number;
+    totalToday: number
+  }
   
   export type TOrder = {
     name: string;
@@ -45,3 +52,4 @@ export type TUser = {
     authorization?: string;
     "Content-Type"?: string;
   }
+
