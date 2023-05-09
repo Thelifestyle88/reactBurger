@@ -4,7 +4,6 @@ import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import appHeader from '../AppHeader/styles/appHeader.module.css';
 import { Link } from 'react-router-dom';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function AppHeader() {
   return (

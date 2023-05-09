@@ -1,8 +1,19 @@
 import doneOrder from '../../images/done.png';
 import styles from './styles/styles.module.css';
-import PropTypes from 'prop-types';
 
-export function OrderDetails(burger) {
+type TOrder = {
+  order: TOrder2;
+};
+
+type TOrder2 = {
+  number: number;
+};
+
+type TBurger = {
+  order: TOrder;
+};
+
+export function OrderDetails(burger: TBurger) {
   const isNumberExist = burger.order.order.number;
   return (
     <>
@@ -20,7 +31,3 @@ export function OrderDetails(burger) {
     </>
   );
 }
-
-OrderDetails.propTypes = {
-  burger: PropTypes.object,
-};

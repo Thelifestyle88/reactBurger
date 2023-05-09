@@ -2,11 +2,14 @@ import AppHeader from '../AppHeader/AppHeader';
 import { useSelector } from 'react-redux/es/exports';
 import { useParams } from 'react-router-dom';
 import styles from './styles/styles.module.css';
+import { TIngredient } from '../../utils/typesData';
 
 function IngredientPage() {
   const ingredientId = useParams();
-  const ingredients = useSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
-  const ingredient = ingredients.find((item) => item._id === ingredientId.id);
+  const ingredients = useSelector(
+    (store: any) => store.burgerIngredientReducer.burgerIngredientData,
+  );
+  const ingredient = ingredients.find((item: TIngredient) => item._id === String(ingredientId.id));
   return (
     <>
       <AppHeader />

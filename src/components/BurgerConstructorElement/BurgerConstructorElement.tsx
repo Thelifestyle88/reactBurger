@@ -1,15 +1,28 @@
-import { useDrop, useDrag } from 'react-dnd';
+import { useDrop, useDrag, XYCoord } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRef } from 'react';
+import { FC, ReactNode, useRef } from 'react';
 import { SORT_CONSTRUCTOR } from '../../services/actions/getBurgerConstructor';
-import PropTypes from 'prop-types';
 
-export const BurgerConstructorElement = ({ obj, children, index }) => {
+interface TBurgerConstructorElementProps {
+  obj: TObj;
+  children: ReactNode;
+  index: number;
+}
+
+type TObj = {
+  constructorId: number;
+};
+
+export const BurgerConstructorElement = ({
+  obj,
+  children,
+  index,
+}: TBurgerConstructorElementProps) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
-  const elementIndex = useSelector((store) =>
+  const elementIndex = useSelector((store: any) =>
     store.burgerConstructorReducer.burgerConstructorData.findIndex(
-      (item) => item.constructorId === obj.constructorId,
+      (item: any) => item.constructorId === obj.constructorId,
     ),
   );
   const [{ handlerId }, drop] = useDrop({
@@ -23,14 +36,17 @@ export const BurgerConstructorElement = ({ obj, children, index }) => {
       if (!ref.current) {
         return;
       }
+      //@ts-ignore
       const dragIndex = item.elementIndex;
       const hoverIndex = index;
       if (dragIndex === hoverIndex) {
         return;
       }
+      //@ts-ignore
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
+      //@ts-ignore
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -45,6 +61,7 @@ export const BurgerConstructorElement = ({ obj, children, index }) => {
           toIndex: hoverIndex,
         },
       });
+      //@ts-ignore
       item.elementIndex = hoverIndex;
     },
   });
@@ -54,12 +71,6 @@ export const BurgerConstructorElement = ({ obj, children, index }) => {
       return { elementIndex };
     },
   });
-
-  BurgerConstructorElement.propTypes = {
-    obj: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired,
-    children: PropTypes.node.isRequired,
-  };
 
   drag(drop(ref));
 

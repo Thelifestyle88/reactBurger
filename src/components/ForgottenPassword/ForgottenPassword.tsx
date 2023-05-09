@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 export function ForgottenPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
-  const onChange = (e) => {
+  const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   return (

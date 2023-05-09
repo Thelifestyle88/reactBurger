@@ -12,12 +12,8 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 export function Login() {
   const dispatch = useDispatch();
   const [password, setPassword] = React.useState('');
-  const inputRef = React.useRef(null);
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-  };
   const [email, setEmail] = React.useState('');
-  const onChange = (e) => {
+  const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   return (
@@ -35,8 +31,6 @@ export function Login() {
             icon={'ShowIcon'}
             name={'name'}
             error={false}
-            ref={inputRef}
-            onIconClick={onIconClick}
             errorText={'Ошибка'}
             size={'default'}
             extraClass="ml-1"
@@ -46,6 +40,7 @@ export function Login() {
             extraClass={styles.button}
             onClick={(e) => {
               e.preventDefault();
+              //@ts-ignore
               dispatch(logInProfile({ email, password }));
             }}>
             Войти

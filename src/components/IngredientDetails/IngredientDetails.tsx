@@ -1,8 +1,7 @@
 import styles from './styles/styles.module.css';
 import { useSelector } from 'react-redux';
 export function IngredientDetails() {
-  const ingredient = useSelector((store) => store.ingredientDetailsReducer.ingredient);
-
+  const ingredient = useSelector((store: any) => store.ingredientDetailsReducer.ingredient);
   return (
     <div className={styles.ingredientDetailsWrapper}>
       <img src={ingredient.image_large} alt={ingredient.name} />

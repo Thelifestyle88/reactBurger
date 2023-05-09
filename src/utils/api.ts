@@ -1,6 +1,7 @@
+import { TUser } from "./typesData";
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
-function checkResponse(res) {
+function checkResponse(res:Response) {
   if (res.ok) {
     return res.json();
   }
@@ -14,7 +15,22 @@ export function getIngredients() {
   return fetch(`${baseUrl}/ingredients`).then(checkResponse);
 }
 
-export function sendOrder(ingredients) {
+const baseHeader = {
+  'Content-Type': 'application/json'
+}
+
+const injectBearerToken = (baseHeader : Record<string, string>) : Record<string, string> => {
+  const token = localStorage.getItem('accessToken')
+ if (token) {
+ return {
+     ...baseHeader, 
+       authorization: token,
+     }
+    }
+ return baseHeader;
+};
+
+export function sendOrder<TResponseOrder>(ingredients: TResponseOrder) {
   return fetch(`${baseUrl}/orders`, {
     method: 'POST',
     headers: {
@@ -24,7 +40,8 @@ export function sendOrder(ingredients) {
   }).then(checkResponse);
 }
 
-export function createUser(user) {
+
+export function createUser(user: TUser & {password:string}) {
   return fetch(`${baseUrl}/auth/register`, {
     method: 'POST',
     headers: {
@@ -37,12 +54,8 @@ export function createUser(user) {
     }),
   })
     .then(checkResponse)
-    .then((res) => {
-      console.log(res);
-    });
 }
-
-export function resetPassword(email) {
+export function resetPassword(email:string) {
   return fetch(`${baseUrl}/password-reset`, {
     method: 'POST',
     headers: {
@@ -54,7 +67,8 @@ export function resetPassword(email) {
   }).then(checkResponse);
 }
 
-export function authorization(profile) {
+
+export function authorization(profile: TUser & {password:string}) {
   return fetch(`${baseUrl}/auth/login`, {
     method: 'POST',
     headers: {
@@ -70,9 +84,7 @@ export function authorization(profile) {
 export function getProfileInformation() {
   return fetch(`${baseUrl}/auth/user`, {
     method: 'GET',
-    headers: {
-      authorization: localStorage.getItem('accessToken'),
-    },
+    headers: injectBearerToken(baseHeader)
   }).then(checkResponse);
 }
 
@@ -88,16 +100,14 @@ export function resetToken() {
   }).then(checkResponse);
 }
 
-export function changeProfileInformation(name, post) {
+export function changeProfileInformation(name: TUser, post: TUser): Promise<TUser> {
   return fetch(`${baseUrl}/auth/user`, {
     method: 'PATCH',
-    headers: {
-      authorization: localStorage.getItem('accessToken'),
-    },
-    body: {
+    headers: injectBearerToken(baseHeader),
+    body: JSON.stringify({
       name: name,
       email: post,
-    },
+    }),
   }).then(checkResponse);
 }
 

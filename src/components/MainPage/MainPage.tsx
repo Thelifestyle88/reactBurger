@@ -13,8 +13,8 @@ import styles from './styles/main.module.css';
 
 function MainPage() {
   const dispatch = useDispatch();
-  const selectedItem = useSelector((store) => store.ingredientDetailsReducer.ingredient);
-  const order = useSelector((store) => store.orderDetailsReducer.orderDetails);
+  const selectedItem = useSelector((store: any) => store.ingredientDetailsReducer.ingredient);
+  const order = useSelector((store: any) => store.orderDetailsReducer.orderDetails);
   return (
     <>
       <AppHeader />
@@ -28,7 +28,7 @@ function MainPage() {
         <Modal
           name="Детали ингредиента"
           onClose={() => dispatch(deleteIngredientDetails())}
-          children={<IngredientDetails ingredient={selectedItem} />}
+          children={<IngredientDetails />}
         />
       )}
       {Boolean(order) && (

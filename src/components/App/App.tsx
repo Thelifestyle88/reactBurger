@@ -19,12 +19,13 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state && location.state.background;
-  console.log(location);
-  console.log(background);
-  const { burgerIngredientRequest } = useSelector((store) => store.burgerIngredientReducer);
+  const { burgerIngredientRequest } = useSelector((store: any) => store.burgerIngredientReducer);
   useEffect(() => {
+    //@ts-ignore
     dispatch(getBurgerIngredients());
+    //@ts-ignore
     dispatch(checkUserAuth());
+    //@ts-ignore
     dispatch(getInformation());
   }, []);
 
@@ -50,7 +51,7 @@ function App() {
         <Route
           path="/profile"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth={false}>
               <Profile />
             </ProtectedRoute>
           }
