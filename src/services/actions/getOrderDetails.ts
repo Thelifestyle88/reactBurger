@@ -13,6 +13,7 @@ export function getOrderDetails(ingredients:(string | undefined)[]) {
     });
     sendOrder(ingredients)
       .then((res) => {
+        console.log(res)
         if (res && res.success) {
           dispatch({
             type: GET_ORDER_SUCCEED,

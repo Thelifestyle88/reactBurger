@@ -4,15 +4,19 @@ import { Link } from 'react-router-dom';
 import { logOutProfile } from '../../../services/actions/logInOutProfile';
 import { TOrder } from '../../../utils/typesData';
 import { OrderFeedDetails } from '../../OrderFeedDetails/OrderFeedDetails';
-import { wsConnection, wcConnectionClosed } from '../../../services/middleware/wsActionsType';
+import { wsConnection } from '../../../services/middleware/wsActionsType';
+import { useEffect } from 'react';
 
 export function PersonalOrders() {
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((store) => store.getAllOrderReducer.status);
   const connect = (wsUrl: string) => dispatch(wsConnection(wsUrl));
-  const disconnect = (wsUrl: string) => dispatch(wcConnectionClosed(wsUrl));
   const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
+  useEffect(() => {
+    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
+  }, [dispatch]);
+
   console.log(accessToken);
   console.log(orders);
 
@@ -21,7 +25,7 @@ export function PersonalOrders() {
   }
 
   return (
-    <section>
+    <section className={styles.personalOrdersWrapper}>
       <div className={styles.profileListWrapper}>
         <ul className={`${styles.profileList} text text_type_main-medium`}>
           <li className={styles.profileListItem}>
@@ -33,7 +37,6 @@ export function PersonalOrders() {
             <Link
               to={'/profile/orders'}
               onClick={() => {
-                disconnect('wss://norma.nomoreparties.space/orders/all');
                 connect(`wss://norma.nomoreparties.space/orders?token=${accessToken}`);
               }}
               className={styles.profileLink}>

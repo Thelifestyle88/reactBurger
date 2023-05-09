@@ -1,13 +1,19 @@
-import { store, useAppSelector } from '../../index';
+import { store, useAppDispatch, useAppSelector } from '../../index';
 import styles from './styles/orderFeed.module.css';
 import { OrderFeedDetails } from '../OrderFeedDetails/OrderFeedDetails';
 import { TIngredient, TOrder } from '../../utils/typesData';
+import { useEffect } from 'react';
+import { wsConnection } from '../../services/middleware/wsActionsType';
 
 export function OrderFeed() {
+  const dispatch = useAppDispatch();
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const ordersInformation = useAppSelector((store) => store.getAllOrderReducer.orders);
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
   const isLoading = useAppSelector((store) => store.getAllOrderReducer.status);
+  useEffect(() => {
+    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders/all`));
+  }, [dispatch]);
   const maxShownIngredients = 6;
   const countOfIngredients = ingredients.length;
   const countOfHiddenIngredients = countOfIngredients - maxShownIngredients;

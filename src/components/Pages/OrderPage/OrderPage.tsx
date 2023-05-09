@@ -8,7 +8,8 @@ export function OrderPage() {
   const orderId = useParams();
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
   const order = orders.find((item) => item._id === String(orderId.id));
-  const date = order?.createdAt;
+  //@ts-ignore
+  const date: string = order?.createdAt;
   const ingredientsInOrder = order?.ingredients;
   const elements = ingredientsInOrder?.map((item) => {
     return ingredients.find((el) => {

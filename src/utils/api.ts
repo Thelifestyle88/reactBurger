@@ -33,9 +33,7 @@ const injectBearerToken = (baseHeader : Record<string, string>) : Record<string,
 export function sendOrder<TResponseOrder>(ingredients: TResponseOrder) {
   return fetch(`${baseUrl}/orders`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: injectBearerToken(baseHeader),
     body: JSON.stringify({ ingredients: ingredients }),
   }).then(checkResponse);
 }

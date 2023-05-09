@@ -25,3 +25,14 @@
     text-decoration: none;
     color: #8585AD;
 }
+
+.personalOrdersWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ordersWrapper {
+    overflow-y: scroll;
+    height: 600px;
+}

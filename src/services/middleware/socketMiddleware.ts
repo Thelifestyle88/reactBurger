@@ -1,7 +1,5 @@
 import type { Middleware, MiddlewareAPI } from 'redux';
 import { RootState, AppDispatch } from '../..';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { TAllOrders } from '../../utils/typesData'; 
 
 //@ts-ignore
 export const socketMiddleware = (wsActions): Middleware => {
