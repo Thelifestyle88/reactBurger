@@ -16,26 +16,23 @@ import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useAppDispatch, useAppSelector } from '../../index';
 import AppHeader from '../AppHeader/AppHeader';
 import { OrderFeed } from '../OrderFeed/OrderFeed';
-import { wsConnection } from '../../services/middleware/wsActionsType';
 import { FeedId } from '../FeedId/FeedId';
 import { deleteOrderFeedDetails } from '../../services/actions/getOrdersFeedDetails';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { deleteOrderDetails } from '../../services/actions/getOrderDetails';
 import { OrderPage } from '../Pages/OrderPage/OrderPage';
+import { PersonalOrders } from '../Pages/PersonalOrders/PersonalOrders';
+import { wsConnection } from '../../services/middleware/wsActionsType';
 
 function App() {
   const dispatch = useAppDispatch();
   const location: Location = useLocation();
   const background = location.state && location.state.background;
-  const navigate = useNavigate();
-  console.log(location);
-  console.log(background);
   const { burgerIngredientRequest } = useAppSelector((store) => store.burgerIngredientReducer);
   useEffect(() => {
     dispatch(getBurgerIngredients());
     dispatch(checkUserAuth());
     dispatch(getInformation());
-    dispatch(wsConnection());
   }, [dispatch]);
   const orderId = useAppSelector((store) => store.ordersFeedDetailsReducer.order);
   const selectedItem = useAppSelector((store) => store.ingredientDetailsReducer.ingredient);
@@ -75,6 +72,7 @@ function App() {
           }
         />
         <Route path="/feed/:id" element={<OrderPage />} />
+        <Route path="/profile/orders" element={<PersonalOrders />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
         <Route
           path="/profile"

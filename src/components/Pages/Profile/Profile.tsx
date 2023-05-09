@@ -1,18 +1,21 @@
 import { useState } from 'react';
-import AppHeader from '../../AppHeader/AppHeader';
 import styles from './styles/profile.module.css';
 import { Input, EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { changeProfile } from '../../../services/actions/getProfile';
 import { Link } from 'react-router-dom';
 import { logOutProfile } from '../../../services/actions/logInOutProfile';
 import { useAppDispatch, useAppSelector } from '../../..';
+import { wsConnection, wcConnectionClosed } from '../../../services/middleware/wsActionsType';
 
 export function Profile() {
   const dispatch = useAppDispatch();
+  const connect = (wsUrl: string) => dispatch(wsConnection(wsUrl));
+  const disconnect = (wsUrl: string) => dispatch(wcConnectionClosed(wsUrl));
   const profileInformationRequest = useAppSelector(
     (store) => store.profileInformationReducer.profileInformationRequest,
   );
-
+  const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
+  console.log(accessToken);
   const user = useAppSelector((store) => store.profileInformationReducer.profileData);
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
@@ -38,7 +41,13 @@ export function Profile() {
               </Link>
             </li>
             <li className={styles.profileListItem}>
-              <Link to={'/profile'} className={styles.profileLink}>
+              <Link
+                to={'/profile/orders'}
+                onClick={() => {
+                  disconnect('wss://norma.nomoreparties.space/orders/all');
+                  connect(`wss://norma.nomoreparties.space/orders?token=${accessToken}`);
+                }}
+                className={styles.profileLink}>
                 История заказов
               </Link>
             </li>
