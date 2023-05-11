@@ -4,12 +4,12 @@ import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/styles.module.css';
 
-const modalRootElement = document.getElementById('modal-overlay');
+const modalRootElement: any = document.getElementById('modal-overlay');
 
 export type TModalProps = {
   onClose: () => void;
   children: ReactElement;
-  name: string;
+  name?: string;
 };
 
 function Modal({ onClose, children, name }: TModalProps) {
@@ -38,7 +38,6 @@ function Modal({ onClose, children, name }: TModalProps) {
       </div>
       <ModalOverlay onClose={onClose} />
     </>,
-    //@ts-ignore
     modalRootElement,
   );
 }

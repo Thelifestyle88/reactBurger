@@ -1,8 +1,18 @@
+export interface IUser {
+  email?: string;
+  name?: string
+}
+
 export type TUser = {
-    email: string;
-    name: string;
+    email?: string;
+    name?: string;
+    success:boolean
+    user: IUser
+    password: string
   }
   
+  export type TProfile = Omit<TUser, 'user' | 'name' | 'success'>
+
   export type TIngredient = {
     carbohydrates: number;
     calories: number;
@@ -18,6 +28,14 @@ export type TUser = {
     _id: string;
     count: number;
     key: string;
+    constructorId: string
+  }
+
+  export type TAllOrders = {
+    success: boolean;
+    orders: TOrder[];
+    total: number;
+    totalToday: number
   }
   
   export type TOrder = {
@@ -34,3 +52,4 @@ export type TUser = {
     authorization?: string;
     "Content-Type"?: string;
   }
+

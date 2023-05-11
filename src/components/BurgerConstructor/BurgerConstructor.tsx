@@ -3,27 +3,26 @@ import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructor from '../BurgerConstructor/styles/burgerConstructor.module.css';
-import { useSelector, useDispatch } from 'react-redux';
 import { DELETE_POSITION } from '../../services/actions/getBurgerConstructor';
 import { getOrderDetails } from '../../services/actions/getOrderDetails';
 import { FC, useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addPosition } from '../../services/actions/getBurgerConstructor';
 import { BurgerConstructorElement } from '../BurgerConstructorElement/BurgerConstructorElement';
-import { store } from '../..';
 import { useNavigate } from 'react-router-dom';
+import { TIngredient } from '../../utils/typesData';
+import { useAppDispatch, useAppSelector } from '../../index';
 
-const BurgerConstructor: FC = () => {
-  const user = useSelector((store: any) => store.profileInformationReducer.profileData);
-  const ingredient = useSelector(
-    (store: any) => store.burgerConstructorReducer.burgerConstructorData,
+const BurgerConstructor = () => {
+  const isAuth = useAppSelector((store) => store.authorizationReducer.isAithorizationSucceed);
+  const ingredient = useAppSelector(
+    (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
   const navigate = useNavigate();
-  const bun = useSelector((store: any) => store.burgerConstructorReducer.buns);
-  const dispatch = useDispatch();
+  const bun = useAppSelector((store) => store.burgerConstructorReducer.buns);
+  const dispatch = useAppDispatch();
   const isIngredientExist = ingredient.length > 0;
-  let price = 0;
-  price = useMemo(() => {
+  const price = useMemo(() => {
     if (bun) {
       const allPrice = [bun, ...ingredient, bun];
       return allPrice
@@ -31,18 +30,20 @@ const BurgerConstructor: FC = () => {
         .reduce((acc, curr) => {
           return (acc = acc + curr);
         }, 0);
+    } else {
+      return 0;
     }
-  }, []); //Добавил пустой массив
+  }, [bun, ingredient]);
 
   const [, drop] = useDrop({
     accept: 'NEW_INGREDIENT',
-    drop(setElement) {
+    drop(setElement: TIngredient) {
       dispatch(addPosition(setElement));
     },
   });
 
   return (
-    <section className={`${burgerConstructor.burgerConstructor} custom-scroll mt-25`} ref={drop}>
+    <section className={`${burgerConstructor.burgerConstructor} mt-25`} ref={drop}>
       {bun && (
         <div className={`${burgerConstructor.bun} ml-6`}>
           <ConstructorElement
@@ -55,8 +56,8 @@ const BurgerConstructor: FC = () => {
         </div>
       )}
       {isIngredientExist && (
-        <div className={burgerConstructor.mainCourses}>
-          {ingredient.map((obj: string | any, index: number) => {
+        <div className={`${burgerConstructor.mainCourses} custom-scroll`}>
+          {ingredient.map((obj, index: number) => {
             return (
               <BurgerConstructorElement index={index} key={obj.constructorId} obj={obj}>
                 <div>
@@ -94,11 +95,16 @@ const BurgerConstructor: FC = () => {
         <CurrencyIcon type="primary" />
         <Button
           onClick={() => {
-            if (user) {
+            if (isAuth) {
               const orderCreate = [bun, ...ingredient, bun];
-              const orderId = orderCreate.map((ingredient) => ingredient._id);
-              //@ts-ignore
-              dispatch(getOrderDetails(orderId));
+              if (orderCreate) {
+                const orderId: Array<string | undefined> = orderCreate.map(
+                  (ingredient) => ingredient?._id,
+                );
+                dispatch(getOrderDetails(orderId));
+              } else {
+                return alert('Add positions!');
+              }
             } else {
               navigate('/login');
             }

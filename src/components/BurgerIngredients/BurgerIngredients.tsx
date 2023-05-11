@@ -1,27 +1,21 @@
 import { Switcher } from '../Swither/Swither';
 import { Ingredient } from '../Ingredient/Ingredient';
 import styles from '../BurgerIngredients/styles/styles.module.css';
-import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useAppSelector } from '../../index';
 import { TIngredient } from '../../utils/typesData';
 
-type TItem = {
-  type: string;
-};
-
 const BurgerIngredients = () => {
-  const ingredients = useSelector(
-    (store: any) => store.burgerIngredientReducer.burgerIngredientData,
+  const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
+  const burgerConstructorELements = useAppSelector(
+    (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
-  const burgerConstructorELements = useSelector(
-    (store: any) => store.burgerConstructorReducer.burgerConstructorData,
-  );
-  const burgerConstructorBuns = useSelector((store: any) => store.burgerConstructorReducer.buns);
+  const burgerConstructorBuns = useAppSelector((store) => store.burgerConstructorReducer.buns);
 
-  const buns = ingredients.filter((item: TItem) => item.type === 'bun');
-  const sauce = ingredients.filter((item: TItem) => item.type === 'sauce');
-  const mains = ingredients.filter((item: TItem) => item.type === 'main');
+  const buns = ingredients.filter((item: TIngredient) => item.type === 'bun');
+  const sauce = ingredients.filter((item: TIngredient) => item.type === 'sauce');
+  const mains = ingredients.filter((item: TIngredient) => item.type === 'main');
 
   let allIngredients = useMemo(() => {
     if (burgerConstructorBuns) {
@@ -32,9 +26,7 @@ const BurgerIngredients = () => {
       ];
       return allIngredients.map((obj) => obj._id);
     }
-  }, []);
-
-  console.log(allIngredients);
+  }, [burgerConstructorBuns, burgerConstructorELements]);
 
   function countItem(objId: string, allIngredients: Array<string> | undefined) {
     if (allIngredients) {
@@ -80,7 +72,6 @@ const BurgerIngredients = () => {
                 <Ingredient
                   key={obj._id}
                   ingredient={obj}
-                  //@ts-ignore
                   count={countItem(obj._id, allIngredients)}
                 />
               );
@@ -95,7 +86,6 @@ const BurgerIngredients = () => {
                 <Ingredient
                   key={obj._id}
                   ingredient={obj}
-                  //@ts-ignore
                   count={countItem(obj._id, allIngredients)}
                 />
               );

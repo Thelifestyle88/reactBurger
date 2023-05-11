@@ -2,27 +2,25 @@ import { useDrop, useDrag, XYCoord } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { FC, ReactNode, useRef } from 'react';
 import { SORT_CONSTRUCTOR } from '../../services/actions/getBurgerConstructor';
+import { useAppDispatch, useAppSelector } from '../../index';
+import { TIngredient } from '../../utils/typesData';
 
 interface TBurgerConstructorElementProps {
-  obj: TObj;
+  obj: TIngredient;
   children: ReactNode;
   index: number;
 }
-
-type TObj = {
-  constructorId: number;
-};
 
 export const BurgerConstructorElement = ({
   obj,
   children,
   index,
 }: TBurgerConstructorElementProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const ref = useRef(null);
-  const elementIndex = useSelector((store: any) =>
+  const elementIndex = useAppSelector((store) =>
     store.burgerConstructorReducer.burgerConstructorData.findIndex(
-      (item: any) => item.constructorId === obj.constructorId,
+      (item) => item.constructorId === obj.constructorId,
     ),
   );
   const [{ handlerId }, drop] = useDrop({
@@ -37,8 +35,8 @@ export const BurgerConstructorElement = ({
         return;
       }
       //@ts-ignore
-      const dragIndex = item.elementIndex;
-      const hoverIndex = index;
+      const dragIndex: number = item.elementIndex;
+      const hoverIndex: number = index;
       if (dragIndex === hoverIndex) {
         return;
       }

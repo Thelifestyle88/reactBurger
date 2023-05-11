@@ -1,0 +1,49 @@
+.sectionWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.ordersWrapper {
+    overflow-y: scroll;
+    height: 850px;
+}
+
+.priceWrapper {
+ display: flex;
+ align-items: center;
+ gap: 9px;
+}
+
+.orderListWrapper {
+    display: flex;
+    gap: 36px;
+}
+
+.orderStats {
+    width: 580px;
+}
+
+.orderList {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 450px;
+    flex-wrap: wrap;
+    width: 272px;
+}
+
+.orderListsWrapper {
+    width: 272px;
+}
+
+.orderListTitle {
+    margin: 0 0 24px;
+}
+
+.textDone {
+    color: #00CCCC;
+}

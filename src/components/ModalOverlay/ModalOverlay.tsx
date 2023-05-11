@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import style from './styles/style.module.css';
 
 type TModalOverlayProps = {
