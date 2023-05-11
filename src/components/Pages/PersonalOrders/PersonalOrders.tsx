@@ -4,21 +4,20 @@ import { Link } from 'react-router-dom';
 import { logOutProfile } from '../../../services/actions/logInOutProfile';
 import { TOrder } from '../../../utils/typesData';
 import { OrderFeedDetails } from '../../OrderFeedDetails/OrderFeedDetails';
-import { wsConnection } from '../../../services/middleware/wsActionsType';
+import { wcConnectionClosed, wsConnection } from '../../../services/middleware/wsActionsType';
 import { useEffect } from 'react';
 
 export function PersonalOrders() {
-  const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((store) => store.getAllOrderReducer.status);
-  const connect = (wsUrl: string) => dispatch(wsConnection(wsUrl));
   const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
   useEffect(() => {
-    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
+    dispatch(wcConnectionClosed(`wss://norma.nomoreparties.space/orders/all`));
+    setTimeout(() => {
+      dispatch(wsConnection(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
+    }, 0);
   }, [dispatch]);
-
-  console.log(accessToken);
-  console.log(orders);
+  const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
 
   if (isLoading === 'CONNECTING...') {
     return <p>Загрузка...</p>;
@@ -34,12 +33,7 @@ export function PersonalOrders() {
             </Link>
           </li>
           <li className={styles.profileListItem}>
-            <Link
-              to={'/profile/orders'}
-              onClick={() => {
-                connect(`wss://norma.nomoreparties.space/orders?token=${accessToken}`);
-              }}
-              className={styles.profileLink}>
+            <Link to={'/profile/orders'} className={styles.profileLink}>
               История заказов
             </Link>
           </li>
@@ -60,9 +54,11 @@ export function PersonalOrders() {
         </p>
       </div>
       <div className={`${styles.ordersWrapper} custom-scroll`}>
-        {orders.map((order: TOrder) => {
-          return <OrderFeedDetails order={order} key={order._id} date={order.createdAt} />;
-        })}
+        {orders
+          .map((order: TOrder) => {
+            return <OrderFeedDetails order={order} key={order._id} date={order.createdAt} />;
+          })
+          .reverse()}
       </div>
     </section>
   );

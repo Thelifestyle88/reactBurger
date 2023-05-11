@@ -1,4 +1,3 @@
-import AppHeader from '../../AppHeader/AppHeader';
 import React from 'react';
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -17,19 +16,18 @@ export function ForgottenPassword() {
     <>
       <div className={styles.passwordWrapper}>
         <h1>Восстановление пароля</h1>
-        <form className={styles.passwordForm}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            forgotPassword(email).then((res) => {
+              if (res.success) {
+                navigate('/reset-password');
+              }
+            });
+          }}
+          className={styles.passwordForm}>
           <EmailInput onChange={onChange} value={email} name={'email'} isIcon={false} />
-          <Button
-            htmlType="submit"
-            extraClass={styles.button}
-            onClick={(e) => {
-              e.preventDefault();
-              forgotPassword(email).then((res) => {
-                if (res.success) {
-                  navigate('/reset-password');
-                }
-              });
-            }}>
+          <Button htmlType="submit" extraClass={styles.button}>
             Восстановить
           </Button>
         </form>

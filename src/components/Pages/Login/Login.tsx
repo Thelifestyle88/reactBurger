@@ -1,4 +1,3 @@
-import AppHeader from '../../AppHeader/AppHeader';
 import React from 'react';
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -19,7 +18,12 @@ export function Login() {
     <>
       <div className={styles.loginWrapper}>
         <h1>Вход</h1>
-        <form className={styles.loginForm}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            dispatch(logInProfile({ email, password }));
+          }}
+          className={styles.loginForm}>
           <EmailInput onChange={onChange} value={email} name={'email'} isIcon={false} />
           <Input
             type={'password'}
@@ -33,13 +37,7 @@ export function Login() {
             size={'default'}
             extraClass="ml-1"
           />
-          <Button
-            htmlType="submit"
-            extraClass={styles.button}
-            onClick={(e) => {
-              e.preventDefault();
-              dispatch(logInProfile({ email, password }));
-            }}>
+          <Button htmlType="submit" extraClass={styles.button}>
             Войти
           </Button>
         </form>

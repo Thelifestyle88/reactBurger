@@ -14,7 +14,8 @@ import { TIngredient } from '../../utils/typesData';
 import { useAppDispatch, useAppSelector } from '../../index';
 
 const BurgerConstructor = () => {
-  const isAuth = useAppSelector((store) => store.authorizationReducer.isAithorizationSucceed);
+  const user = useAppSelector((store) => store.profileInformationReducer.profileData);
+  console.log(user);
   const ingredient = useAppSelector(
     (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
@@ -95,7 +96,7 @@ const BurgerConstructor = () => {
         <CurrencyIcon type="primary" />
         <Button
           onClick={() => {
-            if (isAuth) {
+            if (user) {
               const orderCreate = [bun, ...ingredient, bun];
               if (orderCreate) {
                 const orderId: Array<string | undefined> = orderCreate.map(

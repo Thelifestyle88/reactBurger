@@ -36,7 +36,8 @@ export const getAllOrderReducer = createReducer(initialState, (builder) => {
         state.connectionError = ' ';
     })
     .addCase(wcConnectionClosed, (state) => {
-        state.status = WebsocketStatus.OFFLINE
+        state.orders.orders = []
+        state.status = WebsocketStatus.OFFLINE;
         
     })
     .addCase(wsConnectionError, (state, action) => {

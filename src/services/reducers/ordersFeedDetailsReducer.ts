@@ -14,13 +14,11 @@ export function ordersFeedDetailsReducer(state = initialState, action: PayloadAc
   switch (action.type) {
     case ADD_ORDER_DETAILS: {
       return {
-        ...state,
         order: action.payload,
       };
     }
     case DELETE_ORDER_DETAILS: {
       return {
-        ...state,
         order: action.payload,
       };
     }

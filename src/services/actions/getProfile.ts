@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { getProfileInformation, changeProfileInformation } from '../../utils/api';
 import { IUser, TUser } from '../../utils/typesData';
-import { AUTHORIZATION_LOGOUT } from './logInOutProfile';
+import { AUTHORIZATION_FAILED, AUTHORIZATION_LOGOUT } from './logInOutProfile';
 
 export const GET_PROFILE_INFORMATION_REQUEST: 'GET_PROFILE_INFORMATION_REQUEST' = 'GET_PROFILE_INFORMATION_REQUEST';
 export const GET_PROFILE_INFORMATION_SUCCEED: 'GET_PROFILE_INFORMATION_SUCCEED' = 'GET_PROFILE_INFORMATION_SUCCEED';
@@ -46,7 +46,6 @@ export function getInformation() {
     });
     getProfileInformation()
       .then((res) => {
-        console.log(res.user)
         if (res && res.success) {
           dispatch({
             type: GET_PROFILE_INFORMATION_SUCCEED,
@@ -58,7 +57,7 @@ export function getInformation() {
           });
         }
       })
-      .catch(console.error);
+      .catch(console.error)
   };
 }
 
@@ -68,7 +67,7 @@ export const checkUserAuth = () => (dispatch:Dispatch) => {
       dispatch({ type: AUTHORIZATION_SUCCEED });
     });
   } else {
-    dispatch({ type: AUTHORIZATION_SUCCEED });
+    dispatch({ type: AUTHORIZATION_FAILED });
   }
 };
 

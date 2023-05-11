@@ -14,13 +14,11 @@ export function ingredientDetailsReducer(state = initialState, action: PayloadAc
   switch (action.type) {
     case ADD_INGREDIENT_DETAILS: {
       return {
-        ...state,
         ingredient: action.payload,
       };
     }
     case DELETE_INGREDIENT_DETAILS: {
       return {
-        ...state,
         ingredient: action.payload,
       };
     }

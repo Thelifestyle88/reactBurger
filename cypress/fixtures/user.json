@@ -1,0 +1,6 @@
+{
+  "success": true,
+  "user": { "email": "test@gmail.com", "password": "123456" },
+  "accessToken": "Bearer 1234567890",
+  "refreshToken": "0987654321"
+}

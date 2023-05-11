@@ -37,6 +37,24 @@ export type TUser = {
     total: number;
     totalToday: number
   }
+
+  export type TOrderDetails = {
+    success: boolean;
+    order: TMyOrderDetails
+    name: string
+  }
+
+  export type TMyOrderDetails = {
+    createdAt: string;
+    ingredients: TIngredient[];
+    name: string;
+    number:number;
+    owner: IUser
+    price: number
+    status:string
+    updatedAt: string
+    _id:string
+  }
   
   export type TOrder = {
     name: string;

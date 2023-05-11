@@ -1,9 +1,9 @@
-import { store, useAppDispatch, useAppSelector } from '../../index';
+import { useAppDispatch, useAppSelector } from '../../index';
 import styles from './styles/orderFeed.module.css';
 import { OrderFeedDetails } from '../OrderFeedDetails/OrderFeedDetails';
-import { TIngredient, TOrder } from '../../utils/typesData';
+import { TOrder } from '../../utils/typesData';
 import { useEffect } from 'react';
-import { wsConnection } from '../../services/middleware/wsActionsType';
+import { wcConnectionClosed, wsConnection } from '../../services/middleware/wsActionsType';
 
 export function OrderFeed() {
   const dispatch = useAppDispatch();
@@ -11,7 +11,9 @@ export function OrderFeed() {
   const ordersInformation = useAppSelector((store) => store.getAllOrderReducer.orders);
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
   const isLoading = useAppSelector((store) => store.getAllOrderReducer.status);
+  const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
   useEffect(() => {
+    dispatch(wcConnectionClosed(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
     dispatch(wsConnection(`wss://norma.nomoreparties.space/orders/all`));
   }, [dispatch]);
   const maxShownIngredients = 6;
@@ -27,8 +29,6 @@ export function OrderFeed() {
       return item.number;
     } else return null;
   });
-
-  console.log(orders);
 
   if (isLoading === 'CONNECTING...') {
     return <p>Загрузка...</p>;

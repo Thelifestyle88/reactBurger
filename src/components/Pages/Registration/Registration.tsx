@@ -18,7 +18,12 @@ export function Registration() {
   return (
     <div className={styles.registrationWrapper}>
       <h1>Регистрация</h1>
-      <form className={styles.registrationForm}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          createUser({ email, password, name });
+        }}
+        className={styles.registrationForm}>
         <Input
           type={'text'}
           placeholder={'Имя'}
@@ -45,14 +50,7 @@ export function Registration() {
           size={'default'}
           extraClass="ml-1"
         />
-        <Button
-          htmlType="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            createUser({ email, password, name });
-          }}>
-          Зарегестрироваться
-        </Button>
+        <Button htmlType="submit">Зарегестрироваться</Button>
       </form>
       <p>
         Уже зарегестрированы? <Link to="/login">Войти</Link>

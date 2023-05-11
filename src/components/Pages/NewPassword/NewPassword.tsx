@@ -15,7 +15,16 @@ export function NewPassword() {
     <>
       <div className={styles.newPasswordWrapper}>
         <h1>Восстановление пароля</h1>
-        <form className={styles.newPasswordForm}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            resetPassword(password, token).then((res) => {
+              if (res.success) {
+                navigate('/');
+              }
+            });
+          }}
+          className={styles.newPasswordForm}>
           <Input
             type={'password'}
             placeholder={'Пароль'}
@@ -41,18 +50,7 @@ export function NewPassword() {
             size={'default'}
             extraClass="ml-1"
           />
-          <Button
-            htmlType="submit"
-            onClick={(e) => {
-              e.preventDefault();
-              resetPassword(password, token).then((res) => {
-                if (res.success) {
-                  navigate('/');
-                }
-              });
-            }}>
-            Сохранить
-          </Button>
+          <Button htmlType="submit">Сохранить</Button>
         </form>
         <p>
           Уже зарегестрированы? <Link to="/login">Войти</Link>
