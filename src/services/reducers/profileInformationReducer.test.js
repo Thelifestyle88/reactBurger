@@ -30,6 +30,20 @@ describe('profileInformationReducer', () => {
       getProfileSucceed: true,
     });
   });
+  it('AUTHORIZATION_SUCCEED', () => {
+    expect(
+      profileInformationReducer(initialState, {
+        type: types.GET_PROFILE_INFORMATION_SUCCEED,
+        isAuthorizationSucceed: true,
+        payload: testUserData,
+      }),
+    ).toEqual({
+      ...initialState,
+      profileData: testUserData,
+      isAuthorizationSucceed: false,
+      getProfileSucceed: true,
+    });
+  });
   it('CHANGE_PROFILE_INFORMATION_SUCCEED', () => {
     expect(
       profileInformationReducer(initialState, {

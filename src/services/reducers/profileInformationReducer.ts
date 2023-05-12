@@ -18,7 +18,7 @@ interface IProfileInformationState {
 }
 
 
-const initialState:IProfileInformationState = {
+export const initialState:IProfileInformationState = {
   profileData: null,
   profileInformationRequest: false,
   profileInformationFailed: false,
