@@ -5,10 +5,10 @@ describe('run application', function () {
     cy.visit('http://localhost:3000');
     cy.setCookie('accessToken', 'Bearer 1234567890');
     cy.setCookie('refreshToken', '0987654321');
-    cy.intercept('GET', 'api/ingredients', { fixture: 'data.json' }).as('ingredients');
-    cy.intercept('POST', `api/orders`, { fixture: 'order.json' }).as('order');
-    cy.intercept('POST', `api/auth/login`, { fixture: 'user.json' }).as('login');
-    cy.intercept('POST', `api/auth/logout`, { fixture: 'logout.json' }).as('logout');
+    cy.intercept('GET', `${baseUrl}/ingredients`, { fixture: 'data.json' }).as('ingredients');
+    cy.intercept('POST', `${baseUrl}/orders`, { fixture: 'order.json' }).as('order');
+    cy.intercept('POST', `${baseUrl}/auth/login`, { fixture: 'user.json' }).as('login');
+    cy.intercept('POST', `${baseUrl}/auth/logout`, { fixture: 'logout.json' }).as('logout');
   });
 
   it('аутентификация пользователя и заказ бургера', function () {
