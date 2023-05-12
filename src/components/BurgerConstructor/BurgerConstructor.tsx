@@ -45,7 +45,7 @@ const BurgerConstructor = () => {
   return (
     <section className={`${burgerConstructor.burgerConstructor} mt-25`} ref={drop}>
       {bun && (
-        <div className={`${burgerConstructor.bun} ml-6`}>
+        <div data-testid={'bunTarget'} className={`${burgerConstructor.bun} ml-6`}>
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -56,7 +56,9 @@ const BurgerConstructor = () => {
         </div>
       )}
       {isIngredientExist && (
-        <div className={`${burgerConstructor.mainCourses} custom-scroll`}>
+        <div
+          data-testid={'bunIngredientTarget'}
+          className={`${burgerConstructor.mainCourses} custom-scroll`}>
           {ingredient.map((obj, index: number) => {
             return (
               <BurgerConstructorElement index={index} key={obj.constructorId} obj={obj}>
@@ -80,7 +82,7 @@ const BurgerConstructor = () => {
         </div>
       )}
       {bun && (
-        <div data-testid={'bunIngredientTarget'} className={`${burgerConstructor.bun} ml-6`}>
+        <div data-testid={'bunTarget'} className={`${burgerConstructor.bun} ml-6`}>
           <ConstructorElement
             type="bottom"
             isLocked={true}
@@ -94,6 +96,7 @@ const BurgerConstructor = () => {
         <p>{price}</p>
         <CurrencyIcon type="primary" />
         <Button
+          data-testid={'buttonMakeOrder'}
           onClick={() => {
             if (user) {
               const orderCreate = [bun, ...ingredient, bun];

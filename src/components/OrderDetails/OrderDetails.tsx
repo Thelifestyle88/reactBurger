@@ -18,7 +18,7 @@ export function OrderDetails(burger: TBurger) {
   return (
     <>
       {isNumberExist && (
-        <div className={styles.orderDetailsWrapper}>
+        <div data-testid={'orderId'} className={styles.orderDetailsWrapper}>
           <h2 className="text text_type_digits-large mb-8">{burger.order.order.number}</h2>
           <h3 className="text text_type_main-medium mb-15">Идентификатор заказа</h3>
           <img className={`${styles.orderDetailsImage} mb-15`} src={doneOrder} alt="done" />
