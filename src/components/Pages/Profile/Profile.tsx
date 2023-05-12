@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import styles from './styles/profile.module.css';
 import { Input, EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { changeProfile } from '../../../services/actions/getProfile';
 import { Link } from 'react-router-dom';
 import { logOutProfile } from '../../../services/actions/logInOutProfile';
 import { useAppDispatch, useAppSelector } from '../../..';
+
 export function Profile() {
   const dispatch = useAppDispatch();
   const profileInformationRequest = useAppSelector(
@@ -12,15 +13,27 @@ export function Profile() {
   );
   const user = useAppSelector((store) => store.profileInformationReducer.profileData);
 
-  const [name, setName] = useState(user?.name);
-  const [email, setEmail] = useState(user?.email);
-  const changeName = (e: React.FocusEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-  const changeEmail = (e: React.FocusEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const [userData, setUserData] = useState({
+    email: user === null ? ' ' : user.email,
+    password: '',
+    name: user === null ? ' ' : user.name,
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
   };
 
+  useEffect(() => {
+    setUserData(() => ({
+      email: user === null ? ' ' : user.email,
+      password: '',
+      name: user === null ? ' ' : user.name,
+    }));
+  }, [user]);
   if (profileInformationRequest) {
     return <p>Загрузка</p>;
   }
@@ -58,20 +71,20 @@ export function Profile() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            dispatch(changeProfile({ name, email }));
+            dispatch(changeProfile(userData));
           }}
           className={styles.profileInputWrapper}>
           <Input
-            onChange={changeName}
-            value={name}
+            onChange={handleChange}
+            value={userData.name}
             icon={'EditIcon'}
             name={'email'}
             placeholder="Имя"
             extraClass="mb-2"
           />
           <EmailInput
-            onChange={changeEmail}
-            value={email}
+            onChange={handleChange}
+            value={userData.email}
             name={'email'}
             placeholder="Логин"
             isIcon={true}

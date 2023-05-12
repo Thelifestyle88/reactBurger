@@ -1,6 +1,6 @@
 export interface IUser {
-  email?: string;
-  name?: string
+  email: string;
+  name: string
 }
 
 export type TUser = {
