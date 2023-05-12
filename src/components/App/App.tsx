@@ -22,7 +22,6 @@ import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { deleteOrderDetails } from '../../services/actions/getOrderDetails';
 import { OrderPage } from '../Pages/OrderPage/OrderPage';
 import { PersonalOrders } from '../Pages/PersonalOrders/PersonalOrders';
-import { wsConnection } from '../../services/middleware/wsActionsType';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -37,9 +36,6 @@ function App() {
   const orderId = useAppSelector((store) => store.ordersFeedDetailsReducer.order);
   const selectedItem = useAppSelector((store) => store.ingredientDetailsReducer.ingredient);
   const order = useAppSelector((store) => store.orderDetailsReducer.orderDetails);
-  if (burgerIngredientRequest) {
-    return <p>Загрузка</p>;
-  }
 
   return (
     <>
@@ -72,7 +68,14 @@ function App() {
           }
         />
         <Route path="/feed/:id" element={<OrderPage />} />
-        <Route path="/profile/orders" element={<PersonalOrders />} />
+        <Route
+          path="/profile/orders"
+          element={
+            <ProtectedRoute>
+              <PersonalOrders />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
         <Route
           path="/profile"
@@ -105,7 +108,6 @@ function App() {
           onClose={() => {
             dispatch(deleteOrderFeedDetails());
           }}
-          //@ts-ignore
           children={<FeedId />}
         />
       )}
@@ -122,7 +124,6 @@ function App() {
           onClose={() => {
             dispatch(deleteOrderDetails());
           }}
-          //@ts-ignore
           children={<OrderDetails order={order} />}
         />
       )}

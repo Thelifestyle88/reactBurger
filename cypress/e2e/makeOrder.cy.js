@@ -1,17 +1,13 @@
 import { baseUrl } from '../../src/utils/tests';
 import { testBun, testMain, testSauce } from '../../src/utils/tests';
-const notification = `[data-testid=notification]`;
 
 describe('run application', function () {
   beforeEach(() => {
+    cy.visit('http://localhost:3000');
     cy.intercept('GET', `${baseUrl}/ingredients`, {
       statusCode: 200,
       body: { success: true, data: [testBun, testBun, testMain, testSauce] },
     });
-
-    cy.intercept('POST', `${baseUrl}/auth/login}`, { delay: 1000, fixture: 'user.json' }).as(
-      'login',
-    );
     cy.intercept('POST', `${baseUrl}/orders`, {
       delay: 1000,
       fixture: 'order.json',
@@ -24,9 +20,8 @@ describe('run application', function () {
 
   it('аутентификация пользователя и заказ бургера', function () {
     cy.get('h1').should('exist').and('contain', 'Соберите бургер');
-
-    cy.get(notification).should('exist').click();
-
+    cy.get('[data-testid=profile]').should('exist').click();
+    cy.wait(2000);
     cy.get('h1').should('exist').and('contain', 'Вход');
     cy.get('[type="email"]').should('exist');
     cy.get('[type="password"]').should('exist');
@@ -39,7 +34,6 @@ describe('run application', function () {
     cy.get('[type="password"]').type('123456').should('have.value', '123456');
     cy.get('[type="submit"]').contains('Войти').click();
 
-    cy.get(notification).should('exist');
     cy.wait('@login')
       .setCookie('accessToken', 'Bearer 1234567890')
       .setCookie('refreshToken', '0987654321');
@@ -63,7 +57,6 @@ describe('run application', function () {
       .should('exist')
       .and('contain', 'Оформить заказ')
       .click();
-    cy.get(notification).should('exist');
     cy.wait('@order').get(`[data-testid=orderId]`).should('exist').and('contain', '1234');
 
     cy.get('body').type('{esc}');
@@ -72,7 +65,6 @@ describe('run application', function () {
     cy.get('[data-testid=profile]').should('exist').click();
 
     cy.get('#logout').should('exist').click();
-    cy.get(notification).should('exist');
 
     cy.wait('@logout').get('h1').should('exist').and('contain', 'Соберите бургер');
   });

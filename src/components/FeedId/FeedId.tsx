@@ -3,7 +3,7 @@ import { useAppSelector } from '../..';
 import styles from './styles/feedId.module.css';
 import { TOrder } from '../../utils/typesData';
 
-export function FeedId(orderPage: TOrder) {
+export function FeedId() {
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const order = useAppSelector((store) => store.ordersFeedDetailsReducer.order);
   const ingredientsInOrder = order?.ingredients;

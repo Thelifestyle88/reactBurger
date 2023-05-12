@@ -11,8 +11,10 @@ export function Profile() {
     (store) => store.profileInformationReducer.profileInformationRequest,
   );
   const user = useAppSelector((store) => store.profileInformationReducer.profileData);
-  const [name, setName] = useState(user?.name);
-  const [email, setEmail] = useState(user?.email);
+  //@ts-ignore
+  const [name, setName] = useState(user.name);
+  //@ts-ignore
+  const [email, setEmail] = useState(user.email);
   const changeName = (e: React.FocusEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
@@ -23,9 +25,9 @@ export function Profile() {
   if (profileInformationRequest) {
     return <p>Загрузка</p>;
   }
-
   return (
     <>
+      {user} &&(
       <div className={styles.profileWrapper}>
         <div className={styles.profileListWrapper}>
           <ul className={`${styles.profileList} text text_type_main-medium`}>
@@ -92,6 +94,7 @@ export function Profile() {
           </Button>
         </form>
       </div>
+      )
     </>
   );
 }

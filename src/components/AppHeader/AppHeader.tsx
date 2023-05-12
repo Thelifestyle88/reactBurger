@@ -28,6 +28,7 @@ function AppHeader() {
         <Logo />
         <Link to="/profile">
           <button
+            data-testid={'profile'}
             className={`${appHeader.button} pt-4 pr-5 pb-4 pl-5 mt-2 mb-2 text text_type_main-default`}>
             <ProfileIcon type="primary" />
             Личный кабинет
