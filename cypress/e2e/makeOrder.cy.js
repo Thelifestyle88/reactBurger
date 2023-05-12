@@ -3,8 +3,6 @@ import { testBun, testMain, testSauce } from '../../src/utils/tests';
 
 describe('run application', function () {
   beforeEach(() => {
-    cy.setLocalStorage('accessToken', 'Bearer 1234567890');
-    cy.setLocalStorage('refreshToken', '0987654321');
     cy.visit('http://localhost:3000');
     cy.intercept('GET', `${baseUrl}/ingredients`, {
       statusCode: 200,
@@ -39,7 +37,9 @@ describe('run application', function () {
     cy.get('[type="password"]').type('123456').should('have.value', '123456');
     cy.get('[type="submit"]').contains('Войти').click();
 
-    cy.wait('@login');
+    cy.wait('@login')
+      .setCookie('accessToken', 'Bearer 1234567890')
+      .setCookie('refreshToken', '0987654321');
 
     cy.get(`#${testBun._id}`).should('exist');
     cy.get(`#${testSauce._id}`).should('exist');
