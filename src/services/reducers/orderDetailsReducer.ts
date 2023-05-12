@@ -14,7 +14,7 @@ interface IOrderDetailsState {
   isPageOnLoad: boolean,
 }
 
-const initialState: IOrderDetailsState = {
+export const initialState: IOrderDetailsState = {
   orderDetails: null,
   orderDetailsRequest: false,
   orderDetailsFailed: false,

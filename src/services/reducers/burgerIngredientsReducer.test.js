@@ -16,14 +16,14 @@ describe('burgerIngredientReducer', () => {
     ).toEqual({
       ...initialState,
       isPageOnLoad: true,
-      urgerIngredientRequest: true,
+      burgerIngredientRequest: true,
     });
   });
   it('GET_BURGER_INGREDIENTS_SUCCEED', () => {
     expect(
       burgerIngredientReducer(initialState, {
         type: types.GET_BURGER_INGREDIENTS_SUCCEED,
-        burgerIngredientData: [testBun, testMain, testSauce],
+        payload: [testBun, testMain, testSauce],
       }),
     ).toEqual({
       ...initialState,

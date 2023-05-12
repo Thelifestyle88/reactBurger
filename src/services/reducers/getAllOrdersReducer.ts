@@ -15,7 +15,7 @@ interface IGetAllOrdersState {
     connectionError: string | undefined
 }
 
-const initialState: IGetAllOrdersState = {
+export const initialState: IGetAllOrdersState = {
     orders: {
         success: false,
         orders: [],

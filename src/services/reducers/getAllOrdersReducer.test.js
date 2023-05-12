@@ -10,11 +10,11 @@ describe('getAllOrderReducer', () => {
       getAllOrderReducer(initialState, {
         type: types.wsConnection,
         ...initialState,
-        status: 'CONNECTING',
+        status: 'CONNECTING...',
       }),
     ).toEqual({
       ...initialState,
-      status: 'CONNECTING',
+      status: 'CONNECTING...',
     });
   });
   it('wsConnectionConnect', () => {
@@ -48,7 +48,7 @@ describe('getAllOrderReducer', () => {
       getAllOrderReducer(initialState, {
         type: types.wsConnectionError,
         ...initialState,
-        connectionError: 'some error,',
+        payload: 'some error,',
       }),
     ).toEqual({
       ...initialState,
@@ -60,7 +60,7 @@ describe('getAllOrderReducer', () => {
       getAllOrderReducer(initialState, {
         ...initialState,
         type: types.wsGetMessage,
-        orders: [],
+        payload: [],
       }),
     ).toEqual({
       ...initialState,

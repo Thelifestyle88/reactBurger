@@ -16,18 +16,18 @@ describe('orderDetailsReducer', () => {
     ).toEqual({
       ...initialState,
       isPageOnLoad: true,
-      urgerIngredientRequest: true,
+      orderDetailsRequest: true,
     });
   });
   it('GET_ORDER_SUCCEED', () => {
     expect(
       orderDetailsReducer(initialState, {
         type: types.GET_ORDER_SUCCEED,
-        orderDetails: testOrderDetails,
+        payload: testOrderDetails,
       }),
     ).toEqual({
       ...initialState,
-      burgerIngredientData: testOrderDetails,
+      orderDetails: testOrderDetails,
     });
   });
   it('GET_ORDER_FAILED', () => {

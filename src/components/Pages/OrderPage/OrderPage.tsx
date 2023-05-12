@@ -6,10 +6,12 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 export function OrderPage() {
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const orderId = useParams();
+  console.log(orderId);
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
   const order = orders.find((item) => item._id === String(orderId.id));
   //@ts-ignore
   const date: string = order?.createdAt;
+  console.log(orders);
   const ingredientsInOrder = order?.ingredients;
   const elements = ingredientsInOrder?.map((item) => {
     return ingredients.find((el) => {

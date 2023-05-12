@@ -27,15 +27,22 @@ function App() {
   const dispatch = useAppDispatch();
   const location: Location = useLocation();
   const background = location.state && location.state.background;
+  const navigate = useNavigate();
   const { burgerIngredientRequest } = useAppSelector((store) => store.burgerIngredientReducer);
   useEffect(() => {
     dispatch(getBurgerIngredients());
     dispatch(checkUserAuth());
     dispatch(getInformation());
   }, [dispatch]);
-  const orderId = useAppSelector((store) => store.ordersFeedDetailsReducer.order);
-  const selectedItem = useAppSelector((store) => store.ingredientDetailsReducer.ingredient);
   const order = useAppSelector((store) => store.orderDetailsReducer.orderDetails);
+  const closeIngredientModal = () => {
+    dispatch(deleteIngredientDetails());
+    navigate(background.pathname || '/' || '/feed', { replace: true });
+  };
+  const closeOrderPage = () => {
+    navigate(background.pathname || '/' || '/feed', { replace: true });
+    dispatch(deleteOrderFeedDetails());
+  };
 
   return (
     <>
@@ -49,7 +56,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/ordersFeed" element={<OrderFeed />} />
+        <Route path="/feed" element={<OrderFeed />} />
         <Route path="/registration" element={<Registration />} />
         <Route
           path="/password"
@@ -87,7 +94,7 @@ function App() {
         />
         <Route path="/" element={<MainPage />} />
       </Routes>
-      {background && (
+      {background?.pathname === '/' && (
         <Routes>
           <Route
             path="/ingredients/:id"
@@ -95,28 +102,43 @@ function App() {
               <Modal
                 name="Детали ингредиента"
                 onClose={() => {
-                  dispatch(deleteIngredientDetails());
+                  closeIngredientModal();
                 }}
-                children={<IngredientDetails />}
+                children={<IngredientPage />}
               />
             }
           />
         </Routes>
       )}
-      {orderId && (
-        <Modal
-          onClose={() => {
-            dispatch(deleteOrderFeedDetails());
-          }}
-          children={<FeedId />}
-        />
+      {background?.pathname === '/feed' && (
+        <Routes>
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal
+                onClose={() => {
+                  closeOrderPage();
+                }}
+                children={<OrderPage />}
+              />
+            }
+          />
+        </Routes>
       )}
-      {Boolean(selectedItem) && (
-        <Modal
-          name="Детали ингредиента"
-          onClose={() => dispatch(deleteIngredientDetails())}
-          children={<IngredientDetails />}
-        />
+      {background?.pathname === '/profile/orders' && (
+        <Routes>
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal
+                onClose={() => {
+                  closeOrderPage();
+                }}
+                children={<OrderPage />}
+              />
+            }
+          />
+        </Routes>
       )}
       {order && (
         <Modal

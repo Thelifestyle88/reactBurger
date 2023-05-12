@@ -6,7 +6,7 @@ interface IOrdersFeedDetailState {
   order: TOrder | null
 }
 
-const initialState: IOrdersFeedDetailState = {
+export const initialState: IOrdersFeedDetailState = {
     order: null,
 };
 

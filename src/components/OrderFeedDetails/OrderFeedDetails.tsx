@@ -3,6 +3,7 @@ import { TIngredient, TOrder } from '../../utils/typesData';
 import styles from './styles/orderFeedDetails.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { addOrderFeedDetails } from '../../services/actions/getOrdersFeedDetails';
+import { Link, useLocation } from 'react-router-dom';
 
 interface OrderFeedDetailsProps {
   order: TOrder;
@@ -11,6 +12,7 @@ interface OrderFeedDetailsProps {
 
 export function OrderFeedDetails({ order, date }: OrderFeedDetailsProps) {
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const ingredientsInOrder = order.ingredients;
   const maxShownIngredients = 6;
@@ -33,7 +35,12 @@ export function OrderFeedDetails({ order, date }: OrderFeedDetailsProps) {
   };
 
   return (
-    <div className={styles.ordersWrapper} onClick={() => handleOnClick()}>
+    <Link
+      to={{ pathname: `/feed/${order._id}` }}
+      state={{ background: location }}
+      replace={true}
+      className={styles.ordersWrapper}
+      onClick={() => handleOnClick()}>
       <div className={`${styles.time} m-6`}>
         <p className={styles.orderNumber}>{`#${order.number}`}</p>
         <FormattedDate date={new Date(date)} />
@@ -56,6 +63,6 @@ export function OrderFeedDetails({ order, date }: OrderFeedDetailsProps) {
           <CurrencyIcon type="primary" />
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

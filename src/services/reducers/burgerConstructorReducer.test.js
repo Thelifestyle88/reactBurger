@@ -1,6 +1,6 @@
 import { burgerConstructorReducer, initialState } from './burgerConstructorReducer';
 import * as types from '../actions/getBurgerConstructor';
-import { testBun, testSauce, testMain } from '../../utils/tests';
+import { testBun, testMain } from '../../utils/tests';
 
 describe('burgerConstructorReducer', () => {
   it('должен вернуть initial state', () => {
@@ -10,7 +10,7 @@ describe('burgerConstructorReducer', () => {
     expect(
       burgerConstructorReducer(initialState, {
         type: types.ADD_BUN,
-        buns: testBun,
+        payload: testBun,
       }),
     ).toEqual({
       ...initialState,
@@ -21,18 +21,18 @@ describe('burgerConstructorReducer', () => {
     expect(
       burgerConstructorReducer(initialState, {
         type: types.ADD_POSITION,
-        burgerConstructorData: [...initialState.burgerConstructorData, testMain],
+        payload: [...initialState.burgerConstructorData, testMain],
       }),
     ).toEqual({
       ...initialState,
-      burgerConstructorData: [...initialState.burgerConstructorData, testMain],
+      payload: [...initialState.burgerConstructorData, testMain],
     });
   });
   it('should handle DELETE_POSITION', () => {
     expect(
       burgerConstructorReducer(initialState, {
         type: types.DELETE_POSITION,
-        burgerConstructorData: [
+        payload: [
           ...initialState.burgerConstructorData.slice(0, testMain),
           ...initialState.burgerConstructorData.slice(testMain + 1),
         ],

@@ -7,11 +7,15 @@ describe('run application', function () {
     cy.intercept('GET', `${baseUrl}/ingredients`, {
       statusCode: 200,
       body: { success: true, data: [testBun, testBun, testMain, testSauce] },
-    });
+    }).as('ingredients');
+    // cy.wait('@ingredients');
     cy.intercept('POST', `${baseUrl}/orders`, {
       delay: 1000,
       fixture: 'order.json',
     }).as('order');
+    cy.intercept('POST', `${baseUrl}/auth/login`, { delay: 1000, fixture: 'user.json' }).as(
+      'login',
+    );
     cy.intercept('POST', `${baseUrl}/auth/logout`, {
       delay: 1000,
       fixture: 'logout.json',
@@ -21,7 +25,6 @@ describe('run application', function () {
   it('аутентификация пользователя и заказ бургера', function () {
     cy.get('h1').should('exist').and('contain', 'Соберите бургер');
     cy.get('[data-testid=profile]').should('exist').click();
-    cy.wait(2000);
     cy.get('h1').should('exist').and('contain', 'Вход');
     cy.get('[type="email"]').should('exist');
     cy.get('[type="password"]').should('exist');
@@ -29,7 +32,7 @@ describe('run application', function () {
 
     cy.get('.input__icon').first().click();
     // eslint-disable-next-line cypress/unsafe-to-chain-command
-    cy.get('[type="email"]').type('test@gmail.com').should('have.value', 'test@gmail.com');
+    cy.get('[type="email"]').type('test@mail.com').should('have.value', 'test@mail.com');
     // eslint-disable-next-line cypress/unsafe-to-chain-command
     cy.get('[type="password"]').type('123456').should('have.value', '123456');
     cy.get('[type="submit"]').contains('Войти').click();
@@ -43,7 +46,7 @@ describe('run application', function () {
     cy.get(`#${testMain._id}`).should('exist');
 
     cy.get(`#${testBun._id}`).trigger('dragstart');
-    cy.get('[data-testid=bunTopTarget]').trigger('drop');
+    cy.get('[data-testid=bunTarget]').trigger('drop');
 
     cy.get(`#${testSauce._id}`).trigger('dragstart');
     cy.get('[data-testid=bunIngredientTarget]').trigger('drop');

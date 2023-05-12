@@ -14,7 +14,7 @@ interface IBurgerConstructorState {
 }
 
 
-const initialState: IBurgerConstructorState = {
+export const initialState: IBurgerConstructorState = {
   buns: null,
   burgerConstructorData: [],
   count: 0,

@@ -30,7 +30,7 @@ function Modal({ onClose, children, name }: TModalProps) {
       <div className={styles.modal}>
         <div className={`${styles.modalHeaderWrapper} mt-10 ml-10 mr-10`}>
           <h2 className={`${styles.modalHeader} text text_type_main-large`}>{name}</h2>
-          <button className={styles.modalButton} onClick={onClose}>
+          <button title="button" className={styles.modalButton} onClick={onClose}>
             <CloseIcon type="primary" />
           </button>
         </div>

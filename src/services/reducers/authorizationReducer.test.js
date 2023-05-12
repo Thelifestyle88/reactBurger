@@ -8,50 +8,61 @@ describe('authorizationReducer', () => {
   });
   it('should handle AUTHORIZATION_REQUEST', () => {
     expect(
-      authorizationReducer(initialState, {
-        type: types.AUTHORIZATION_REQUEST,
-      }),
+      authorizationReducer(
+        {},
+        {
+          type: types.AUTHORIZATION_REQUEST,
+          authorizationRequest: true,
+        },
+      ),
     ).toEqual({
-      ...initialState,
       authorizationRequest: true,
-      isAithorizationSucceed: false,
       authorizationFailed: false,
+      isAithorizationSucceed: false,
     });
   });
   it('should handle AUTHORIZATION_SUCCEED', () => {
     expect(
       authorizationReducer(initialState, {
         type: types.AUTHORIZATION_SUCCEED,
-        profileData: testUserData,
+        payload: testUserData,
       }),
     ).toEqual({
-      ...initialState,
       profileData: testUserData,
+      authorizationRequest: false,
+      authorizationFailed: false,
       isAithorizationSucceed: true,
     });
   });
   it('should handle AUTHORIZATION_FAILED', () => {
     expect(
-      authorizationReducer(initialState, {
-        type: types.AUTHORIZATION_FAILED,
-      }),
+      authorizationReducer(
+        {},
+        {
+          type: types.AUTHORIZATION_FAILED,
+          authorizationFailed: true,
+        },
+      ),
     ).toEqual({
-      ...initialState,
       authorizationRequest: false,
-      isAithorizationSucceed: false,
       authorizationFailed: true,
+      isAithorizationSucceed: false,
     });
   });
   it('should handle AUTHORIZATION_LOGOUT', () => {
     expect(
-      authorizationReducer(initialState, {
-        type: types.AUTHORIZATION_LOGOUT,
-        profileData: null,
-      }),
+      authorizationReducer(
+        {},
+        {
+          type: types.AUTHORIZATION_LOGOUT,
+          authorizationFailed: true,
+        },
+      ),
     ).toEqual({
-      ...initialState,
       profileData: null,
+      isAithorizationSucceed: false,
       authorizationFailed: true,
+      authorizationRequest: false,
     });
   });
 });

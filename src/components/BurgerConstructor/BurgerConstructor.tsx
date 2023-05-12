@@ -5,7 +5,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import burgerConstructor from '../BurgerConstructor/styles/burgerConstructor.module.css';
 import { DELETE_POSITION } from '../../services/actions/getBurgerConstructor';
 import { getOrderDetails } from '../../services/actions/getOrderDetails';
-import { FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addPosition } from '../../services/actions/getBurgerConstructor';
 import { BurgerConstructorElement } from '../BurgerConstructorElement/BurgerConstructorElement';
@@ -15,7 +15,6 @@ import { useAppDispatch, useAppSelector } from '../../index';
 
 const BurgerConstructor = () => {
   const user = useAppSelector((store) => store.profileInformationReducer.profileData);
-  console.log(user);
   const ingredient = useAppSelector(
     (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
@@ -81,7 +80,7 @@ const BurgerConstructor = () => {
         </div>
       )}
       {bun && (
-        <div className={`${burgerConstructor.bun} ml-6`}>
+        <div data-testid={'bunIngredientTarget'} className={`${burgerConstructor.bun} ml-6`}>
           <ConstructorElement
             type="bottom"
             isLocked={true}

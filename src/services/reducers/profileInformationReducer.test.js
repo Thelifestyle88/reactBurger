@@ -22,7 +22,7 @@ describe('profileInformationReducer', () => {
       profileInformationReducer(initialState, {
         type: types.GET_PROFILE_INFORMATION_SUCCEED,
         getProfileSucceed: true,
-        profileData: testUserData,
+        payload: testUserData,
       }),
     ).toEqual({
       ...initialState,
@@ -35,7 +35,7 @@ describe('profileInformationReducer', () => {
       profileInformationReducer(initialState, {
         type: types.CHANGE_PROFILE_INFORMATION_SUCCEED,
         getProfileSucceed: true,
-        profileData: testUserData,
+        payload: testUserData,
       }),
     ).toEqual({
       ...initialState,
