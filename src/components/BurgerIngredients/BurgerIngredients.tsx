@@ -12,7 +12,6 @@ const BurgerIngredients = () => {
     (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
   const burgerConstructorBuns = useAppSelector((store) => store.burgerConstructorReducer.buns);
-
   const buns = ingredients.filter((item: TIngredient) => item.type === 'bun');
   const sauce = ingredients.filter((item: TIngredient) => item.type === 'sauce');
   const mains = ingredients.filter((item: TIngredient) => item.type === 'main');

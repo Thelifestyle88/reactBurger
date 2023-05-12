@@ -15,6 +15,7 @@ export function getBurgerIngredients() {
     getIngredients()
       .then((res) => {
         if (res && res.success) {
+          console.log(res)
           dispatch({
             type: GET_BURGER_INGREDIENTS_SUCCEED,
             payload: res.data,
