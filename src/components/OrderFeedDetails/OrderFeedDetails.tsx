@@ -42,9 +42,9 @@ export function OrderFeedDetails({ order, date }: OrderFeedDetailsProps) {
       <div className={`${styles.orderWrapper} m-6`}>
         <div className={styles.imageWrapper}>
           {elements
-            .map((item) => {
+            .map((item, index) => {
               return (
-                <div className={styles.imageContainer}>
+                <div key={index.toString()} className={styles.imageContainer}>
                   <img className={styles.image} src={item?.image_mobile} alt={item?.name} />
                 </div>
               );

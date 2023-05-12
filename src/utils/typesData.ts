@@ -1,11 +1,11 @@
 export interface IUser {
-  email: string;
-  name: string
+  email?: string;
+  name?: string
 }
 
 export type TUser = {
-    email: string;
-    name: string;
+    email?: string;
+    name?: string;
     success:boolean
     user: IUser
     password: string

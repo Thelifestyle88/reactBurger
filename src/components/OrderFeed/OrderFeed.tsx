@@ -48,9 +48,13 @@ export function OrderFeed() {
             <div className={styles.orderListsWrapper}>
               <h3 className={`${styles.orderListTitle} text text_type_main-small`}>Готовы:</h3>
               <ul className={`${styles.orderList} custom-scroll`}>
-                {orderNumberDone.map((item) => {
+                {orderNumberDone.map((item, index) => {
                   return (
-                    <li className={`${styles.textDone} text text_type_digits-default`}>{item}</li>
+                    <li
+                      key={index.toString()}
+                      className={`${styles.textDone} text text_type_digits-default`}>
+                      {item}
+                    </li>
                   );
                 })}
               </ul>
@@ -58,8 +62,12 @@ export function OrderFeed() {
             <div className={styles.orderListsWrapper}>
               <h3 className={`${styles.orderListTitle} text text_type_main-small`}>В работе:</h3>
               <ul className={`${styles.orderList} custom-scroll`}>
-                {orderNumberInProgress.map((item) => {
-                  return <li className="text_type_digits-default">{item}</li>;
+                {orderNumberInProgress.map((item, index) => {
+                  return (
+                    <li key={index.toString()} className="text_type_digits-default">
+                      {item}
+                    </li>
+                  );
                 })}
               </ul>
             </div>
