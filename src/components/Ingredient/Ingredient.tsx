@@ -29,7 +29,7 @@ export function Ingredient({ ingredient, count }: TIngredientProps) {
 
   return (
     <Link
-      data-testid={'bunIngredientTarget'}
+      data-testid={`ingredient-${ingredient._id}`}
       to={{ pathname: `ingredients/${ingredient._id}` }}
       state={{ background: location }}
       replace={true}

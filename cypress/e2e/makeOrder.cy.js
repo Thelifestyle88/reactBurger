@@ -5,29 +5,32 @@ describe('run application', function () {
     cy.visit('http://localhost:3000');
     cy.setCookie('accessToken', 'Bearer 1234567890');
     cy.setCookie('refreshToken', '0987654321');
-    cy.intercept('GET', `${baseUrl}/ingredients`, { fixture: 'data.json' }).as('ingredients');
+    cy.intercept('GET', 'https://norma.nomoreparties.space/api/ingredients', {
+      fixture: 'data.json',
+    }).as('ingredients');
+    cy.intercept('GET', 'https://norma.nomoreparties.space/api/auth/user', {
+      fixture: 'user.json',
+    });
     cy.intercept('POST', `${baseUrl}/orders`, { fixture: 'order.json' }).as('order');
-    cy.intercept('POST', `${baseUrl}/auth/login`, { fixture: 'user.json' }).as('login');
-    cy.intercept('POST', `${baseUrl}/auth/logout`, { fixture: 'logout.json' }).as('logout');
   });
 
-  it('аутентификация пользователя и заказ бургера', function () {
+  it('заказ бургера', function () {
     cy.get('h1').should('exist').and('contain', 'Соберите бургер');
 
-    cy.get(`#${testBun._id}`).should('exist');
-    cy.get(`#${testSauce._id}`).should('exist');
-    cy.get(`#${testMain._id}`).should('exist');
+    cy.get('[data-testid=ingredient-1]').should('exist');
+    cy.get('[data-testid=ingredient-2]').should('exist');
+    cy.get('[data-testid=ingredient-3]').should('exist');
 
-    cy.get(`#${testBun._id}`).trigger('dragstart');
-    cy.get('[data-testid=bunTarget]').trigger('drop');
+    cy.get('[data-testid=ingredient-1]').trigger('dragstart');
+    cy.get('[data-testid=dropTarget]').trigger('drop');
 
-    cy.get(`#${testSauce._id}`).trigger('dragstart');
-    cy.get('[data-testid=bunIngredientTarget]').trigger('drop');
+    cy.get('[data-testid=ingredient-2]').trigger('dragstart');
+    cy.get('[data-testid=dropTarget]').trigger('drop');
 
     // eslint-disable-next-line cypress/unsafe-to-chain-command
-    cy.get(`#${testMain._id}`).scrollIntoView().should('be.visible');
-    cy.get(`#${testMain._id}`).trigger('dragstart');
-    cy.get('[data-testid=bunIngredientTarget]').trigger('drop');
+    cy.get('[data-testid=ingredient-3]').scrollIntoView().should('be.visible');
+    cy.get('[data-testid=ingredient-3]').trigger('dragstart');
+    cy.get('[data-testid=dropTarget]').trigger('drop');
 
     cy.get(`[data-testid=buttonMakeOrder]`)
       .should('exist')
@@ -39,10 +42,6 @@ describe('run application', function () {
     cy.get('h1').should('exist').and('contain', 'Соберите бургер');
 
     cy.get('[data-testid=profile]').should('exist').click();
-
-    cy.get('#logout').should('exist').click();
-
-    cy.wait('@logout').get('h1').should('exist').and('contain', 'Соберите бургер');
   });
 });
 

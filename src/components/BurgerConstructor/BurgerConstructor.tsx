@@ -43,9 +43,9 @@ const BurgerConstructor = () => {
   });
 
   return (
-    <section className={`${burgerConstructor.burgerConstructor} mt-25`} ref={drop}>
+    <section className={`${burgerConstructor.burgerConstructor} mt-25`} ref={drop} data-testid={'dropTarget'}>
       {bun && (
-        <div data-testid={'bunTarget'} className={`${burgerConstructor.bun} ml-6`}>
+        <div className={`${burgerConstructor.bun} ml-6`}>
           <ConstructorElement
             type="top"
             isLocked={true}
