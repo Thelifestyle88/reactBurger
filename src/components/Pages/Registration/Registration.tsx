@@ -19,7 +19,7 @@ export function Registration() {
     <div className={styles.registrationWrapper}>
       <h1>Регистрация</h1>
       <form
-        onSubmit={(e) => {
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
           createUser({ email, password, name });
         }}

@@ -4,9 +4,12 @@ import { OrderFeedDetails } from '../OrderFeedDetails/OrderFeedDetails';
 import { TOrder } from '../../utils/typesData';
 import { useEffect } from 'react';
 import { wcConnectionClosed, wsConnection } from '../../services/middleware/wsActionsType';
+import { Link, useLocation } from 'react-router-dom';
+import { addOrderFeedDetails } from '../../services/actions/getOrdersFeedDetails';
 
 export function OrderFeed() {
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const ordersInformation = useAppSelector((store) => store.getAllOrderReducer.orders);
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
@@ -24,6 +27,9 @@ export function OrderFeed() {
       return item.number;
     } else return null;
   });
+  const handleOnClick = (order: TOrder) => {
+    dispatch(addOrderFeedDetails(order));
+  };
   const orderNumberInProgress = orders.map((item) => {
     if (item.status !== 'done') {
       return item.number;
@@ -40,7 +46,17 @@ export function OrderFeed() {
       <section className={styles.sectionWrapper}>
         <div className={`${styles.ordersWrapper} custom-scroll`}>
           {orders.map((order: TOrder) => {
-            return <OrderFeedDetails order={order} key={order._id} date={order.createdAt} />;
+            return (
+              <Link
+                to={{ pathname: `/feed/${order._id}` }}
+                state={{ background: location }}
+                replace={true}
+                key={order._id}
+                className={styles.link}
+                onClick={() => handleOnClick(order)}>
+                <OrderFeedDetails order={order} date={order.createdAt} />
+              </Link>
+            );
           })}
         </div>
         <div className={styles.orderStats}>

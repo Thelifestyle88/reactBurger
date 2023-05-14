@@ -1,5 +1,5 @@
-import { Dispatch } from 'react';
 import { getIngredients } from '../../utils/api';
+import { AppDispatch } from '../..';
 export const GET_ALL_ORDERS_REQUEST: 'GET_ALL_ORDERS_REQUEST' =
   'GET_ALL_ORDERS_REQUEST';
 export const GET_ALL_ORDERS_SUCCEED: 'GET_ALL_ORDERS_SUCCEED' = 'GET_ALL_ORDERS_SUCCEED';
@@ -7,7 +7,7 @@ export const GET_ALL_ORDERS_FAILED: 'GET_ALL_ORDERS_FAILED' = 'GET_ALL_ORDERS_FA
 
 
 export function getAllOrdersData() {
-  return function (dispatch:Dispatch<any>) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_ALL_ORDERS_REQUEST,
     });

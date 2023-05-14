@@ -37,7 +37,7 @@ const BurgerIngredients = () => {
   const { ref: bunRef, inView: bunsIsVisible } = useInView();
   const { ref: sauceRef, inView: sauceIsVisible } = useInView();
   const { ref: mainRef, inView: mainsIsVisible } = useInView();
-
+  console.log(buns);
   return (
     <>
       <section className={`${styles.burgerIngredients} mt-10`}>

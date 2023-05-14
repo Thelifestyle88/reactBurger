@@ -11,7 +11,7 @@ export function Login() {
   const dispatch = useAppDispatch();
   const [password, setPassword] = React.useState('');
   const [email, setEmail] = React.useState('');
-  const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
+  const onChange = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     setEmail(e.target.value);
   };
   return (
@@ -19,7 +19,7 @@ export function Login() {
       <div className={styles.loginWrapper}>
         <h1>Вход</h1>
         <form
-          onSubmit={(e) => {
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             dispatch(logInProfile({ email, password }));
           }}
@@ -28,7 +28,7 @@ export function Login() {
           <Input
             type={'password'}
             placeholder={'Пароль'}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             value={password}
             icon={'ShowIcon'}
             name={'name'}

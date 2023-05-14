@@ -17,7 +17,7 @@ export function ForgottenPassword() {
       <div className={styles.passwordWrapper}>
         <h1>Восстановление пароля</h1>
         <form
-          onSubmit={(e) => {
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             forgotPassword(email).then((res) => {
               if (res.success) {

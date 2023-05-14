@@ -1,14 +1,14 @@
 import { baseUrl } from '../../src/utils/tests';
-import { testBun, testMain, testSauce } from '../../src/utils/tests';
+import { testUrl } from '../../src/utils/tests';
 describe('run application', function () {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit(testUrl);
     cy.setCookie('accessToken', 'Bearer 1234567890');
     cy.setCookie('refreshToken', '0987654321');
-    cy.intercept('GET', 'https://norma.nomoreparties.space/api/ingredients', {
+    cy.intercept('GET', `${baseUrl}/ingredients`, {
       fixture: 'data.json',
     }).as('ingredients');
-    cy.intercept('GET', 'https://norma.nomoreparties.space/api/auth/user', {
+    cy.intercept('GET', `${baseUrl}/auth/user`, {
       fixture: 'user.json',
     });
     cy.intercept('POST', `${baseUrl}/orders`, { fixture: 'order.json' }).as('order');

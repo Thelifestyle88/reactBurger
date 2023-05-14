@@ -69,7 +69,7 @@ export function Profile() {
           </p>
         </div>
         <form
-          onSubmit={(e) => {
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             dispatch(changeProfile(userData));
           }}

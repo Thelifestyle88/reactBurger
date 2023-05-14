@@ -47,3 +47,8 @@
 .textDone {
     color: #00CCCC;
 }
+
+.link {
+    text-decoration: none;
+    color: white;
+}

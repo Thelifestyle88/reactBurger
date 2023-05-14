@@ -30,17 +30,8 @@ export function OrderFeedDetails({ order, date }: OrderFeedDetailsProps) {
     return (acc = acc + item);
   });
 
-  const handleOnClick = () => {
-    dispatch(addOrderFeedDetails(order));
-  };
-
   return (
-    <Link
-      to={{ pathname: `/feed/${order._id}` }}
-      state={{ background: location }}
-      replace={true}
-      className={styles.ordersWrapper}
-      onClick={() => handleOnClick()}>
+    <div className={styles.ordersWrapper}>
       <div className={`${styles.time} m-6`}>
         <p className={styles.orderNumber}>{`#${order.number}`}</p>
         <FormattedDate date={new Date(date)} />
@@ -63,6 +54,6 @@ export function OrderFeedDetails({ order, date }: OrderFeedDetailsProps) {
           <CurrencyIcon type="primary" />
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

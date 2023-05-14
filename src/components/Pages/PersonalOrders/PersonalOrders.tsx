@@ -1,13 +1,15 @@
 import { useAppDispatch, useAppSelector } from '../../..';
 import styles from './styles/personalOrders.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { logOutProfile } from '../../../services/actions/logInOutProfile';
 import { TOrder } from '../../../utils/typesData';
 import { OrderFeedDetails } from '../../OrderFeedDetails/OrderFeedDetails';
 import { wcConnectionClosed, wsConnection } from '../../../services/middleware/wsActionsType';
 import { useEffect } from 'react';
+import { addOrderFeedDetails } from '../../../services/actions/getOrdersFeedDetails';
 
 export function PersonalOrders() {
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((store) => store.getAllOrderReducer.status);
   const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
@@ -18,7 +20,9 @@ export function PersonalOrders() {
     }, 0);
   }, [dispatch]);
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
-
+  const handleOnClick = (order: TOrder) => {
+    dispatch(addOrderFeedDetails(order));
+  };
   if (isLoading === 'CONNECTING...') {
     return <p>Загрузка...</p>;
   }
@@ -55,8 +59,17 @@ export function PersonalOrders() {
       </div>
       <div className={`${styles.ordersWrapper} custom-scroll`}>
         {orders
-          .map((order: TOrder) => {
-            return <OrderFeedDetails order={order} key={order._id} date={order.createdAt} />;
+          .map((order) => {
+            return (
+              <Link
+                to={{ pathname: `/profile/orders/${order._id}` }}
+                state={{ background: location }}
+                replace={true}
+                className={styles.link}
+                onClick={() => handleOnClick(order)}>
+                <OrderFeedDetails order={order} key={order._id} date={order.createdAt} />
+              </Link>
+            );
           })
           .reverse()}
       </div>

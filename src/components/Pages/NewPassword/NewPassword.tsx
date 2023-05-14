@@ -16,7 +16,7 @@ export function NewPassword() {
       <div className={styles.newPasswordWrapper}>
         <h1>Восстановление пароля</h1>
         <form
-          onSubmit={(e) => {
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             resetPassword(password, token).then((res) => {
               if (res.success) {
@@ -28,7 +28,7 @@ export function NewPassword() {
           <Input
             type={'password'}
             placeholder={'Пароль'}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             value={password}
             icon={'ShowIcon'}
             name={'name'}
@@ -41,7 +41,7 @@ export function NewPassword() {
           <Input
             type={'text'}
             placeholder={'Введите код из письма'}
-            onChange={(e) => setCode(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCode(e.target.value)}
             value={token}
             name={'name'}
             error={false}

@@ -3,6 +3,8 @@ export const testUserData = {
   name: 'Nikolai',
 };
 
+export const testUrl = 'http://localhost:3000'
+
 export const testOrder = {
 createdAt: "2023-05-09T13:10:46.745Z",
 ingredients: ['643d69a5c3f7b9001cfa093d', '643d69a5c3f7b9001cfa0943', '643d69a5c3f7b9001cfa093e', '643d69a5c3f7b9001cfa0941', '643d69a5c3f7b9001cfa093d'],

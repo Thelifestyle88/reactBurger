@@ -40,7 +40,7 @@ function App() {
     navigate(background.pathname || '/' || '/feed', { replace: true });
   };
   const closeOrderPage = () => {
-    navigate(background.pathname || '/' || '/feed', { replace: true });
+    navigate(background.pathname || '/' || '/feed' || '//profile/orders', { replace: true });
     dispatch(deleteOrderFeedDetails());
   };
 
@@ -128,7 +128,7 @@ function App() {
       {background?.pathname === '/profile/orders' && (
         <Routes>
           <Route
-            path="/feed/:id"
+            path="/profile/orders/:id"
             element={
               <Modal
                 onClose={() => {

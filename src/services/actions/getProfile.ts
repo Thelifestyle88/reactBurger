@@ -2,6 +2,7 @@ import { Dispatch } from 'redux';
 import { getProfileInformation, changeProfileInformation } from '../../utils/api';
 import { IUser, TUser } from '../../utils/typesData';
 import { AUTHORIZATION_FAILED, AUTHORIZATION_LOGOUT } from './logInOutProfile';
+import { AppDispatch } from '../..';
 
 export const GET_PROFILE_INFORMATION_REQUEST: 'GET_PROFILE_INFORMATION_REQUEST' = 'GET_PROFILE_INFORMATION_REQUEST';
 export const GET_PROFILE_INFORMATION_SUCCEED: 'GET_PROFILE_INFORMATION_SUCCEED' = 'GET_PROFILE_INFORMATION_SUCCEED';
@@ -40,7 +41,7 @@ export interface IAuthorizationLogout {
 export type TProfileActions = | IProfileRequest | IProfileSucceed | IProfileFailed | IAuthorizationSucceed | IChangeProfile | IAuthorizationLogout
 
 export function getInformation() {
-  return function (dispatch:Dispatch) {
+  return function (dispatch:AppDispatch) {
     dispatch({
       type: GET_PROFILE_INFORMATION_REQUEST,
     });
@@ -61,7 +62,7 @@ export function getInformation() {
   };
 }
 
-export const checkUserAuth = () => (dispatch:Dispatch) => {
+export const checkUserAuth = () => (dispatch:AppDispatch) => {
   if (localStorage.getItem('accessToken')) {
     getProfileInformation().finally(() => {
       dispatch({ type: AUTHORIZATION_SUCCEED });
@@ -72,7 +73,7 @@ export const checkUserAuth = () => (dispatch:Dispatch) => {
 };
 
 export function changeProfile(user: IUser) {
-  return function (dispatch:Dispatch) {
+  return function (dispatch:AppDispatch) {
     dispatch({
       type: GET_PROFILE_INFORMATION_REQUEST,
     });
