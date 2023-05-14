@@ -1,3 +1,4 @@
+import { getCookie } from "./cookie";
 import { IUser, TProfile, TUser } from "./typesData";
 const baseUrl = 'https://norma.nomoreparties.space/api';
 
@@ -20,7 +21,7 @@ const baseHeader = {
 }
 
 const injectBearerToken = (baseHeader : Record<string, string>) : Record<string, string> => {
-  const token = localStorage.getItem('accessToken')
+  const token = getCookie('accessToken')
  if (token) {
  return {
      ...baseHeader, 
@@ -105,7 +106,7 @@ export function resetToken() {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      token: localStorage.getItem('refreshToken'),
+      token: getCookie('refreshToken'),
     }),
   }).then(checkResponse);
 }
@@ -128,7 +129,7 @@ export function logOut() {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      token: localStorage.getItem('refreshToken'),
+      token: getCookie('refreshToken'),
     }),
   }).then(checkResponse);
 }

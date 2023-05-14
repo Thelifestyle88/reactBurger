@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { wcConnectionClosed, wsConnection } from '../../../services/middleware/wsActionsType';
 import { Link, useLocation } from 'react-router-dom';
 import { addOrderFeedDetails } from '../../../services/actions/getOrdersFeedDetails';
+import { getCookie } from '../../../utils/cookie';
 
 export function OrderFeed() {
   const dispatch = useAppDispatch();
@@ -14,7 +15,7 @@ export function OrderFeed() {
   const ordersInformation = useAppSelector((store) => store.getAllOrderReducer.orders);
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
   const isLoading = useAppSelector((store) => store.getAllOrderReducer.status);
-  const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
+  const accessToken = getCookie('accessToken')?.replace('Bearer ', '');
   useEffect(() => {
     dispatch(wsConnection(`wss://norma.nomoreparties.space/orders/all`));
     return () => {

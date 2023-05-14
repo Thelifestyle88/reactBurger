@@ -22,9 +22,10 @@ import { deleteOrderDetails } from '../../services/actions/getOrderDetails';
 import { OrderPage } from '../Pages/OrderPage/OrderPage';
 import { PersonalOrders } from '../Pages/PersonalOrders/PersonalOrders';
 import { wsConnection } from '../../services/middleware/wsActionsType';
+import { getCookie } from '../../utils/cookie';
 
 function App() {
-  const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
+  const accessToken = getCookie('accessToken')?.replace('Bearer ', '');
   const dispatch = useAppDispatch();
   const location: Location = useLocation();
   const background = location.state && location.state.background;
@@ -35,11 +36,6 @@ function App() {
     dispatch(checkUserAuth());
     dispatch(getInformation());
   }, [dispatch]);
-
-  const AuthReq = useAppSelector(
-    (store) => store.profileInformationReducer.profileInformationRequest,
-  );
-  const isAuth = useAppSelector((store) => store.authorizationReducer.isAithorizationSucceed);
   const order = useAppSelector((store) => store.orderDetailsReducer.orderDetails);
   const closeIngredientModal = () => {
     dispatch(deleteIngredientDetails());
@@ -57,14 +53,10 @@ function App() {
     dispatch(deleteOrderFeedDetails());
   };
 
-  // if (burgerIngredientRequest) {
-  //   return <p>Загрузка</p>;
-  // }
+  if (burgerIngredientRequest) {
+    return <p>Загрузка</p>;
+  }
 
-  // if (AuthReq && location.pathname === '/profile') {
-  //   return <p>Loading...</p>;
-  // }
-  console.dir(AuthReq);
   return (
     <>
       <AppHeader />

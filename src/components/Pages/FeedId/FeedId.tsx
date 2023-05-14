@@ -4,12 +4,13 @@ import styles from './styles/feedId.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { wsConnection, wcConnectionClosed } from '../../../services/middleware/wsActionsType';
 import { useEffect } from 'react';
+import { getCookie } from '../../../utils/cookie';
 
 export function FeedId() {
   const dispatch = useAppDispatch();
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const orderId = useParams();
-  const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
+  const accessToken = getCookie('accessToken')?.replace('Bearer ', '');
   useEffect(() => {
     dispatch(wsConnection(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
     return () => {

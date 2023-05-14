@@ -1,6 +1,5 @@
 import { useDrop, useDrag, XYCoord } from 'react-dnd';
-import { useDispatch, useSelector } from 'react-redux';
-import { FC, ReactNode, useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import { SORT_CONSTRUCTOR } from '../../services/actions/getBurgerConstructor';
 import { useAppDispatch, useAppSelector } from '../../index';
 import { TIngredient } from '../../utils/typesData';

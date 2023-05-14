@@ -2,6 +2,7 @@ import { getProfileInformation, changeProfileInformation } from '../../utils/api
 import { IUser, TUser } from '../../utils/typesData';
 import { AUTHORIZATION_LOGOUT } from './logInOutProfile';
 import { AppDispatch } from '../..';
+import { getCookie } from '../../utils/cookie';
 
 export const GET_PROFILE_INFORMATION_REQUEST: 'GET_PROFILE_INFORMATION_REQUEST' = 'GET_PROFILE_INFORMATION_REQUEST';
 export const GET_PROFILE_INFORMATION_SUCCEED: 'GET_PROFILE_INFORMATION_SUCCEED' = 'GET_PROFILE_INFORMATION_SUCCEED';
@@ -62,7 +63,7 @@ export function getInformation() {
 }
 
 export const checkUserAuth = () => (dispatch:AppDispatch) => {
-  if (localStorage.getItem('accessToken')) {
+  if (getCookie('accessToken')) {
     getProfileInformation().finally(() => {
       dispatch({ type: AUTHORIZATION_SUCCEED });
     });

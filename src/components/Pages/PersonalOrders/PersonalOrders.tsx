@@ -7,12 +7,13 @@ import { OrderFeedDetails } from '../../OrderFeedDetails/OrderFeedDetails';
 import { wcConnectionClosed, wsConnection } from '../../../services/middleware/wsActionsType';
 import { useEffect } from 'react';
 import { addOrderFeedDetails } from '../../../services/actions/getOrdersFeedDetails';
+import { getCookie } from '../../../utils/cookie';
 
 export function PersonalOrders() {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((store) => store.getAllOrderReducer.status);
-  const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
+  const accessToken = getCookie('accessToken')?.replace('Bearer ', '');
   useEffect(() => {
     dispatch(wsConnection(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
     return () => {
@@ -65,6 +66,7 @@ export function PersonalOrders() {
                 to={{ pathname: `/profile/orders/${order._id}` }}
                 state={{ background: location }}
                 replace={true}
+                key={order._id}
                 className={styles.link}
                 onClick={() => handleOnClick(order)}>
                 <OrderFeedDetails order={order} key={order._id} date={order.createdAt} />
