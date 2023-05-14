@@ -12,18 +12,19 @@ import IngredientPage from '../Pages/IngredientPage/IngredientPage';
 import MainPage from '../Pages/MainPage/MainPage';
 import Modal from '../Modal/Modal';
 import { deleteIngredientDetails } from '../../services/actions/getIngredientDetails';
-import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useAppDispatch, useAppSelector } from '../../index';
 import AppHeader from '../AppHeader/AppHeader';
-import { OrderFeed } from '../OrderFeed/OrderFeed';
-import { FeedId } from '../FeedId/FeedId';
+import { OrderFeed } from '../Pages/OrderFeed/OrderFeed';
+import { FeedId } from '../Pages/FeedId/FeedId';
 import { deleteOrderFeedDetails } from '../../services/actions/getOrdersFeedDetails';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { deleteOrderDetails } from '../../services/actions/getOrderDetails';
 import { OrderPage } from '../Pages/OrderPage/OrderPage';
 import { PersonalOrders } from '../Pages/PersonalOrders/PersonalOrders';
+import { wsConnection } from '../../services/middleware/wsActionsType';
 
 function App() {
+  const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
   const dispatch = useAppDispatch();
   const location: Location = useLocation();
   const background = location.state && location.state.background;
@@ -34,28 +35,40 @@ function App() {
     dispatch(checkUserAuth());
     dispatch(getInformation());
   }, [dispatch]);
+
+  const AuthReq = useAppSelector(
+    (store) => store.profileInformationReducer.profileInformationRequest,
+  );
+  const isAuth = useAppSelector((store) => store.authorizationReducer.isAithorizationSucceed);
   const order = useAppSelector((store) => store.orderDetailsReducer.orderDetails);
   const closeIngredientModal = () => {
     dispatch(deleteIngredientDetails());
-    navigate(background.pathname || '/' || '/feed', { replace: true });
+    navigate(background.pathname || '/', { replace: true });
   };
   const closeOrderPage = () => {
-    navigate(background.pathname || '/' || '/feed' || '//profile/orders', { replace: true });
+    navigate(background.pathname || '/feed', { replace: true });
+    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders/all`));
     dispatch(deleteOrderFeedDetails());
   };
 
+  const closePersonalOrderPage = () => {
+    navigate(background.pathname || '/profile/orders', { replace: true });
+    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
+    dispatch(deleteOrderFeedDetails());
+  };
+
+  // if (burgerIngredientRequest) {
+  //   return <p>Загрузка</p>;
+  // }
+
+  // if (AuthReq && location.pathname === '/profile') {
+  //   return <p>Loading...</p>;
+  // }
+  console.dir(AuthReq);
   return (
     <>
       <AppHeader />
       <Routes location={background || location}>
-        <Route
-          path="/login"
-          element={
-            <ProtectedRoute onlyUnAuth={true}>
-              <Login />
-            </ProtectedRoute>
-          }
-        />
         <Route path="/feed" element={<OrderFeed />} />
         <Route path="/registration" element={<Registration />} />
         <Route
@@ -75,6 +88,7 @@ function App() {
           }
         />
         <Route path="/feed/:id" element={<OrderPage />} />
+        <Route path="/profile/orders/:id" element={<FeedId />} />
         <Route
           path="/profile/orders"
           element={
@@ -89,6 +103,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute onlyUnAuth={true}>
+              <Login />
             </ProtectedRoute>
           }
         />
@@ -132,9 +154,9 @@ function App() {
             element={
               <Modal
                 onClose={() => {
-                  closeOrderPage();
+                  closePersonalOrderPage();
                 }}
-                children={<OrderPage />}
+                children={<FeedId />}
               />
             }
           />

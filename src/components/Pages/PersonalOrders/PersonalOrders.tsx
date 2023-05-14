@@ -14,10 +14,10 @@ export function PersonalOrders() {
   const isLoading = useAppSelector((store) => store.getAllOrderReducer.status);
   const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
   useEffect(() => {
-    dispatch(wcConnectionClosed(`wss://norma.nomoreparties.space/orders/all`));
-    setTimeout(() => {
-      dispatch(wsConnection(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
-    }, 0);
+    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
+    return () => {
+      dispatch(wcConnectionClosed(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
+    };
   }, [dispatch]);
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
   const handleOnClick = (order: TOrder) => {

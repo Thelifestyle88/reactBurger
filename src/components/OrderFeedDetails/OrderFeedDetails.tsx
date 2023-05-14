@@ -11,8 +11,6 @@ interface OrderFeedDetailsProps {
 }
 
 export function OrderFeedDetails({ order, date }: OrderFeedDetailsProps) {
-  const dispatch = useAppDispatch();
-  const location = useLocation();
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const ingredientsInOrder = order.ingredients;
   const maxShownIngredients = 6;

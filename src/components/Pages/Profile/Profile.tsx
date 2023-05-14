@@ -14,9 +14,9 @@ export function Profile() {
   const user = useAppSelector((store) => store.profileInformationReducer.profileData);
 
   const [userData, setUserData] = useState({
-    email: user === null ? ' ' : user.email,
+    email: user == null ? '' : user.email,
     password: '',
-    name: user === null ? ' ' : user.name,
+    name: user == null ? '' : user.name,
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,14 +29,16 @@ export function Profile() {
 
   useEffect(() => {
     setUserData(() => ({
-      email: user === null ? ' ' : user.email,
+      email: user == null ? '' : user.email,
       password: '',
-      name: user === null ? ' ' : user.name,
+      name: user == null ? '' : user.name,
     }));
   }, [user]);
+
   if (profileInformationRequest) {
-    return <p>Загрузка</p>;
+    <p>123</p>;
   }
+
   return (
     { user } && (
       <div className={styles.profileWrapper}>

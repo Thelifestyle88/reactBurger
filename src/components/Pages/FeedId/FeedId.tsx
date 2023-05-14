@@ -2,18 +2,18 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../..';
 import styles from './styles/feedId.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-
-import { wcConnectionClosed, wsConnection } from '../../../services/middleware/wsActionsType';
+import { wsConnection, wcConnectionClosed } from '../../../services/middleware/wsActionsType';
 import { useEffect } from 'react';
 
-export function OrderPage() {
+export function FeedId() {
   const dispatch = useAppDispatch();
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const orderId = useParams();
+  const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
   useEffect(() => {
-    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders/all`));
+    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
     return () => {
-      dispatch(wcConnectionClosed(`wss://norma.nomoreparties.space/orders/all`));
+      dispatch(wcConnectionClosed(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
     };
   }, [dispatch]);
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);

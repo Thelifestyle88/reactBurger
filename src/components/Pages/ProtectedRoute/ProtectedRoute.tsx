@@ -7,13 +7,15 @@ const ProtectedRoute: FC<{ children: ReactElement; onlyUnAuth?: boolean }> = ({
   onlyUnAuth = false,
 }): ReactElement<NavigateProps> => {
   const location: Location = useLocation();
-  const from: string = location.state?.from || '/';
+  const from: string = location.state?.from || '/' || '/profile';
+  const asAuth = useAppSelector((store) => store.authorizationReducer.isAithorizationSucceed);
+  const autRequest = useAppSelector((store) => store.authorizationReducer.authorizationRequest);
   const user = useAppSelector((store) => store.profileInformationReducer.profileData);
-  const isLoading = useAppSelector(
-    (store) => store.profileInformationReducer.profileInformationRequest,
-  );
+
+  if (autRequest) {
+    return <p>Loading...</p>;
+  }
   if (user && onlyUnAuth) {
-    console.log(from);
     return <Navigate to={from} />;
   }
   if (!onlyUnAuth && !user) {

@@ -1,7 +1,6 @@
-import { Dispatch } from 'redux';
 import { getProfileInformation, changeProfileInformation } from '../../utils/api';
 import { IUser, TUser } from '../../utils/typesData';
-import { AUTHORIZATION_FAILED, AUTHORIZATION_LOGOUT } from './logInOutProfile';
+import { AUTHORIZATION_LOGOUT } from './logInOutProfile';
 import { AppDispatch } from '../..';
 
 export const GET_PROFILE_INFORMATION_REQUEST: 'GET_PROFILE_INFORMATION_REQUEST' = 'GET_PROFILE_INFORMATION_REQUEST';
@@ -68,7 +67,7 @@ export const checkUserAuth = () => (dispatch:AppDispatch) => {
       dispatch({ type: AUTHORIZATION_SUCCEED });
     });
   } else {
-    dispatch({ type: AUTHORIZATION_FAILED });
+    dispatch({ type: AUTHORIZATION_SUCCEED });
   }
 };
 

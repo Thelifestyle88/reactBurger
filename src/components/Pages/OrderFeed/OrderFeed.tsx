@@ -1,11 +1,11 @@
-import { useAppDispatch, useAppSelector } from '../../index';
+import { useAppDispatch, useAppSelector } from '../../../index';
 import styles from './styles/orderFeed.module.css';
-import { OrderFeedDetails } from '../OrderFeedDetails/OrderFeedDetails';
-import { TOrder } from '../../utils/typesData';
+import { OrderFeedDetails } from '../../OrderFeedDetails/OrderFeedDetails';
+import { TOrder } from '../../../utils/typesData';
 import { useEffect } from 'react';
-import { wcConnectionClosed, wsConnection } from '../../services/middleware/wsActionsType';
+import { wcConnectionClosed, wsConnection } from '../../../services/middleware/wsActionsType';
 import { Link, useLocation } from 'react-router-dom';
-import { addOrderFeedDetails } from '../../services/actions/getOrdersFeedDetails';
+import { addOrderFeedDetails } from '../../../services/actions/getOrdersFeedDetails';
 
 export function OrderFeed() {
   const dispatch = useAppDispatch();
@@ -16,8 +16,10 @@ export function OrderFeed() {
   const isLoading = useAppSelector((store) => store.getAllOrderReducer.status);
   const accessToken = localStorage.getItem('accessToken')?.replace('Bearer ', '');
   useEffect(() => {
-    dispatch(wcConnectionClosed(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
     dispatch(wsConnection(`wss://norma.nomoreparties.space/orders/all`));
+    return () => {
+      dispatch(wcConnectionClosed(`wss://norma.nomoreparties.space/orders/all`));
+    };
   }, [dispatch]);
   const maxShownIngredients = 6;
   const countOfIngredients = ingredients.length;

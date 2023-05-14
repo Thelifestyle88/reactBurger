@@ -1,6 +1,9 @@
 import { burgerConstructorReducer, initialState } from './burgerConstructorReducer';
 import * as types from '../actions/getBurgerConstructor';
-import { testBun, testMain } from '../../utils/tests';
+import { testAdd, testBun, testMain } from '../../utils/tests';
+jest.mock('nanoid', () => {
+  return { nanoid: () => '1234' };
+});
 
 describe('burgerConstructorReducer', () => {
   it('должен вернуть initial state', () => {
@@ -21,11 +24,11 @@ describe('burgerConstructorReducer', () => {
     expect(
       burgerConstructorReducer(initialState, {
         type: types.ADD_POSITION,
-        payload: [...initialState.burgerConstructorData, testMain],
+        payload: testAdd,
       }),
     ).toEqual({
       ...initialState,
-      payload: [...initialState.burgerConstructorData, testMain],
+      burgerConstructorData: [...initialState.burgerConstructorData, testAdd],
     });
   });
   it('should handle DELETE_POSITION', () => {
