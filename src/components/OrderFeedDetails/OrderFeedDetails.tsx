@@ -1,9 +1,7 @@
-import { useAppDispatch, useAppSelector } from '../..';
-import { TIngredient, TOrder } from '../../utils/typesData';
+import { useAppSelector } from '../..';
+import { TOrder } from '../../utils/typesData';
 import styles from './styles/orderFeedDetails.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { addOrderFeedDetails } from '../../services/actions/getOrdersFeedDetails';
-import { Link, useLocation } from 'react-router-dom';
 
 interface OrderFeedDetailsProps {
   order: TOrder;

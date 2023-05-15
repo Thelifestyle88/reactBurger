@@ -3,13 +3,13 @@ import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/password.module.css';
 import { Link } from 'react-router-dom';
-import { forgotPassword } from '../../../utils/api';
+import { forgotPassword } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 
 export function ForgottenPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
-  const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   return (
@@ -17,7 +17,7 @@ export function ForgottenPassword() {
       <div className={styles.passwordWrapper}>
         <h1>Восстановление пароля</h1>
         <form
-          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+          onSubmit={(e) => {
             e.preventDefault();
             forgotPassword(email).then((res) => {
               if (res.success) {

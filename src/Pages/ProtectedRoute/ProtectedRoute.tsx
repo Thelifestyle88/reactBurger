@@ -1,7 +1,7 @@
 import { Navigate, NavigateProps, useLocation, Location } from 'react-router-dom';
-import { useAppSelector } from '../../../index';
+import { useAppSelector } from '../../index';
 import { FC, ReactElement } from 'react';
-import { getCookie } from '../../../utils/cookie';
+import { getCookie } from '../../utils/cookie';
 
 const ProtectedRoute: FC<{ children: ReactElement; onlyUnAuth?: boolean }> = ({
   children,

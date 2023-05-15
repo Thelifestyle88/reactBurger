@@ -1,13 +1,13 @@
-import { useAppDispatch, useAppSelector } from '../../..';
+import { useAppDispatch, useAppSelector } from '../..';
 import styles from './styles/personalOrders.module.css';
 import { Link, useLocation } from 'react-router-dom';
-import { logOutProfile } from '../../../services/actions/logInOutProfile';
-import { TOrder } from '../../../utils/typesData';
-import { OrderFeedDetails } from '../../OrderFeedDetails/OrderFeedDetails';
-import { wcConnectionClosed, wsConnection } from '../../../services/middleware/wsActionsType';
+import { logOutProfile } from '../../services/actions/logInOutProfile';
+import { TOrder } from '../../utils/typesData';
+import { OrderFeedDetails } from '../../components/OrderFeedDetails/OrderFeedDetails';
+import { wcConnectionClosed, wsConnection } from '../../services/middleware/wsActionsType';
 import { useEffect } from 'react';
-import { addOrderFeedDetails } from '../../../services/actions/getOrdersFeedDetails';
-import { getCookie } from '../../../utils/cookie';
+import { addOrderFeedDetails } from '../../services/actions/getOrdersFeedDetails';
+import { getCookie } from '../../utils/cookie';
 
 export function PersonalOrders() {
   const location = useLocation();

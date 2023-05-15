@@ -3,7 +3,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/newPassword.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { resetPassword } from '../../../utils/api';
+import { resetPassword } from '../../utils/api';
 
 export function NewPassword() {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@
 
 ### Автор - Николаенко Николай
 
-Ссылка на проект: https://thelifestyle88.github.io/
+Ссылка на проект: https://thelifestyle88.github.io/reactBurger/
 </br></br>
 
 ### Описание проекта

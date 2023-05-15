@@ -1,28 +1,30 @@
 import { useEffect } from 'react';
 import { getBurgerIngredients } from '../../services/actions/getBurgerIngredients';
 import { Routes, Route, useLocation, Location, useNavigate } from 'react-router-dom';
-import { Registration } from '../Pages/Registration/Registration';
-import { Login } from '../Pages/Login/Login';
-import { ForgottenPassword } from '../Pages/ForgottenPassword/ForgottenPassword';
-import { NewPassword } from '../Pages/NewPassword/NewPassword';
-import ProtectedRoute from '../Pages/ProtectedRoute/ProtectedRoute';
-import { Profile } from '../Pages/Profile/Profile';
+import { Registration } from '../../Pages/Registration/Registration';
+import { Login } from '../../Pages/Login/Login';
+import { ForgottenPassword } from '../../Pages/ForgottenPassword/ForgottenPassword';
+import { NewPassword } from '../../Pages/NewPassword/NewPassword';
+import ProtectedRoute from '../../Pages/ProtectedRoute/ProtectedRoute';
+import { Profile } from '../../Pages/Profile/Profile';
 import { checkUserAuth, getInformation } from '../../services/actions/getProfile';
-import IngredientPage from '../Pages/IngredientPage/IngredientPage';
-import MainPage from '../Pages/MainPage/MainPage';
+import IngredientPage from '../../Pages/IngredientPage/IngredientPage';
+import MainPage from '../../Pages/MainPage/MainPage';
 import Modal from '../Modal/Modal';
 import { deleteIngredientDetails } from '../../services/actions/getIngredientDetails';
 import { useAppDispatch, useAppSelector } from '../../index';
 import AppHeader from '../AppHeader/AppHeader';
-import { OrderFeed } from '../Pages/OrderFeed/OrderFeed';
-import { FeedId } from '../Pages/FeedId/FeedId';
+import { OrderFeed } from '../../Pages/OrderFeed/OrderFeed';
+import { FeedId } from '../../Pages/FeedId/FeedId';
 import { deleteOrderFeedDetails } from '../../services/actions/getOrdersFeedDetails';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { deleteOrderDetails } from '../../services/actions/getOrderDetails';
-import { OrderPage } from '../Pages/OrderPage/OrderPage';
-import { PersonalOrders } from '../Pages/PersonalOrders/PersonalOrders';
+import { OrderPage } from '../../Pages/OrderPage/OrderPage';
+import { PersonalOrders } from '../../Pages/PersonalOrders/PersonalOrders';
 import { wsConnection } from '../../services/middleware/wsActionsType';
 import { getCookie } from '../../utils/cookie';
+import { FeedDetails } from '../../Pages/FeedDetails/FeedDetails';
+import { FeedPage } from '../../Pages/FeedPage/FeedPage';
 
 function App() {
   const accessToken = getCookie('accessToken')?.replace('Bearer ', '');
@@ -43,13 +45,11 @@ function App() {
   };
   const closeOrderPage = () => {
     navigate(background.pathname || '/feed', { replace: true });
-    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders/all`));
     dispatch(deleteOrderFeedDetails());
   };
 
   const closePersonalOrderPage = () => {
     navigate(background.pathname || '/profile/orders', { replace: true });
-    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
     dispatch(deleteOrderFeedDetails());
   };
 
@@ -79,8 +79,8 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/feed/:id" element={<OrderPage />} />
-        <Route path="/profile/orders/:id" element={<FeedId />} />
+        <Route path="/feed/:id" element={<FeedPage />} />
+        <Route path="/profile/orders/:id" element={<FeedDetails />} />
         <Route
           path="/profile/orders"
           element={

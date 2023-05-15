@@ -1,21 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../..';
+import { useAppSelector } from '../..';
 import styles from './styles/feedId.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { wcConnectionClosed, wsConnection } from '../../../services/middleware/wsActionsType';
-import { useEffect } from 'react';
-
-export function OrderPage() {
-  const dispatch = useAppDispatch();
+export function FeedId() {
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const orderId = useParams();
-  useEffect(() => {
-    dispatch(wsConnection(`wss://norma.nomoreparties.space/orders/all`));
-    return () => {
-      dispatch(wcConnectionClosed(`wss://norma.nomoreparties.space/orders/all`));
-    };
-  }, [dispatch]);
   const orders = useAppSelector((store) => store.getAllOrderReducer.orders.orders);
   const order = orders.find((item) => item._id === String(orderId.id));
   const counts = {};

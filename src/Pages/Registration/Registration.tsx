@@ -4,7 +4,7 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles/registration.module.css';
 import { Link } from 'react-router-dom';
-import { createUser } from '../../../utils/api';
+import { createUser } from '../../utils/api';
 
 export function Registration() {
   const [name, setName] = React.useState('');
@@ -12,7 +12,7 @@ export function Registration() {
   const [password, setPassword] = React.useState('');
   const inputRef = React.useRef(null);
   const [email, setEmail] = React.useState('');
-  const onChange = (e: React.FocusEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   return (

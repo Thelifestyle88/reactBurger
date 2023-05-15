@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import styles from './styles/profile.module.css';
 import { Input, EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { changeProfile } from '../../../services/actions/getProfile';
+import { changeProfile } from '../../services/actions/getProfile';
 import { Link } from 'react-router-dom';
-import { logOutProfile } from '../../../services/actions/logInOutProfile';
-import { useAppDispatch, useAppSelector } from '../../..';
+import { logOutProfile } from '../../services/actions/logInOutProfile';
+import { useAppDispatch, useAppSelector } from '../..';
 
 export function Profile() {
   const dispatch = useAppDispatch();
@@ -71,7 +71,7 @@ export function Profile() {
           </p>
         </div>
         <form
-          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+          onSubmit={(e) => {
             e.preventDefault();
             dispatch(changeProfile(userData));
           }}
