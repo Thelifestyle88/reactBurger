@@ -1,4 +1,4 @@
-import { TIngredient, TOrder } from '../../utils/typesData';
+import {  TOrderDetails } from '../../utils/typesData';
 import {
   GET_ORDER_FAILED,
   GET_ORDER_REQUEST,
@@ -8,20 +8,20 @@ import {
 import { PayloadAction } from '@reduxjs/toolkit'
 
 interface IOrderDetailsState {
-  orderDetails: TOrder | null
+  orderDetails: TOrderDetails | null
   orderDetailsRequest: boolean,
   orderDetailsFailed: boolean,
   isPageOnLoad: boolean,
 }
 
-const initialState: IOrderDetailsState = {
+export const initialState: IOrderDetailsState = {
   orderDetails: null,
   orderDetailsRequest: false,
   orderDetailsFailed: false,
   isPageOnLoad: false,
 };
 
-export function orderDetailsReducer(state = initialState, action: PayloadAction<TOrder>) {
+export function orderDetailsReducer(state = initialState, action: PayloadAction<TOrderDetails>) {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {

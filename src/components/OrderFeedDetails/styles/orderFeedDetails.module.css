@@ -42,6 +42,8 @@
 }
 
 .ordersWrapper {
+    text-decoration: none;
+    color: white;
     cursor: pointer;
     width: 584px;
     background: #1C1C21;

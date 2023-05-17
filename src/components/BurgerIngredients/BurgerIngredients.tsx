@@ -12,7 +12,6 @@ const BurgerIngredients = () => {
     (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
   const burgerConstructorBuns = useAppSelector((store) => store.burgerConstructorReducer.buns);
-
   const buns = ingredients.filter((item: TIngredient) => item.type === 'bun');
   const sauce = ingredients.filter((item: TIngredient) => item.type === 'sauce');
   const mains = ingredients.filter((item: TIngredient) => item.type === 'main');
@@ -38,7 +37,7 @@ const BurgerIngredients = () => {
   const { ref: bunRef, inView: bunsIsVisible } = useInView();
   const { ref: sauceRef, inView: sauceIsVisible } = useInView();
   const { ref: mainRef, inView: mainsIsVisible } = useInView();
-
+  console.log(buns);
   return (
     <>
       <section className={`${styles.burgerIngredients} mt-10`}>

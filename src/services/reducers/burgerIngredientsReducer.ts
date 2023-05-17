@@ -14,7 +14,7 @@ interface IBurgerIngredientState {
 }
 
 
-const initialState: IBurgerIngredientState = {
+export const initialState: IBurgerIngredientState = {
   burgerIngredientData: [],
   burgerIngredientRequest: false,
   burgerIngredientFailed: false,

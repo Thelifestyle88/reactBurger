@@ -5,7 +5,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import burgerConstructor from '../BurgerConstructor/styles/burgerConstructor.module.css';
 import { DELETE_POSITION } from '../../services/actions/getBurgerConstructor';
 import { getOrderDetails } from '../../services/actions/getOrderDetails';
-import { FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useDrop } from 'react-dnd/dist/hooks';
 import { addPosition } from '../../services/actions/getBurgerConstructor';
 import { BurgerConstructorElement } from '../BurgerConstructorElement/BurgerConstructorElement';
@@ -14,7 +14,7 @@ import { TIngredient } from '../../utils/typesData';
 import { useAppDispatch, useAppSelector } from '../../index';
 
 const BurgerConstructor = () => {
-  const isAuth = useAppSelector((store) => store.authorizationReducer.isAithorizationSucceed);
+  const user = useAppSelector((store) => store.profileInformationReducer.profileData);
   const ingredient = useAppSelector(
     (store) => store.burgerConstructorReducer.burgerConstructorData,
   );
@@ -43,7 +43,7 @@ const BurgerConstructor = () => {
   });
 
   return (
-    <section className={`${burgerConstructor.burgerConstructor} mt-25`} ref={drop}>
+    <section className={`${burgerConstructor.burgerConstructor} mt-25`} ref={drop} data-testid={'dropTarget'}>
       {bun && (
         <div className={`${burgerConstructor.bun} ml-6`}>
           <ConstructorElement
@@ -56,7 +56,9 @@ const BurgerConstructor = () => {
         </div>
       )}
       {isIngredientExist && (
-        <div className={`${burgerConstructor.mainCourses} custom-scroll`}>
+        <div
+          data-testid={'bunIngredientTarget'}
+          className={`${burgerConstructor.mainCourses} custom-scroll`}>
           {ingredient.map((obj, index: number) => {
             return (
               <BurgerConstructorElement index={index} key={obj.constructorId} obj={obj}>
@@ -80,7 +82,7 @@ const BurgerConstructor = () => {
         </div>
       )}
       {bun && (
-        <div className={`${burgerConstructor.bun} ml-6`}>
+        <div data-testid={'bunTarget'} className={`${burgerConstructor.bun} ml-6`}>
           <ConstructorElement
             type="bottom"
             isLocked={true}
@@ -94,8 +96,9 @@ const BurgerConstructor = () => {
         <p>{price}</p>
         <CurrencyIcon type="primary" />
         <Button
+          data-testid={'buttonMakeOrder'}
           onClick={() => {
-            if (isAuth) {
+            if (user) {
               const orderCreate = [bun, ...ingredient, bun];
               if (orderCreate) {
                 const orderId: Array<string | undefined> = orderCreate.map(

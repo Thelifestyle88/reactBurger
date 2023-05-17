@@ -1,8 +1,7 @@
-import { useAppDispatch, useAppSelector } from '../..';
-import { TIngredient, TOrder } from '../../utils/typesData';
+import { useAppSelector } from '../..';
+import { TOrder } from '../../utils/typesData';
 import styles from './styles/orderFeedDetails.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { addOrderFeedDetails } from '../../services/actions/getOrdersFeedDetails';
 
 interface OrderFeedDetailsProps {
   order: TOrder;
@@ -10,7 +9,6 @@ interface OrderFeedDetailsProps {
 }
 
 export function OrderFeedDetails({ order, date }: OrderFeedDetailsProps) {
-  const dispatch = useAppDispatch();
   const ingredients = useAppSelector((store) => store.burgerIngredientReducer.burgerIngredientData);
   const ingredientsInOrder = order.ingredients;
   const maxShownIngredients = 6;
@@ -28,12 +26,8 @@ export function OrderFeedDetails({ order, date }: OrderFeedDetailsProps) {
     return (acc = acc + item);
   });
 
-  const handleOnClick = () => {
-    dispatch(addOrderFeedDetails(order));
-  };
-
   return (
-    <div className={styles.ordersWrapper} onClick={() => handleOnClick()}>
+    <div className={styles.ordersWrapper}>
       <div className={`${styles.time} m-6`}>
         <p className={styles.orderNumber}>{`#${order.number}`}</p>
         <FormattedDate date={new Date(date)} />
@@ -42,9 +36,9 @@ export function OrderFeedDetails({ order, date }: OrderFeedDetailsProps) {
       <div className={`${styles.orderWrapper} m-6`}>
         <div className={styles.imageWrapper}>
           {elements
-            .map((item) => {
+            .map((item, index) => {
               return (
-                <div className={styles.imageContainer}>
+                <div key={index.toString()} className={styles.imageContainer}>
                   <img className={styles.image} src={item?.image_mobile} alt={item?.name} />
                 </div>
               );

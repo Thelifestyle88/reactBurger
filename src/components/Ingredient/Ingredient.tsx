@@ -5,6 +5,7 @@ import { addIngredientDetails } from '../../services/actions/getIngredientDetail
 import { useDrag } from 'react-dnd/dist/hooks/useDrag';
 import { TIngredient } from '../../utils/typesData';
 import { useAppDispatch } from '../../index';
+import { Link, useLocation } from 'react-router-dom';
 
 type TIngredientProps = {
   ingredient: TIngredient;
@@ -13,7 +14,7 @@ type TIngredientProps = {
 
 export function Ingredient({ ingredient, count }: TIngredientProps) {
   const dispatch = useAppDispatch();
-
+  const location = useLocation();
   const [{ isDrag }, drag] = useDrag({
     type: 'NEW_INGREDIENT',
     item: ingredient,
@@ -27,7 +28,11 @@ export function Ingredient({ ingredient, count }: TIngredientProps) {
   };
 
   return (
-    <div
+    <Link
+      data-testid={`ingredient-${ingredient._id}`}
+      to={{ pathname: `ingredients/${ingredient._id}` }}
+      state={{ background: location }}
+      replace={true}
       ref={drag}
       onClick={() => handleClick()}
       className={`${styles.ingredient} mt-6 text text_type_main-default`}>
@@ -40,6 +45,6 @@ export function Ingredient({ ingredient, count }: TIngredientProps) {
         <CurrencyIcon type="primary" />
       </div>
       <p className={styles.description}>{ingredient.name}</p>
-    </div>
+    </Link>
   );
 }

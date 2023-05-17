@@ -6,7 +6,7 @@ interface IIngredientDetailsState {
   ingredient: TIngredient | null
 }
 
-const initialState: IIngredientDetailsState = {
+export const initialState: IIngredientDetailsState = {
   ingredient: null,
 };
 
@@ -14,13 +14,11 @@ export function ingredientDetailsReducer(state = initialState, action: PayloadAc
   switch (action.type) {
     case ADD_INGREDIENT_DETAILS: {
       return {
-        ...state,
         ingredient: action.payload,
       };
     }
     case DELETE_INGREDIENT_DETAILS: {
       return {
-        ...state,
         ingredient: action.payload,
       };
     }

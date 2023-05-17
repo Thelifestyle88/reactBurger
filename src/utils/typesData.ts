@@ -1,6 +1,6 @@
 export interface IUser {
-  email?: string;
-  name?: string
+  email: string;
+  name: string
 }
 
 export type TUser = {
@@ -36,6 +36,24 @@ export type TUser = {
     orders: TOrder[];
     total: number;
     totalToday: number
+  }
+
+  export type TOrderDetails = {
+    success: boolean;
+    order: TMyOrderDetails
+    name: string
+  }
+
+  export type TMyOrderDetails = {
+    createdAt: string;
+    ingredients: TIngredient[];
+    name: string;
+    number:number;
+    owner: IUser
+    price: number
+    status:string
+    updatedAt: string
+    _id:string
   }
   
   export type TOrder = {
