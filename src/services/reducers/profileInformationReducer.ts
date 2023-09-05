@@ -18,7 +18,7 @@ interface IProfileInformationState {
 }
 
 
-export const initialState:IProfileInformationState = {
+export const initialState: IProfileInformationState = {
   profileData: null,
   profileInformationRequest: false,
   profileInformationFailed: false,
@@ -26,7 +26,7 @@ export const initialState:IProfileInformationState = {
   getProfileSucceed: false,
 };
 
-export function profileInformationReducer(state = initialState, action: TProfileActions)  {
+export function profileInformationReducer(state = initialState, action: TProfileActions) {
   switch (action.type) {
     case GET_PROFILE_INFORMATION_REQUEST: {
       return {
